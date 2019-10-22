@@ -1,0 +1,25 @@
+.header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+ul {
+    list-style: none;
+}
+
+@media screen and (min-width: 300px) {
+    ul {
+        justify-content: center;
+        text-align: center;
+    }
+    li {
+        margin: 0px 20px auto;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    ul {
+        display: flex;
+        justify-content: center;
+    }
+}
