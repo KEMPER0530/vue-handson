@@ -6,6 +6,9 @@
         <router-link to="/about">About</router-link>
       </li>
       <li>
+        <router-link to="/login">ログイン</router-link>
+      </li>
+      <li>
         <router-link to="/main">サンプルカウンター</router-link>
       </li>
     </ul>
