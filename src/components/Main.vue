@@ -57,7 +57,6 @@ export default {
   created() {
     const self = this;
     // メンバーの属性データ
-    console.log(this.BaseUrl);
     axios
       .get(this.BaseUrl)
       .then(response => {
