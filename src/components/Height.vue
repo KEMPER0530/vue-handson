@@ -2,19 +2,13 @@
   <div class="d-flex flex-column">
     <div class="pt-2 mx-auto list-row">
       <!-- <router-link :to="`/member/:${data.id}`"> -->
-      <div :class="color">
-        {{ data.name }} #{{ data.id }}/{{ data.position }}/身長{{ data.height }}
-      </div>
+      <div :class="color">{{ data.name }} #{{ data.id }}/{{ data.position }}/身長{{ data.height }}</div>
       <!-- </router-link> -->
     </div>
     <div class="p-0 mx-sm-auto">
       <div class="float-right">
-        <b-button variant="outline-danger" @click="changeHeight(-1)"
-          >-</b-button
-        >
-        <b-button variant="outline-primary" @click="changeHeight(1)"
-          >+</b-button
-        >
+        <b-button variant="outline-danger" @click="changeHeight(-1)">-</b-button>
+        <b-button variant="outline-primary" @click="changeHeight(1)">+</b-button>
       </div>
     </div>
   </div>
@@ -23,8 +17,8 @@
 <script>
 export default {
   props: {
-    data: Object,
-    id: Number
+    id: Number,
+    data: Object
   },
   // eslint-disable-line
   // コンポーネント `data` オプションは関数を必要する
@@ -36,10 +30,12 @@ export default {
   computed: {
     color() {
       const height = this.heightValue;
-      if (height < 170) {
-        return "bg-danger text-white";
-      }
-      if (height >= 170 && height < 180) {
+
+      if (height < 160) {
+        return "bg-secondary text-white";
+      } else if (height >= 160 && height < 170) {
+        return "bg-info text-white";
+      } else if (height >= 170 && height < 180) {
         return "bg-primary text-white";
       }
       return "bg-success text-white";
@@ -48,7 +44,11 @@ export default {
   methods: {
     changeHeight(value) {
       this.heightValue = this.heightValue + value;
-      this.$emit("changeHeight", this.id, this.heightValue);
+      this.$store.dispatch("changeHeight", {
+        userId: this.id,
+        userHeight: this.heightValue
+      });
+      this.$emit("sortHeight");
     }
   }
 };

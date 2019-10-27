@@ -1,6 +1,8 @@
 <template>
   <div>
-    <Height :id="data.id" :data="data" @changeHeight="changeHeight" />
+    <!-- <Height :id="data.id" :data="data" @changeHeight="changeHeight" /> -->
+    <!-- <Height :id="data.id" :data="data" /> -->
+    <Height :id="data.id" :data="data" @sortHeight="sortHeight" />
   </div>
 </template>
 
@@ -12,11 +14,17 @@ export default {
     Height
   },
   props: {
+    id: Number,
     data: Object
   },
+  // data() {
+  //   return {
+  //     data: this.$store.getters.getMember
+  //   };
+  // }
   methods: {
-    changeHeight(id, value) {
-      this.$emit("changeHeightApp", id, value);
+    sortHeight(id, value) {
+      this.$emit("sortHeight");
     }
   }
 };
