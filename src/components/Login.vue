@@ -17,7 +17,8 @@
       <div id="output" />ログイン画面
       <div class="avatar" />
       <div class="form-box">
-        テスト用のため、test1/test1でログイン可能
+        テスト用のため
+        <br />test1/test1でログイン可能
         <form @submit.prevent="onSubmit">
           <input v-model="username" type="text" placeholder="username" />
           <input v-model="password" type="password" placeholder="password" />
@@ -31,8 +32,7 @@
 <script>
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
-// store
-import Store from "@/store/index";
+import store from "@/store";
 
 export default {
   name: "Login",
@@ -57,13 +57,12 @@ export default {
   methods: {
     onSubmit() {
       const AcsUrl = `${this.BaseUrl}?` + `username=${this.username}`;
-      //      console.log("_login");
       axios
         .get(AcsUrl)
         .then(response => {
           this.users = response.data;
           if (this.users.length === 0) {
-            Store.logout();
+            this.$store.dispatch("changeLogoff");
             this.anmatched = true;
           } else {
             this.users.find(i_user => {
@@ -71,23 +70,24 @@ export default {
                 i_user.username === this.username &&
                 i_user.password === this.password
               ) {
-                Store.login();
+                this.$store.dispatch("changeLogin");
                 this.anmatched = false;
                 this.errored = false;
                 this.$router.push({ name: "main" });
               } else {
-                Store.logout();
+                this.$store.dispatch("changeLogoff");
                 this.anmatched = true;
               }
-              return;
             });
           }
         })
         .catch(error => {
-          console.log(error);
           this.errored = true;
+          console.error(error);
         })
-        .finally(() => {});
+        .finally(() => {
+          return;
+        });
       return;
     }
   }

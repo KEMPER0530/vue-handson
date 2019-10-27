@@ -22,7 +22,7 @@
         v-for="member in sortedMembers"
         :key="member.id"
         :data="member"
-        @changeHeightApp="changeHeightApp"
+        @sortHeight="sortHeight"
       />
     </div>
   </div>
@@ -42,44 +42,37 @@ export default {
     return {
       BaseUrl: process.env.VUE_APP_MEMBER_JSON_URL,
       teamName: "JavaScript バスケットチーム",
-      member: [],
-      display: false
+      display: false,
+      errored: false,
+      member_list: []
     };
   },
   computed: {
     sortedMembers() {
-      const members = this.member;
-      return _sortBy(members, "height").reverse();
+      return _sortBy(this.member_list, "height").reverse();
     }
   },
   /** ライフサイクルフック */
   // DOM操作が伴わない場合
   created() {
-    const self = this;
     // メンバーの属性データ
     axios
       .get(this.BaseUrl)
       .then(response => {
-        self.member = response.data;
+        this.$store.dispatch("putmember", response.data);
       })
       .catch(error => {
         this.errored = true;
+        console.error(error);
       })
-      .finally(() => {});
+      .finally(() => {
+        if (!this.errored) {
+          this.sortHeight();
+        }
+      });
     return;
   },
   methods: {
-    changeHeightApp(id, value) {
-      const self = this.member;
-      self.forEach(index => {
-        if (index.id === id) {
-          if (self[index.id - 1]) {
-            this.$set(self[index.id - 1], "height", value);
-          }
-        }
-        return;
-      });
-    },
     showMember() {
       const self = this;
       self.$set(self, "display", true);
@@ -87,6 +80,9 @@ export default {
     hideMember() {
       const self = this;
       self.$set(self, "display", false);
+    },
+    sortHeight() {
+      this.member_list = this.$store.getters.getMember;
     }
   }
 };
