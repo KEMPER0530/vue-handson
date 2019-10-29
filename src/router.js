@@ -55,9 +55,15 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
     // isPublic でない場合(=認証が必要な場合)、かつ、ログインしていない場合
     if (to.matched.some(record => !record.meta.isPublic) && !(store.getters.getAuth)) {
-        console.log(store.state.auth);
         next({
             path: "/login",
+            query: {
+                redirect: to.fullPath
+            }
+        });
+    } else if ((to.path === '/login') && (store.getters.getAuth)) {
+        next({
+            path: "/main",
             query: {
                 redirect: to.fullPath
             }

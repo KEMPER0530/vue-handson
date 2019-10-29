@@ -49,6 +49,7 @@ export default {
   },
   computed: {
     sortedMembers() {
+      console.log("sortedMembers");
       return _sortBy(this.member_list, "height").reverse();
     }
   },
@@ -82,6 +83,7 @@ export default {
       self.$set(self, "display", false);
     },
     sortHeight() {
+      console.log("sortHeight");
       this.member_list = this.$store.getters.getMember;
     }
   }

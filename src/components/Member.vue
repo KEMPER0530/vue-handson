@@ -23,7 +23,7 @@ export default {
   //   };
   // }
   methods: {
-    sortHeight(id, value) {
+    sortHeight() {
       this.$emit("sortHeight");
     }
   }

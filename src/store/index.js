@@ -21,7 +21,6 @@ const mutations = {
         state.auth = false;
     },
     putmember(members, data) {
-        console.log("mutations putmember");
         members.member = data
     },
     changeHeight(members, userInf) {
@@ -54,7 +53,6 @@ const actions = {
         commit("changeLogoff");
     },
     putmember({ commit }, data) {
-        console.log("actions putmember");
         commit("putmember", data);
     },
     changeHeight({
