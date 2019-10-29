@@ -18,7 +18,12 @@
       <div class="avatar" />
       <div class="form-box">
         テスト用のため
-        <br />test1/test1でログイン可能
+        <br />test1/test1でログイン可能です
+        <br />
+        <span class="text-danger">
+          サンプルカウンターは
+          <br />ログイン後に遷移可能です
+        </span>
         <form @submit.prevent="onSubmit">
           <input v-model="username" type="text" placeholder="username" />
           <input v-model="password" type="password" placeholder="password" />
