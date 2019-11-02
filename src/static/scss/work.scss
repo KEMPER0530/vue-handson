@@ -1,0 +1,23 @@
+li {
+    list-style: none;
+}
+
+.wrapperWorks {
+    text-align: center;
+}
+
+.wrapperList {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.work {
+    // width: 200px;
+    height: 200px;
+    margin: auto;
+}
