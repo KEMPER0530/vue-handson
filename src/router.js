@@ -39,6 +39,15 @@ const router = new Router({
             }
         },
         {
+            path: "/work",
+            name: "work",
+            component: () =>
+                import ("@/components/Work.vue"),
+            meta: {
+                isPublic: true
+            }
+        },
+        {
             path: "/link",
             name: "link",
             beforeEnter() {
