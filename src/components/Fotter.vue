@@ -1,5 +1,5 @@
 <template>
-  <div class="fotter bg-success">
+  <div class="fotter bg-info">
     <router-link to="/github">
       <img src="@/static/img/mark-github.svg" title="github" />
     </router-link>

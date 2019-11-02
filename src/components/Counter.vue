@@ -18,6 +18,11 @@
     </div>
     <div v-if="display">
       <div class="name-row text-center">{{ teamName }}</div>
+      <div class="name-row text-center">
+        <router-link to="/link" target="_blank">
+          <a>{{ info }}</a>
+        </router-link>
+      </div>
       <Member
         v-for="member in sortedMembers"
         :key="member.id"
@@ -34,7 +39,7 @@ import axios from "axios";
 import Member from "@/components/Member";
 
 export default {
-  name: "Main",
+  name: "Counter",
   components: {
     Member
   },
@@ -42,6 +47,8 @@ export default {
     return {
       BaseUrl: process.env.VUE_APP_MEMBER_JSON_URL,
       teamName: "JavaScript バスケットチーム",
+      info:
+        "参考:「Vue.js + Vuex で実践的な SPA (シングルページアプリケーション) を作成しよう」",
       display: false,
       errored: false,
       member_list: []
@@ -49,7 +56,6 @@ export default {
   },
   computed: {
     sortedMembers() {
-      console.log("sortedMembers");
       return _sortBy(this.member_list, "height").reverse();
     }
   },
@@ -83,7 +89,6 @@ export default {
       self.$set(self, "display", false);
     },
     sortHeight() {
-      console.log("sortHeight");
       this.member_list = this.$store.getters.getMember;
     }
   }
@@ -91,5 +96,5 @@ export default {
 </script>
 <style lang="scss">
 // ログイン用のscss読込
-@import "@/static/scss/main.scss";
+@import "@/static/scss/counter.scss";
 </style>

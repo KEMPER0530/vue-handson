@@ -1,28 +1,33 @@
 <template>
-  <div class="header">
-    <h3 v-if="loggedin">
-      This is Vue Sample
-      <span>
-        <img src="@/static/img/mark-login.svg" title="login" width="40" height="40" />
-      </span>
-    </h3>
-    <h3 v-else>This is Vue Sample</h3>
-    <ul>
-      <li>
-        <router-link to="/about">About</router-link>
-      </li>
-      <li v-if="loggedin">ログイン</li>
-      <li v-else>
-        <router-link to="/login">ログイン</router-link>
-      </li>
-      <li>
-        <router-link to="/main">サンプルカウンター</router-link>
-      </li>
-    </ul>
+  <div>
+    <b-navbar toggleable="lg" type="dark" variant="info">
+      <b-navbar-brand to="/">{{ title }}</b-navbar-brand>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <b-nav-item to="/github" target="_blank">
+            <a>
+              <img src="@/static/img/mark-github.svg" title="github" />
+            </a>
+          </b-nav-item>
+          <b-nav-item to="/login" v-if="!loggedin">LOGIN</b-nav-item>
+          <b-nav-item to="/about">PROFILE</b-nav-item>
+          <b-nav-item to="/counter">SAMPLE</b-nav-item>
+          <b-button size="sm" class="my-2 my-sm-0" @click="logout" v-if="loggedin">LOGOUT</b-button>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
+  data() {
+    return {
+      title: "",
+      github: process.env.VUE_APP_GITHUB_URL
+    };
+  },
   computed: {
     loggedin() {
       if (this.$store.getters.getAuth) {
@@ -30,10 +35,19 @@ export default {
       }
       return false;
     }
+  },
+  created() {
+    this.title = this.$store.getters.getTitle;
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("changeLogoff");
+      this.$router.push({ name: "home" });
+    }
   }
 };
 </script>
 <style lang="scss">
-// ログイン用のscss読込
+// ヘッダー用のscss読込
 @import "@/static/scss/header.scss";
 </style>

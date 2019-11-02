@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 const state = {
     auth: false,
+    title: "Top"
 };
 
 const members = {
@@ -43,6 +44,9 @@ const getters = {
     getMember(members) {
         return members.member;
     },
+    getTitle(state) {
+        return state.title;
+    }
 };
 
 const actions = {
@@ -67,7 +71,7 @@ const store = new Vuex.Store({
     members,
     getters,
     actions,
-    mutations
+    mutations,
 });
 
 export default store;

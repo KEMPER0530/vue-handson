@@ -21,8 +21,8 @@
         <br />test1/test1でログイン可能です
         <br />
         <span class="text-danger">
-          サンプルカウンターは
-          <br />ログイン後に遷移可能です
+          ログイン後にSAMPLEに遷移します。
+          <br />
         </span>
         <form @submit.prevent="onSubmit">
           <input v-model="username" type="text" placeholder="username" />
@@ -78,7 +78,7 @@ export default {
                 this.$store.dispatch("changeLogin");
                 this.anmatched = false;
                 this.errored = false;
-                this.$router.push({ name: "main" });
+                this.$router.push({ name: "counter" });
               } else {
                 this.$store.dispatch("changeLogoff");
                 this.anmatched = true;
