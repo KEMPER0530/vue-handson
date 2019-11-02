@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column">
-    <div class="pt-2 mx-auto list-row">
+    <div class="pt-2 mx-sm-auto list-row">
       <!-- <router-link :to="`/member/:${data.id}`"> -->
       <div :class="color">{{ data.name }} #{{ data.id }}/{{ data.position }}/身長{{ data.height }}</div>
       <!-- </router-link> -->
@@ -32,13 +32,13 @@ export default {
       const height = this.heightValue;
 
       if (height < 160) {
-        return "bg-secondary text-white";
+        return "bg-secondary text-white text-left";
       } else if (height >= 160 && height < 170) {
-        return "bg-info text-white";
+        return "bg-info text-white text-left";
       } else if (height >= 170 && height < 180) {
-        return "bg-primary text-white";
+        return "bg-primary text-white text-left";
       }
-      return "bg-success text-white";
+      return "bg-success text-white text-left";
     }
   },
   methods: {

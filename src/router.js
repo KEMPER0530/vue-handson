@@ -8,10 +8,19 @@ Vue.use(Router);
 const router = new Router({
     mode: "history",
     routes: [{
-            path: "/main",
-            name: "main",
+            path: "/",
+            name: "home",
             component: () =>
-                import ( /* webpackChunkName: "Main" */ "@/components/Main.vue")
+                import ( /* webpackChunkName: "Main" */ "@/components/Home.vue"),
+            meta: {
+                isPublic: true
+            }
+        },
+        {
+            path: "/counter",
+            name: "counter",
+            component: () =>
+                import ( /* webpackChunkName: "Main" */ "@/components/Counter.vue")
         },
         {
             path: "/login",
@@ -63,7 +72,7 @@ router.beforeEach((to, from, next) => {
         });
     } else if ((to.path === '/login') && (store.getters.getAuth)) {
         next({
-            path: "/main",
+            path: "/about",
             query: {
                 redirect: to.fullPath
             }
