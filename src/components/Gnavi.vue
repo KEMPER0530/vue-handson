@@ -103,10 +103,8 @@ export default {
   },
   mounted() {
     this.$nextTick(function() {
-      const session = sessionStorage.getItem("vuex");
-      this.name = session.auth;
-      this.name = session.getItem("name");
-      this.list = session.g_list;
+      this.name = this.$store.getters.getName;
+      this.name = this.$store.getters.getGlist;
       this.errored = false;
     });
   }
