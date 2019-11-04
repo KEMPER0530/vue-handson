@@ -1,24 +1,28 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
-//import createPersistedState from "vuex-persistedstate";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
-const state = {
+export const state = {
     auth: false,
     title: "Top"
 };
 
-const members = {
+export const members = {
     member: [],
-}
+};
+
+export const glists = {
+    g_list: [],
+    name: ""
+};
 
 const mutations = {
     changeLogin(state) {
         state.auth = true;
     },
-    changeLogoff(state) {
+    changeLogoff(state, members, glists) {
         state.auth = false;
     },
     putmember(members, data) {
@@ -34,6 +38,12 @@ const mutations = {
             }
             return;
         });
+    },
+    putGlist(glists, data) {
+        glists.g_list = data;
+    },
+    putName(glists, name) {
+        glists.name = name;
     }
 };
 
@@ -46,6 +56,12 @@ const getters = {
     },
     getTitle(state) {
         return state.title;
+    },
+    getGlist(glists) {
+        return glists.g_list;
+    },
+    getName(glists) {
+        return glists.name;
     }
 };
 
@@ -63,15 +79,25 @@ const actions = {
         commit
     }, userInf) {
         commit("changeHeight", userInf);
+    },
+    putGlist({ commit }, data) {
+        commit("putGlist", data);
+    },
+    putName({ commit }, name) {
+        commit("putName", name);
     }
 };
 
 const store = new Vuex.Store({
     state,
     members,
+    glists,
     getters,
     actions,
     mutations,
+    plugins: [createPersistedState({
+        storage: window.sessionStorage
+    })]
 });
 
 export default store;
