@@ -78,7 +78,7 @@ export default {
                 this.$store.dispatch("changeLogin");
                 this.anmatched = false;
                 this.errored = false;
-                this.$router.push({ name: "counter" });
+                this.$router.push("/counter");
               } else {
                 this.$store.dispatch("changeLogoff");
                 this.anmatched = true;

@@ -66,7 +66,16 @@ const router = new Router({
             meta: {
                 isPublic: true
             }
-        }
+        },
+        {
+            path: "/gnavi",
+            name: "gnavi",
+            component: () =>
+                import ("@/components/Gnavi.vue"),
+            meta: {
+                isPublic: true
+            }
+        },
     ]
 });
 
@@ -79,13 +88,13 @@ router.beforeEach((to, from, next) => {
                 redirect: to.fullPath
             }
         });
-    } else if ((to.path === '/login') && (store.getters.getAuth)) {
-        next({
-            path: "/about",
-            query: {
-                redirect: to.fullPath
-            }
-        });
+        // } else if ((to.path === '/login') && (store.getters.getAuth)) {
+        //     next({
+        //         path: "/about",
+        //         query: {
+        //             redirect: to.fullPath
+        //         }
+        //     });
     } else {
         next();
     }

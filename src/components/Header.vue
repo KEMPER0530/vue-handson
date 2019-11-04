@@ -8,10 +8,11 @@
           <b-nav-item href="https://github.com/KEMPER0530/vue-handson" target="_blank">
             <img src="@/static/img/mark-github.svg" title="github" />
           </b-nav-item>
-          <b-nav-item to="/login" v-if="!loggedin">LOGIN</b-nav-item>
+          <!-- <b-nav-item to="/login" v-if="!loggedin">LOGIN</b-nav-item> -->
           <b-nav-item to="/about">PROFILE</b-nav-item>
           <b-nav-item to="/work">WORK</b-nav-item>
           <b-nav-item to="/counter">SAMPLE</b-nav-item>
+          <b-nav-item to="/gnavi">ぐるなび</b-nav-item>
           <b-button size="sm" class="my-2 my-sm-0" @click="logout" v-if="loggedin">LOGOUT</b-button>
         </b-navbar-nav>
       </b-collapse>
@@ -29,10 +30,7 @@ export default {
   },
   computed: {
     loggedin() {
-      if (this.$store.getters.getAuth) {
-        return true;
-      }
-      return false;
+      return this.$store.getters.getAuth ? true : false;
     }
   },
   created() {
@@ -40,8 +38,10 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch("changeLogoff");
-      this.$router.push({ name: "home" });
+      this.$store.dispatch("changeLogoff").then(() => {
+        window.sessionStorage.clear();
+        this.$router.push("/");
+      });
     }
   }
 };

@@ -19,9 +19,7 @@
     <div v-if="display">
       <div class="name-row text-center">{{ teamName }}</div>
       <div class="name-row text-center">
-        <router-link href="https://www.udemy.com/course/vuejs-vuex/" target="_blank">
-          <a>{{ info }}</a>
-        </router-link>
+        <a href="https://www.udemy.com/course/vuejs-vuex/" target="_blank">{{ info }}</a>
       </div>
       <Member
         v-for="member in sortedMembers"

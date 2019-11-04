@@ -20,6 +20,7 @@
         <br />メンバー整列状態の管理
       </li>
       <li class="list-group-item">topページをp5でビジュアルコーディング</li>
+      <li class="list-group-item">ぐるなびAPIを利用したお店検索機能</li>
     </ul>
   </div>
 </template>

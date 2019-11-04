@@ -11,13 +11,15 @@
 import Vue from "vue";
 import Header from "@/components/Header";
 import Home from "@/components/Home";
+import Counter from "@/components/Counter";
 import Fotter from "@/components/Fotter";
 
 export default Vue.extend({
   name: "App",
   components: {
     Header,
-    Fotter
+    Fotter,
+    Counter
   },
   data: () => ({})
 });
