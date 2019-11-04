@@ -4,16 +4,16 @@ import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
-export const state = {
+const state = {
     auth: false,
     title: "Top"
 };
 
-export const members = {
+const members = {
     member: [],
 };
 
-export const glists = {
+const glists = {
     g_list: [],
     name: ""
 };
