@@ -6,6 +6,9 @@
       <div class="p-2 bd-highlight pt-3">
         <h4>サンプルカウントアプリ</h4>
       </div>
+      <br />
+      <b-form-text id="input-live-help">よくある数字のカウント機能です</b-form-text>
+      <br />
       <div class="p-2 bd-highlight">
         <b-button
           v-if="display === false"

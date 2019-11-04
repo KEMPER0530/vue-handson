@@ -21,7 +21,7 @@
         <br />test1/test1でログイン可能です
         <br />
         <span class="text-danger">
-          ログイン後にSAMPLEに遷移します。
+          ログイン後にSAMPLE(カウント機能)に遷移します。
           <br />
         </span>
         <form @submit.prevent="onSubmit">

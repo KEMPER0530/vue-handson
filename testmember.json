@@ -47,5 +47,20 @@
             "username": "test3",
             "password": "test3"
         }
+    ],
+    "work": [{
+            "title": "SpringBootSample",
+            "comment": "SpringBootで作成したサンプルアプリです。書籍の追加編集が可能です。ログイン画面はSpringSecurityを利用して作成しています。",
+            "img": "spring-mark.svg",
+            "url": "http://kemper0530.com/sample",
+            "ref": true
+        },
+        {
+            "title": "Portfolio",
+            "comment": "当サイトです。Vue.jsで作成しています。DBは利用せずjsonserverからデータ取得を実施しています。",
+            "img": "port-mark.svg",
+            "url": "http://kemper0530.com:9000",
+            "ref": false
+        }
     ]
 }

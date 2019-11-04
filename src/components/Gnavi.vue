@@ -71,8 +71,8 @@ export default {
   },
   data() {
     return {
-      name: this.$store.getters.getName,
-      list: this.$store.getters.getGlist,
+      name: "",
+      list: "",
       BaseUrl: process.env.VUE_APP_GNAVI_URL,
       APIKEY: process.env.VUE_APP_GNAVI_API_KEY,
       PAGE: process.env.VUE_APP_GNAVI_PAGE,
@@ -101,7 +101,15 @@ export default {
         });
     }
   },
-  mounted() {}
+  mounted() {
+    this.$nextTick(function() {
+      const session = sessionStorage.getItem("vuex");
+      this.name = session.auth;
+      this.name = session.getItem("name");
+      this.list = session.g_list;
+      this.errored = false;
+    });
+  }
 };
 </script>
 
