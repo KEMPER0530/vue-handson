@@ -6,7 +6,7 @@
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav>
           <b-nav-item href="https://github.com/KEMPER0530/vue-handson" target="_blank">
-            <img src="@/static/img/mark-github.svg" title="github" />
+            <img src="@/static/img/mark-github.svg" title="github" decoding="async" />
           </b-nav-item>
           <!-- <b-nav-item to="/login" v-if="!loggedin">LOGIN</b-nav-item> -->
           <b-nav-item to="/about">PROFILE</b-nav-item>

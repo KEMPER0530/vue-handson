@@ -1,7 +1,7 @@
 <template>
   <div class="about" align="center">
     <h2>Profile</h2>
-    <img src="../static/img/mark-profile.svg" class="about" />
+    <img src="../static/img/mark-profile.svg" class="about" decoding="async" />
     <p>転職活動中</p>
     <p>Sier出身ですが、WEB業界に行きたい36歳です。</p>
     <p>Sierとしては金融機関向けの業務アプリの開発を実施しています。</p>

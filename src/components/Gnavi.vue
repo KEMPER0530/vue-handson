@@ -42,6 +42,7 @@
         img-alt="Image"
         img-top
         align="center"
+        decoding="async"
       >
         <b-card-text>{{ item.address }} / {{item.tel}}</b-card-text>
         <br />

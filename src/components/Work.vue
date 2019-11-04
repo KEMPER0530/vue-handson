@@ -1,6 +1,6 @@
 <template>
   <div>
-    <img src="../static/img/construct.svg" class="work" />
+    <img src="../static/img/construct.svg" class="work" decoding="async" />
   </div>
 </template>
 
