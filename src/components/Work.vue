@@ -16,15 +16,21 @@
     <b-card-group deck>
       <b-card
         v-for="item in workList"
-        :key="item.title"
+        :key="item.work_id"
         border-variant="primary"
         :header="item.title"
         header-bg-variant="primary"
         header-text-variant="white"
         align="center"
       >
-        <b-card-text>{{ item.comment}}</b-card-text>
-        <b-button :href="item.url" variant="primary" target="_blank" v-if="item.ref">Go HP</b-button>
+        <b-card-text>{{ item.comment }}</b-card-text>
+        <b-button
+          :href="item.url"
+          variant="primary"
+          target="_blank"
+          v-if="item.ref === 1"
+          >Go HP</b-button
+        >
       </b-card>
     </b-card-group>
   </div>
@@ -35,7 +41,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      workList: [],
+      workList: []
       BaseUrl: process.env.VUE_APP_WORK_JSON,
       errored: false
     };
@@ -46,6 +52,7 @@ export default {
       .get(AcsUrl)
       .then(responce => {
         this.workList = responce.data;
+        console.table(this.workList);
       })
       .catch(error => {
         this.errored = true;
@@ -57,5 +64,5 @@ export default {
 
 <style lang="scss">
 // ヘッダー用のscss読込
-@import "@/static/scss/work.scss";
+@import '@/static/scss/work.scss';
 </style>
