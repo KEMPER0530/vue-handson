@@ -14,7 +14,8 @@
           <span class="text-warning">User ID and password do not match</span>
         </p>
       </section>
-      <div id="output" />ログイン画面
+      <div id="output" />
+      ログイン画面
       <div class="avatar" />
       <div class="form-box">
         テスト用のため
@@ -27,7 +28,9 @@
         <form @submit.prevent="onSubmit">
           <input v-model="username" type="text" placeholder="username" />
           <input v-model="password" type="password" placeholder="password" />
-          <button class="btn btn-info btn-block login" type="submit">Login</button>
+          <button class="btn btn-info btn-block login" type="submit">
+            Login
+          </button>
         </form>
       </div>
     </div>
@@ -35,18 +38,19 @@
   <!------ Include the above in your HEAD tag ---------->
 </template>
 <script>
-import { Component, Vue } from "vue-property-decorator";
-import axios from "axios";
-import store from "@/store";
+import { Component, Vue } from 'vue-property-decorator';
+import axios from 'axios';
+import store from '@/store';
+import bcrypt from 'bcrypt';
 
 export default {
-  name: "Login",
+  name: 'Login',
   components: {},
   data() {
     return {
       BaseUrl: process.env.VUE_APP_LOGIN_JSON_URL,
-      username: "",
-      password: "",
+      username: '',
+      password: '',
       users: [],
       errored: false,
       anmatched: false
@@ -62,25 +66,27 @@ export default {
   methods: {
     onSubmit() {
       const AcsUrl = `${this.BaseUrl}?` + `username=${this.username}`;
+      const saltRounds = process.env.VUE_APP_SALT_ROUNDS; //ストレッチング回数
       axios
         .get(AcsUrl)
         .then(response => {
           this.users = response.data;
           if (this.users.length === 0) {
-            this.$store.dispatch("changeLogoff");
+            this.$store.dispatch('changeLogoff');
             this.anmatched = true;
           } else {
             this.users.find(i_user => {
+              let _password = bcrypt.hashSync(i_user.password, saltRounds);
               if (
                 i_user.username === this.username &&
-                i_user.password === this.password
+                _password === this.password
               ) {
-                this.$store.dispatch("changeLogin");
+                this.$store.dispatch('changeLogin');
                 this.anmatched = false;
                 this.errored = false;
-                this.$router.push("/counter");
+                this.$router.push('/counter');
               } else {
-                this.$store.dispatch("changeLogoff");
+                this.$store.dispatch('changeLogoff');
                 this.anmatched = true;
               }
             });
@@ -101,5 +107,5 @@ export default {
 
 <style lang="scss">
 // ログイン用のscss読込
-@import "@/static/scss/login.scss";
+@import '@/static/scss/login.scss';
 </style>
