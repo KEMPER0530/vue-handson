@@ -28,9 +28,16 @@
         <form @submit.prevent="onSubmit">
           <input v-model="username" type="text" placeholder="username" />
           <input v-model="password" type="password" placeholder="password" />
-          <button class="btn btn-info btn-block login" type="submit">
-            Login
-          </button>
+          <div v-if="username && password">
+            <button class="btn btn-info btn-block login" type="submit">
+              Login
+            </button>
+          </div>
+          <div v-else>
+            <button disabled class="btn btn-info btn-block login" type="submit">
+              Login
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -41,7 +48,6 @@
 import { Component, Vue } from 'vue-property-decorator';
 import axios from 'axios';
 import store from '@/store';
-import bcrypt from 'bcrypt';
 
 export default {
   name: 'Login',
@@ -65,31 +71,24 @@ export default {
   },
   methods: {
     onSubmit() {
-      const AcsUrl = `${this.BaseUrl}?` + `username=${this.username}`;
-      const saltRounds = process.env.VUE_APP_SALT_ROUNDS; //ストレッチング回数
+      //      const AcsUrl = `${this.BaseUrl}?` + `username=${this.username}`;
+      const AcsUrl = `${this.BaseUrl}`;
+      const params = new URLSearchParams();
+      params.append('username', this.username);
+      params.append('password', this.password);
+
       axios
-        .get(AcsUrl)
+        .post(AcsUrl, params)
         .then(response => {
           this.users = response.data;
-          if (this.users.length === 0) {
+          if (this.users.Result === 1 && this.users.Responce === 200) {
+            this.$store.dispatch('changeLogin');
+            this.anmatched = false;
+            this.errored = false;
+            this.$router.push('/counter');
+          } else {
             this.$store.dispatch('changeLogoff');
             this.anmatched = true;
-          } else {
-            this.users.find(i_user => {
-              let _password = bcrypt.hashSync(i_user.password, saltRounds);
-              if (
-                i_user.username === this.username &&
-                _password === this.password
-              ) {
-                this.$store.dispatch('changeLogin');
-                this.anmatched = false;
-                this.errored = false;
-                this.$router.push('/counter');
-              } else {
-                this.$store.dispatch('changeLogoff');
-                this.anmatched = true;
-              }
-            });
           }
         })
         .catch(error => {
