@@ -24,13 +24,7 @@
         align="center"
       >
         <b-card-text>{{ item.comment }}</b-card-text>
-        <b-button
-          :href="item.url"
-          variant="primary"
-          target="_blank"
-          v-if="item.ref === 1"
-          >Go HP</b-button
-        >
+        <b-button :href="item.url" variant="primary" target="_blank" v-if="item.ref === '1'">Go HP</b-button>
       </b-card>
     </b-card-group>
   </div>
@@ -41,7 +35,7 @@ import axios from "axios";
 export default {
   data() {
     return {
-      workList: []
+      workList: [],
       BaseUrl: process.env.VUE_APP_WORK_JSON,
       errored: false
     };
@@ -52,7 +46,6 @@ export default {
       .get(AcsUrl)
       .then(responce => {
         this.workList = responce.data;
-        console.table(this.workList);
       })
       .catch(error => {
         this.errored = true;
@@ -64,5 +57,5 @@ export default {
 
 <style lang="scss">
 // ヘッダー用のscss読込
-@import '@/static/scss/work.scss';
+@import "@/static/scss/work.scss";
 </style>
