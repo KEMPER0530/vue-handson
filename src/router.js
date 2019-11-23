@@ -76,6 +76,12 @@ const router = new Router({
                 isPublic: true
             }
         },
+        {
+            path: "/paycard",
+            name: "paycard",
+            component: () =>
+                import ( /* webpackChunkName: "Main" */ "@/components/PaycardMain.vue")
+        },
     ]
 });
 
