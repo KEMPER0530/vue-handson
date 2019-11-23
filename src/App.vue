@@ -8,14 +8,14 @@
 </template>
 
 <script>
-import Vue from "vue";
-import Header from "@/components/Header";
-import Home from "@/components/Home";
-import Counter from "@/components/Counter";
-import Fotter from "@/components/Fotter";
+import Vue from 'vue';
+import Header from '@/components/Header';
+import Home from '@/components/Home';
+import Counter from '@/components/Counter';
+import Fotter from '@/components/Fotter';
 
 export default Vue.extend({
-  name: "App",
+  name: 'App',
   components: {
     Header,
     Fotter,
@@ -26,11 +26,11 @@ export default Vue.extend({
 </script>
 <style>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 30px;
+  margin-top: 0px;
 }
 </style>

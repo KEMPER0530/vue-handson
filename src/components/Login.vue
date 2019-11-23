@@ -19,11 +19,12 @@
       <div class="avatar" />
       <div class="form-box">
         テスト用のため
-        <br />test1/test1でログイン可能です
+        <br />test1/test1でカウント機能に遷移します。
         <br />
         <span class="text-danger">
-          ログイン後にSAMPLE(カウント機能)に遷移します。
+          test2/test2でｸﾚｼﾞｯﾄｶｰﾄﾞ情報の登録機能に遷移します。
           <br />
+          ログイン後はユーザに限らず各機能に遷移可能です。
         </span>
         <form @submit.prevent="onSubmit">
           <input v-model="username" type="text" placeholder="username" />
@@ -85,7 +86,11 @@ export default {
             this.$store.dispatch('changeLogin');
             this.anmatched = false;
             this.errored = false;
-            this.$router.push('/counter');
+            if (this.username === 'test1') {
+              this.$router.push('/counter');
+            } else {
+              this.$router.push('/paycard');
+            }
           } else {
             this.$store.dispatch('changeLogoff');
             this.anmatched = true;
