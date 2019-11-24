@@ -62,7 +62,7 @@ export default {
   },
   /** ライフサイクルフック */
   // DOM操作が伴わない場合
-  created() {
+  mounted() {
     // メンバーの属性データ
     axios
       .get(this.BaseUrl)
