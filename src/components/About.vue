@@ -3,11 +3,7 @@
     <h2>
       Profile
       <a href="https://github.com/KEMPER0530/vue-handson" target="_blank">
-        <img
-          src="@/static/img/mark-github.svg"
-          title="github"
-          decoding="async"
-        />
+        <img src="@/static/img/mark-github.svg" title="github" decoding="async" />
       </a>
     </h2>
     <img src="../static/img/mark-profile.svg" class="about" decoding="async" />
@@ -21,19 +17,14 @@
     <p>2019.11.23時点</p>
     <ul class="list-group" style="max-width: 400px;">
       <li class="list-group-item">
-        クレジットカードの登録情報をDBに<br />登録する機能の追加<br />
-        Sampleからログインして利用できます。
+        クレジットカードの登録情報をDBに
+        <br />登録する機能の追加
+        <br />メニューからログインして利用できます。
         <span class="badge badge-danger badge-pill">new</span>
       </li>
-      <li class="list-group-item">
-        バックエンドをGoで作成し、APIでデータ取得を実施
-      </li>
-      <li class="list-group-item">
-        ぐるなびAPIを利用したお店検索機能
-      </li>
-      <li class="list-group-item">
-        WORK画面の更新
-      </li>
+      <li class="list-group-item">バックエンドをGoで作成し、APIでデータ取得を実施</li>
+      <li class="list-group-item">ぐるなびAPIを利用したお店検索機能</li>
+      <li class="list-group-item">WORK画面の更新</li>
       <li class="list-group-item">topページをp5でビジュアルコーディング</li>
       <li class="list-group-item">vue-routerの利用</li>
       <li class="list-group-item">bootstrap4を利用し、見栄え整理</li>
@@ -48,5 +39,5 @@
 </template>
 <style lang="scss">
 // プロフィール用のscss読込
-@import '@/static/scss/about.scss';
+@import "@/static/scss/about.scss";
 </style>
