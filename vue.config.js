@@ -27,7 +27,7 @@ module.exports = {
             //imagesに置く画像ファイル名にハッシュ値をつけない
             config.module
                 .rule('images')
-                .test(/\.(png|jpeg|gif|webp)(\?.*)?$/)
+                .test(/\.(png|jpe?g|gif|webp)(\?.*)?$/)
                 .use('url-loader')
                 .loader('url-loader')
                 .options({
@@ -39,26 +39,6 @@ module.exports = {
             config.module
                 .rule('svg')
                 .test(/\.(svg)(\?.*)?$/)
-                .use('file-loader')
-                .loader('file-loader')
-                .options({
-                    name: 'img/[name].[ext]'
-                })
-
-            //svgのファイル名にハッシュ値をつけない
-            config.module
-                .rule('jpeg')
-                .test(/\.(jpeg)(\?.*)?$/)
-                .use('file-loader')
-                .loader('file-loader')
-                .options({
-                    name: 'img/[name].[ext]'
-                })
-
-            //svgのファイル名にハッシュ値をつけない
-            config.module
-                .rule('png')
-                .test(/\.(png)(\?.*)?$/)
                 .use('file-loader')
                 .loader('file-loader')
                 .options({
@@ -108,6 +88,9 @@ module.exports = {
                     };
                     return args
                 })
+
+
+
         }
     },
     configureWebpack: config => {}
