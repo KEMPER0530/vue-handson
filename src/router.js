@@ -6,7 +6,7 @@ Vue.use(Router);
 
 // routing の設定をする
 const router = new Router({
-    mode: "history",
+    mode: "hash",
     routes: [{
             path: "/",
             name: "home",
