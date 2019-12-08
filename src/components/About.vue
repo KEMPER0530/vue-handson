@@ -14,13 +14,22 @@
     <p>このアプリもAWS上で稼働しています。</p>
     <br />
     <h2>このアプリで実装していること</h2>
-    <p>2019.11.23時点</p>
+    <p>2019.12.8時点</p>
     <ul class="list-group" style="max-width: 400px;">
+      <li class="list-group-item">
+        お問合せページの作成
+        <br />作成内容を登録し、サイト管理者及びお客様へメールを送信します
+        <br />メールはAWS(EC2)上にpostfixを構築し送信を実施しております。
+        <span class="badge badge-danger badge-pill">new</span>
+      </li>
+      <li class="list-group-item">
+        カウンター機能の閉鎖
+        <span class="badge badge-danger badge-pill">new</span>
+      </li>
       <li class="list-group-item">
         クレジットカードの登録情報をDBに
         <br />登録する機能の追加
         <br />ログインして利用できます。
-        <span class="badge badge-danger badge-pill">new</span>
       </li>
       <li class="list-group-item">バックエンドをGoで作成し、APIでデータ取得を実施</li>
       <li class="list-group-item">ぐるなびAPIを利用したお店検索機能</li>
