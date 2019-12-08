@@ -1,8 +1,6 @@
 <template>
   <div class="card-form">
-    <h4 v-b-tooltip.hover title="カード内容を登録するサンプル機能です">
-      クレジットカード情報の入力
-    </h4>
+    <h4 v-b-tooltip.hover title="カード内容を登録するサンプル機能です">クレジットカード情報の入力</h4>
     <section v-if="errored">
       <p>
         <span class="text-danger">
@@ -74,8 +72,7 @@
                 v-for="n in 12"
                 v-bind:disabled="n < minCardMonth"
                 v-bind:key="n"
-                >{{ generateMonthValue(n) }}</option
-              >
+              >{{ generateMonthValue(n) }}</option>
             </select>
             <select
               class="card-input__input -select"
@@ -89,16 +86,13 @@
                 v-bind:value="$index + minCardYear"
                 v-for="(n, $index) in 12"
                 v-bind:key="n"
-                >{{ $index + minCardYear }}</option
-              >
+              >{{ $index + minCardYear }}</option>
             </select>
           </div>
         </div>
         <div class="card-form__col -cvv">
           <div class="card-input">
-            <label for="cardCvv" class="card-input__label"
-              >セキュリティコード</label
-            >
+            <label for="cardCvv" class="card-input__label">セキュリティコード</label>
             <input
               type="tel"
               class="card-input__input"
@@ -113,52 +107,33 @@
           </div>
         </div>
       </div>
-      <div
-        v-if="
-          mainCardNumber &&
-            formData.cardName &&
-            formData.cardMonth &&
-            formData.cardYear &&
-            formData.cardCvv
-        "
-      >
-        <b-button
-          v-b-modal.my-modal
-          block
-          variant="outline-primary"
-          size="lg"
-          @click="showModal"
-          >登録</b-button
-        >
-      </div>
-      <div v-else>
-        <b-button
-          disabled
-          v-b-modal.my-modal
-          block
-          variant="outline-primary"
-          size="lg"
-          @click="showModal"
-          >登録</b-button
-        >
-      </div>
+      <b-button
+        :disabled="!activateSubmit"
+        v-b-modal.my-modal
+        block
+        variant="outline-primary"
+        size="lg"
+        @click="showModal"
+      >登録</b-button>
       <!-- The modal -->
       <b-modal ref="regist-modal" centered hide-footer>
         <div class="d-block text-center">
-          <h4>クレジットカード情報を登録します。<br />よろしいですか？</h4>
+          <h4>
+            クレジットカード情報を登録します。
+            <br />よろしいですか？
+          </h4>
         </div>
-        <b-button class="mt-3" variant="outline-info" block @click="invaildCard"
-          >OK</b-button
-        >
+        <b-button class="mt-3" variant="outline-info" block @click="invaildCard">OK</b-button>
       </b-modal>
       <!-- 登録成功 -->
       <b-modal ref="success-modal" centered hide-footer>
         <div class="d-block text-center">
-          <h4>登録に成功しました。<br />TOPページへ遷移します。</h4>
+          <h4>
+            登録に成功しました。
+            <br />TOPページへ遷移します。
+          </h4>
         </div>
-        <b-button class="mt-3" variant="outline-success" block @click="moveTop"
-          >OK</b-button
-        >
+        <b-button class="mt-3" variant="outline-success" block @click="moveTop">OK</b-button>
       </b-modal>
       <!-- 登録失敗 -->
       <b-modal ref="failed-modal" centered hide-footer>
@@ -171,25 +146,25 @@
 </template>
 
 <script>
-import Paycard from '@/components/Paycard';
-import axios from 'axios';
+import Paycard from "@/components/Paycard";
+import axios from "axios";
 
 export default {
-  name: 'paycardform',
+  name: "paycardform",
   directives: {
-    'number-only': {
+    "number-only": {
       bind(el) {
         function checkValue(event) {
-          event.target.value = event.target.value.replace(/[^0-9]/g, '');
+          event.target.value = event.target.value.replace(/[^0-9]/g, "");
           if (event.charCode >= 48 && event.charCode <= 57) {
             return true;
           }
           event.preventDefault();
         }
-        el.addEventListener('keypress', checkValue);
+        el.addEventListener("keypress", checkValue);
       }
     },
-    'letter-only': {
+    "letter-only": {
       bind(el) {
         function checkValue(event) {
           if (event.charCode >= 48 && event.charCode <= 57) {
@@ -197,7 +172,7 @@ export default {
           }
           return true;
         }
-        el.addEventListener('keypress', checkValue);
+        el.addEventListener("keypress", checkValue);
       }
     }
   },
@@ -206,11 +181,11 @@ export default {
       type: Object,
       default: () => {
         return {
-          cardName: '',
-          cardNumber: '',
-          cardMonth: '',
-          cardYear: '',
-          cardCvv: ''
+          cardName: "",
+          cardNumber: "",
+          cardMonth: "",
+          cardYear: "",
+          cardCvv: ""
         };
       }
     },
@@ -226,11 +201,11 @@ export default {
   data() {
     return {
       fields: {
-        cardNumber: 'v-card-number',
-        cardName: 'v-card-name',
-        cardMonth: 'v-card-month',
-        cardYear: 'v-card-year',
-        cardCvv: 'v-card-cvv'
+        cardNumber: "v-card-number",
+        cardName: "v-card-name",
+        cardMonth: "v-card-month",
+        cardYear: "v-card-year",
+        cardCvv: "v-card-cvv"
       },
       minCardYear: new Date().getFullYear(),
       isCardNumberMasked: true,
@@ -238,7 +213,7 @@ export default {
       cardNumberMaxLength: 19,
       RegistUrl: process.env.VUE_APP_CREDIT_REGIST_URL,
       errored: false,
-      emessage: ''
+      emessage: ""
     };
   },
   computed: {
@@ -246,12 +221,25 @@ export default {
       if (this.formData.cardYear === this.minCardYear)
         return new Date().getMonth() + 1;
       return 1;
+    },
+    activateSubmit() {
+      if (
+        this.mainCardNumber &&
+        this.formData.cardName &&
+        this.formData.cardMonth &&
+        this.formData.cardYear &&
+        this.formData.cardCvv
+      ) {
+        return true;
+      } else {
+        return false;
+      }
     }
   },
   watch: {
     cardYear() {
       if (this.formData.cardMonth < this.minCardMonth) {
-        this.formData.cardMonth = '';
+        this.formData.cardMonth = "";
       }
     }
   },
@@ -260,55 +248,55 @@ export default {
   },
   methods: {
     showModal() {
-      this.$refs['regist-modal'].show();
+      this.$refs["regist-modal"].show();
     },
     moveTop() {
-      this.$router.push('/');
+      this.$router.push("/");
     },
     generateMonthValue(n) {
       return n < 10 ? `0${n}` : n;
     },
     changeName(e) {
       this.formData.cardName = e.target.value;
-      this.$emit('input-card-name', this.formData.cardName);
+      this.$emit("input-card-name", this.formData.cardName);
     },
     changeNumber(e) {
       this.formData.cardNumber = e.target.value;
-      let value = this.formData.cardNumber.replace(/\D/g, '');
+      let value = this.formData.cardNumber.replace(/\D/g, "");
       // american express, 15 digits
       if (/^3[47]\d{0,13}$/.test(value)) {
         this.formData.cardNumber = value
-          .replace(/(\d{4})/, '$1 ')
-          .replace(/(\d{4}) (\d{6})/, '$1 $2 ');
+          .replace(/(\d{4})/, "$1 ")
+          .replace(/(\d{4}) (\d{6})/, "$1 $2 ");
         this.cardNumberMaxLength = 17;
       } else if (/^3(?:0[0-5]|[68]\d)\d{0,11}$/.test(value)) {
         // diner's club, 14 digits
         this.formData.cardNumber = value
-          .replace(/(\d{4})/, '$1 ')
-          .replace(/(\d{4}) (\d{6})/, '$1 $2 ');
+          .replace(/(\d{4})/, "$1 ")
+          .replace(/(\d{4}) (\d{6})/, "$1 $2 ");
         this.cardNumberMaxLength = 16;
       } else if (/^\d{0,16}$/.test(value)) {
         // regular cc number, 16 digits
         this.formData.cardNumber = value
-          .replace(/(\d{4})/, '$1 ')
-          .replace(/(\d{4}) (\d{4})/, '$1 $2 ')
-          .replace(/(\d{4}) (\d{4}) (\d{4})/, '$1 $2 $3 ');
+          .replace(/(\d{4})/, "$1 ")
+          .replace(/(\d{4}) (\d{4})/, "$1 $2 ")
+          .replace(/(\d{4}) (\d{4}) (\d{4})/, "$1 $2 $3 ");
         this.cardNumberMaxLength = 19;
       }
-      this.$emit('input-card-number', this.formData.cardNumber);
+      this.$emit("input-card-number", this.formData.cardNumber);
     },
     changeMonth() {
-      this.$emit('input-card-month', this.formData.cardMonth);
+      this.$emit("input-card-month", this.formData.cardMonth);
     },
     changeYear() {
-      this.$emit('input-card-year', this.formData.cardYear);
+      this.$emit("input-card-year", this.formData.cardYear);
     },
     changeCvv(e) {
       this.formData.cardCvv = e.target.value;
-      this.$emit('input-card-cvv', this.formData.cardCvv);
+      this.$emit("input-card-cvv", this.formData.cardCvv);
     },
     invaildCard() {
-      this.$refs['regist-modal'].hide();
+      this.$refs["regist-modal"].hide();
       let number = this.formData.cardNumber;
       let sum = 0;
       let isOdd = true;
@@ -321,8 +309,8 @@ export default {
           if (num > 9) {
             num = num
               .toString()
-              .split('')
-              .join('+');
+              .split("")
+              .join("+");
           }
           sum += num;
         }
@@ -330,22 +318,22 @@ export default {
       }
       // カード番号の整合性確認
       if (
-        isNaN(this.mainCardNumber.replace(/\s+/g, '')) &&
+        isNaN(this.mainCardNumber.replace(/\s+/g, "")) &&
         number.length !== 19
       ) {
-        alert('invaild card number');
+        alert("invaild card number");
         // カード名義人の整合性確認
       } else if (!this.isHanEi(this.formData.cardName)) {
-        alert('invaild card name');
+        alert("invaild card name");
       } else {
         // カード情報を登録する
         const AcsUrl = `${this.RegistUrl}`;
         const params = new URLSearchParams();
-        params.append('cardnumber', this.mainCardNumber);
-        params.append('cardname', this.formData.cardName.toUpperCase());
-        params.append('cardmonth', this.formData.cardMonth);
-        params.append('cardyear', this.formData.cardYear);
-        params.append('cardcvv', this.formData.cardCvv);
+        params.append("cardnumber", this.mainCardNumber);
+        params.append("cardname", this.formData.cardName.toUpperCase());
+        params.append("cardmonth", this.formData.cardMonth);
+        params.append("cardyear", this.formData.cardYear);
+        params.append("cardcvv", this.formData.cardCvv);
         // クレジットカードデータの登録を行う
         axios
           .post(AcsUrl, params)
@@ -353,23 +341,23 @@ export default {
             this.regist = response.data;
             if (this.regist.Result === 1 && this.regist.Responce === 200) {
               this.errored = false;
-              this.$refs['success-modal'].show();
+              this.$refs["success-modal"].show();
             } else if (
               this.regist.Result === 2 &&
               this.regist.Responce === 200
             ) {
-              this.emessage = '入力されたカード番号は既に登録されています';
-              this.$refs['failed-modal'].show();
+              this.emessage = "入力されたカード番号は既に登録されています";
+              this.$refs["failed-modal"].show();
             } else {
-              this.emessage = '登録に失敗しました';
-              this.$refs['failed-modal'].show();
+              this.emessage = "登録に失敗しました";
+              this.$refs["failed-modal"].show();
             }
           })
           .catch(error => {
             this.errored = true;
             console.error(error);
-            this.emessage = '登録に失敗しました';
-            this.$refs['failed-modal'].show();
+            this.emessage = "登録に失敗しました";
+            this.$refs["failed-modal"].show();
           })
           .finally(() => {
             return;
@@ -384,13 +372,13 @@ export default {
     },
     maskCardNumber() {
       this.mainCardNumber = this.formData.cardNumber;
-      let arr = this.formData.cardNumber.split('');
+      let arr = this.formData.cardNumber.split("");
       arr.forEach((element, index) => {
-        if (index > 4 && index < 14 && element.trim() !== '') {
-          arr[index] = '*';
+        if (index > 4 && index < 14 && element.trim() !== "") {
+          arr[index] = "*";
         }
       });
-      this.formData.cardNumber = arr.join('');
+      this.formData.cardNumber = arr.join("");
     },
     unMaskCardNumber() {
       this.formData.cardNumber = this.mainCardNumber;
@@ -407,8 +395,8 @@ export default {
       }
     },
     isHanEi(str) {
-      let _str = str.replace(/\s+/g, '');
-      _str = _str == null ? '' : _str;
+      let _str = str.replace(/\s+/g, "");
+      _str = _str == null ? "" : _str;
       if (_str.match(/^[A-Za-z]*$/)) {
         return true;
       } else {

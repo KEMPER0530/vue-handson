@@ -82,6 +82,12 @@ const router = new Router({
             component: () =>
                 import ( /* webpackChunkName: "Main" */ "@/components/PaycardMain.vue")
         },
+        {
+            path: "/mailform",
+            name: "mailform",
+            component: () =>
+                import ( /* webpackChunkName: "Main" */ "@/components/Mailform.vue"),
+        },
     ]
 });
 

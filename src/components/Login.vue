@@ -20,19 +20,15 @@
         テスト用のため
         <br />test1/test1でログインできます。
         <br />
-        <span class="text-danger">
-          カウンター機能とクレジット機能はログインが必要です
-          <br />GoのAPIをキックしログイン判定を実施します。
-        </span>
+        <span class="text-danger">クレジット機能とお問合わせはログインが必要です</span>
         <form @submit.prevent="onSubmit">
           <input v-model="username" type="text" placeholder="username" />
           <input v-model="password" type="password" placeholder="password" />
-          <div v-if="username && password">
-            <button class="btn btn-info btn-block login" type="submit">Login</button>
-          </div>
-          <div v-else>
-            <button disabled class="btn btn-info btn-block login" type="submit">Login</button>
-          </div>
+          <button
+            class="btn btn-info btn-block login"
+            type="submit"
+            :disabled="!activateSubmit"
+          >Login</button>
         </form>
       </div>
     </div>
@@ -47,6 +43,15 @@ import store from "@/store";
 export default {
   name: "Login",
   components: {},
+  computed: {
+    activateSubmit() {
+      if (this.username && this.password) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
   data() {
     return {
       BaseUrl: process.env.VUE_APP_LOGIN_JSON_URL,
