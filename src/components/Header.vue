@@ -10,7 +10,7 @@
           <!-- <b-nav-item to="/counter">カウンター機能</b-nav-item> -->
           <b-nav-item to="/paycard">クレジット情報登録機能</b-nav-item>
           <b-nav-item to="/gnavi">ぐるなびAPI</b-nav-item>
-          <b-nav-item to="/mailform">お問合わせ</b-nav-item>
+          <b-nav-item to="/mailform">お問い合わせ</b-nav-item>
           <b-button size="sm" class="my-2 my-sm-0" @click="logout" v-if="loggedin">LOGOUT</b-button>
         </b-navbar-nav>
       </b-collapse>

@@ -7,19 +7,18 @@
       </a>
     </h2>
     <img src="../static/img/mark-profile.svg" class="about" decoding="async" />
-    <p>転職活動中</p>
-    <p>Sier出身ですが、WEB業界に行きたい36歳です。</p>
-    <p>Sierとしては金融機関向けの業務アプリの開発を実施しています。</p>
-    <p>最近はVue、Goでアプリ開発したりAWSを触ったりしております。</p>
-    <p>このアプリもAWS上で稼働しています。</p>
+    <p>転職活動中(Sier出身です)</p>
+    <p>主に金融機関向けの業務アプリの開発を実施しておりました</p>
+    <p>最近はVue、Goでアプリ開発をしております。</p>
+    <p>本アプリはAWS上で稼働しています。</p>
     <br />
     <h2>このアプリで実装していること</h2>
-    <p>2019.12.8時点</p>
+    <p>2019.12.15時点</p>
     <ul class="list-group" style="max-width: 400px;">
       <li class="list-group-item">
-        お問合せページの作成
+        お問い合せページの作成
         <br />作成内容を登録し、サイト管理者及びお客様へメールを送信します
-        <br />メールはAWS(EC2)上にpostfixを構築し送信を実施しております。
+        <br />メールはAWS(SES)を利用し送信を実施しております。
         <span class="badge badge-danger badge-pill">new</span>
       </li>
       <li class="list-group-item">

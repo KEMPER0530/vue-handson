@@ -10,7 +10,7 @@
         </p>
       </section>
       <div id="output" />
-      <h2>お問合わせフォーム</h2>
+      <h2>お問い合わせフォーム</h2>
       <br />
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
         <b-container fluid>
@@ -198,7 +198,17 @@ export default {
       const params = new URLSearchParams();
       params.append("to_email", this.form.to_email);
       params.append("name", this.form.name);
-      params.append("text", this.form.text);
+      params.append(
+        "text",
+        "【登録されたアドレス】:" +
+          this.form.to_email +
+          "\n" +
+          "【氏名】:" +
+          this.form.name +
+          "\n" +
+          "【内容】:" +
+          this.form.text
+      );
       params.append("from_email", this.form.from_email);
       params.append("personal_name", this.form.personal_name);
       // メールの送信を行う
