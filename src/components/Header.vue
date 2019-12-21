@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
+    <b-navbar toggleable="lg" type="dark" class="samuraiblue">
       <b-navbar-brand to="/">{{ title }}</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
@@ -11,19 +11,30 @@
           <b-nav-item to="/paycard">クレジット情報登録機能</b-nav-item>
           <b-nav-item to="/gnavi">ぐるなびAPI</b-nav-item>
           <b-nav-item to="/mailform">お問い合わせ</b-nav-item>
-          <b-button size="sm" class="my-2 my-sm-0" @click="logout" v-if="loggedin">LOGOUT</b-button>
+          <b-button
+            size="sm"
+            class="my-2 my-sm-0"
+            @click="logout"
+            v-if="loggedin"
+            >LOGOUT</b-button
+          >
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
+import customIcon from 'vue-icon/lib/vue-feather.esm';
 export default {
+  components: {
+    customIcon
+  },
   data() {
     return {
-      title: "",
-      github: process.env.VUE_APP_GITHUB_URL
+      title: '',
+      github: process.env.VUE_APP_GITHUB_URL,
+      baseClass: 'v-icon'
     };
   },
   computed: {
@@ -36,9 +47,9 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch("changeLogoff").then(() => {
+      this.$store.dispatch('changeLogoff').then(() => {
         window.sessionStorage.clear();
-        this.$router.push("/");
+        this.$router.push('/');
       });
     }
   }
@@ -46,5 +57,6 @@ export default {
 </script>
 <style lang="scss">
 // ヘッダー用のscss読込
-@import "@/static/scss/header.scss";
+@import '@/static/scss/header.scss';
+@import '@/static/scss/common.scss';
 </style>

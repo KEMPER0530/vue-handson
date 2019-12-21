@@ -14,21 +14,29 @@
           <span class="text-warning">User ID and password do not match</span>
         </p>
       </section>
-      <div id="output" />ログイン画面
+      <div id="output" />
+      ログイン画面
       <div class="avatar" />
       <div class="form-box">
         テスト用のため
         <br />test1/test1でログインできます。
         <br />
-        <span class="text-danger">クレジット機能とお問合わせはログインが必要です</span>
+        <span class="text-danger"
+          >クレジット機能とお問合わせはログインが必要です</span
+        >
         <form @submit.prevent="onSubmit">
-          <input v-model="username" type="text" placeholder="username" />
+          <input v-model="username" type="text" placeholder="e-mail" />
           <input v-model="password" type="password" placeholder="password" />
           <button
-            class="btn btn-info btn-block login"
+            class="btn btn-primary btn-block login"
             type="submit"
             :disabled="!activateSubmit"
-          >Login</button>
+          >
+            Login
+          </button>
+          <button class="btn btn-pink btn-block login" disabled>
+            CreateAccount
+          </button>
         </form>
       </div>
     </div>
@@ -36,12 +44,12 @@
   <!------ Include the above in your HEAD tag ---------->
 </template>
 <script>
-import { Component, Vue } from "vue-property-decorator";
-import axios from "axios";
-import store from "@/store";
+import { Component, Vue } from 'vue-property-decorator';
+import axios from 'axios';
+import store from '@/store';
 
 export default {
-  name: "Login",
+  name: 'Login',
   components: {},
   computed: {
     activateSubmit() {
@@ -55,8 +63,8 @@ export default {
   data() {
     return {
       BaseUrl: process.env.VUE_APP_LOGIN_JSON_URL,
-      username: "",
-      password: "",
+      username: '',
+      password: '',
       users: [],
       errored: false,
       anmatched: false
@@ -74,20 +82,20 @@ export default {
       let nextpage = this.$route.query.redirect;
       const AcsUrl = `${this.BaseUrl}`;
       const params = new URLSearchParams();
-      params.append("username", this.username);
-      params.append("password", this.password);
+      params.append('username', this.username);
+      params.append('password', this.password);
 
       axios
         .post(AcsUrl, params)
         .then(response => {
           this.users = response.data;
           if (this.users.Result === 1 && this.users.Responce === 200) {
-            this.$store.dispatch("changeLogin");
+            this.$store.dispatch('changeLogin');
             this.anmatched = false;
             this.errored = false;
             this.$router.push(nextpage);
           } else {
-            this.$store.dispatch("changeLogoff");
+            this.$store.dispatch('changeLogoff');
             this.anmatched = true;
           }
         })
@@ -106,5 +114,6 @@ export default {
 
 <style lang="scss">
 // ログイン用のscss読込
-@import "@/static/scss/login.scss";
+@import '@/static/scss/login.scss';
+@import '@/static/scss/common.scss';
 </style>

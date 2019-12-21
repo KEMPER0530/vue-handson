@@ -6,19 +6,20 @@
 </template>
 
 <script>
-import sketch from "@/static/js/backgroundHome";
+import sketch from '@/static/js/backgroundHome';
 
 export default {
-  name: "Home",
+  name: 'Home',
   mounted() {
     const backgroundHome = sketch();
-    const P5 = require("p5");
-    new P5(backgroundHome, "p5Canvas");
+    const P5 = require('p5');
+    new P5(backgroundHome, 'p5Canvas');
   }
 };
 </script>
 
 <style lang="scss">
 // ヘッダー用のscss読込
-@import "@/static/scss/home.scss";
+@import '@/static/scss/home.scss';
+@import '@/static/scss/common.scss';
 </style>

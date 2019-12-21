@@ -26,7 +26,7 @@
     </b-input-group>
     <br />
     <div v-if="nameState">
-      <b-button pill block variant="outline-primary" @click="showList"
+      <b-button block variant="outline-primary" @click="showList"
         >検索</b-button
       >
     </div>
@@ -54,7 +54,7 @@
         <br />
         <b-card-text>{{ item.pr.pr_short }}</b-card-text>
         <b-button :href="item.url" variant="primary" target="_blank"
-          >Go HP</b-button
+          >ぐるなびHP</b-button
         >
         <template v-slot:footer>
           <small class="text-muted">平均予算:{{ item.budget }}円</small>
@@ -119,4 +119,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+// ログイン用のscss読込
+@import '@/static/scss/gnavi.scss';
+@import '@/static/scss/common.scss';
+</style>
