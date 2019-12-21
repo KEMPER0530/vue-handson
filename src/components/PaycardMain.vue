@@ -41,4 +41,5 @@ export default {
 
 <style lang="scss">
 @import '@/static/scss/paycard.scss';
+@import '@/static/scss/common.scss';
 </style>

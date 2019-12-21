@@ -7,3 +7,12 @@
 li {
     display: inline-block;
 }
+
+.writing {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.list-size {
+    max-width: 600px;
+}

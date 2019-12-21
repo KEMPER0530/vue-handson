@@ -5,6 +5,10 @@ import router from "@/router";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import store from "@/store";
+import feather from 'vue-icon'
+// import Vuetify from "vuetify";
+// import "vuetify/dist/vuetify.min.css"
+
 // import {
 //     library
 // } from '@fortawesome/fontawesome-svg-core';
@@ -19,10 +23,13 @@ import store from "@/store";
 // Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(BootstrapVue);
+Vue.use(feather, 'v-icon')
+    // Vue.use(Vuetify);
 Vue.config.productionTip = false;
 
 new Vue({
     router,
     store,
+    // vuetify: new Vuetify(),
     render: h => h(App)
-}).$mount("#app"); // index.html のid=appにマウントをする
+}).$mount('#app'); // index.html のid=appにマウントをする
