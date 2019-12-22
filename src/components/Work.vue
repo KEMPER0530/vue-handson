@@ -25,19 +25,20 @@
       >
         <b-card-text>{{ item.comment }}</b-card-text>
         <b-button
+          block
+          pill
           :href="item.url"
-          variant="primary"
+          variant="outline-primary"
           target="_blank"
           v-if="item.ref === '1'"
-          >Go HP</b-button
-        >
+        >Go</b-button>
       </b-card>
     </b-card-group>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   data() {
     return {
@@ -63,6 +64,6 @@ export default {
 
 <style lang="scss">
 // ヘッダー用のscss読込
-@import '@/static/scss/work.scss';
-@import '@/static/scss/common.scss';
+@import "@/static/scss/work.scss";
+@import "@/static/scss/common.scss";
 </style>
