@@ -42,44 +42,70 @@
     border-color: #ee5cbf;
 }
 
-
-/* 通常のボタン色 */
-
-.btn-primary,
-.btn-primary.disabled,
-.btn-primary:disabled {
-    color: #fff;
-    background-color: #0095d9;
-    border-color: #007bff;
+// .btn-outline-primary {
+//     color: #0095d9;
+//     background-color: transparent;
+//     background-image: none;
+//     border-color: #0095d9;
+// }
+// .btn-outline-primary:hover,
+// .btn-outline-primary:not(:disabled):not(.disabled):active,
+// .btn-outline-primary:not(:disabled):not(.disabled).active,
+// .show>.btn-outline-primary.dropdown-toggle {
+//     color: #fff;
+//     background-color: #0095d9;
+//     border-color: #0095d9;
+// }
+// .btn-outline-primary:focus,
+// .btn-outline-primary.focus,
+// .btn-outline-primary:not(:disabled):not(.disabled):active:focus,
+// .btn-outline-primary:not(:disabled):not(.disabled).active:focus,
+// .show>.btn-outline-primary.dropdown-toggle:focus {
+//     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+// }
+// .btn-outline-primary.disabled,
+// .btn-outline-primary:disabled {
+//     color: #0095d9;
+//     background-color: transparent;
+// }
+.btn-outline-pink {
+    color: #ee62cc;
+    background-color: transparent;
+    background-image: none;
+    border-color: #ee5cbf;
 }
 
-
-/* focusされた時の枠線の色 */
-
-.btn-primary:focus,
-.btn-primary.focus,
-.btn-primary:not(:disabled):not(.disabled):active:focus,
-.btn-primary:not(:disabled):not(.disabled).active:focus,
-.show>.btn-primary.dropdown-toggle:focus {
-    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+.btn-outline-pink:hover,
+.btn-outline-pink:not(:disabled):not(.disabled):active,
+.btn-outline-pink:not(:disabled):not(.disabled).active,
+.show>.btn-outline-pink.dropdown-toggle {
+    color: #fff;
+    background-color: #ee62cc;
+    border-color: #ee5cbf;
 }
 
-
-/* hover時（マウスカーソルを重ねた時）の色（通常より濃いor暗めの色を指定）*/
-
-.btn-primary:hover {
-    color: #fff;
-    background-color: #0095d9;
-    border-color: #0062cc;
+.btn-outline-pink:focus,
+.btn-outline-pink.focus,
+.btn-outline-pink:not(:disabled):not(.disabled):active:focus,
+.btn-outline-pink:not(:disabled):not(.disabled).active:focus,
+.show>.btn-outline-pink.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 0, 119, 0.5);
 }
 
+.btn-outline-pink.disabled,
+.btn-outline-pink:disabled {
+    color: #ee62cc;
+    background-color: transparent;
+}
 
-/* active時の色（hover時と同等かさらに濃いor暗めの色を指定） */
-
-.btn-primary:not(:disabled):not(.disabled):active,
-.btn-primary:not(:disabled):not(.disabled).active,
-.show>.btn-primary.dropdown-toggle {
-    color: #fff;
+.samurai-blue-sub {
     background-color: #0095d9;
-    border-color: #005cbf;
+}
+
+.samurai-blue {
+    background-color: #202f55;
+}
+
+.button-group1 {
+    margin: 20px auto;
 }

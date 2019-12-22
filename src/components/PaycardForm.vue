@@ -111,6 +111,7 @@
         :disabled="!activateSubmit"
         v-b-modal.my-modal
         block
+        pill
         variant="outline-primary"
         size="lg"
         @click="showModal"
@@ -123,7 +124,7 @@
             <br />よろしいですか？
           </h4>
         </div>
-        <b-button class="mt-3" variant="outline-info" block @click="invaildCard">OK</b-button>
+        <b-button class="mt-3" pill variant="outline-primary" block @click="invaildCard">OK</b-button>
       </b-modal>
       <!-- 登録成功 -->
       <b-modal ref="success-modal" centered hide-footer>
@@ -133,7 +134,7 @@
             <br />TOPページへ遷移します。
           </h4>
         </div>
-        <b-button class="mt-3" variant="outline-success" block @click="moveTop">OK</b-button>
+        <b-button pill class="mt-3" variant="outline-primary" block @click="moveTop">OK</b-button>
       </b-modal>
       <!-- 登録失敗 -->
       <b-modal ref="failed-modal" centered hide-footer>
