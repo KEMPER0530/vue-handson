@@ -88,6 +88,15 @@ const router = new Router({
             component: () =>
                 import ( /* webpackChunkName: "Main" */ "@/components/Mailform.vue"),
         },
+        {
+            path: "/createacount",
+            name: "createacount",
+            component: () =>
+                import ("@/components/CreateAcount.vue"),
+            meta: {
+                isPublic: true
+            }
+        },
     ]
 });
 

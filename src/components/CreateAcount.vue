@@ -10,7 +10,7 @@
         </p>
       </section>
       <div id="output" />
-      <h2>お問い合わせ</h2>
+      <h2>アカウント登録</h2>
       <br />
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
         <b-container fluid>
@@ -22,66 +22,39 @@
               <b-form-group id="input-group-1" label-for="input-1" description>
                 <b-form-input
                   id="input-1"
-                  v-model="form.to_email"
+                  v-model="form.email"
                   type="email"
                   required
                   placeholder="例：test_taro@gmail.com"
                   :state="emailState"
-                  aria-describedby="input-live-help-email input-live-feedback-email"
+                  aria-describedby="input-live-help-email"
                 ></b-form-input>
                 <!-- This will only be shown if the preceding input has an invalid state -->
                 <b-form-invalid-feedback id="input-live-feedback-email">Enter your email</b-form-invalid-feedback>
-                <!-- This is a form text block (formerly known as help block) -->
-                <b-form-text
-                  id="input-live-help-email"
-                >We'll never share your email with anyone else.</b-form-text>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col lg="2">
-              <label for="textarea-auto-height">お名前:</label>
+              <label for="textarea-auto-height">パスワード:</label>
             </b-col>
             <b-col lg="10">
               <b-form-group id="input-group-2" label-for="input-2">
                 <b-form-input
                   id="input-2"
-                  v-model="form.name"
-                  :state="nameState"
-                  aria-describedby="input-live-help-name input-live-feedback-name"
+                  v-model="form.password"
+                  :state="passwordState"
+                  aria-describedby="input-live-help-password"
                   required
-                  placeholder="例:テスト　太郎"
+                  type="password"
                 ></b-form-input>
-                <!-- This will only be shown if the preceding input has an invalid state -->
-                <b-form-invalid-feedback id="input-live-feedback-name">Enter your name</b-form-invalid-feedback>
                 <!-- This is a form text block (formerly known as help block) -->
-                <b-form-text id="input-live-help-name">Let us know your name.</b-form-text>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <b-row class="mail-form">
-            <b-col sm="2">
-              <label for="textarea-auto-height">内容:</label>
-            </b-col>
-            <b-col sm="10">
-              <b-form-group id="input-group-3" label-for="input-3">
-                <b-form-textarea
-                  id="input-3"
-                  v-model="form.text"
-                  placeholder="例：クレジットカード登録機能の件で・・・・"
-                  rows="4"
-                  :state="textState"
-                  aria-describedby="input-live-feedback-text"
-                ></b-form-textarea>
-                <!-- This will only be shown if the preceding input has an invalid state -->
-                <b-form-invalid-feedback id="input-live-feedback-name">Please enter your inquiry</b-form-invalid-feedback>
+                <b-form-text id="input-live-help-password">８文字以上16文字以下で入力ください。</b-form-text>
+                <b-form-text id="input-live-help-password">英数字を含める必要があります。</b-form-text>
               </b-form-group>
             </b-col>
           </b-row>
           <b-row class="button-group1">
-            <b-col>
-              <b-button type="reset" pill block variant="outline-danger">クリア</b-button>
-            </b-col>
             <b-col>
               <b-button
                 :disabled="!activateSubmit"
@@ -90,30 +63,28 @@
                 block
                 variant="outline-primary"
                 v-b-modal.my-modal
-              >送信</b-button>
+              >登録する</b-button>
             </b-col>
           </b-row>
         </b-container>
       </b-form>
-      <!-- <b-card class="mt-3" header="Form Data Result">
-        <pre class="m-0">{{ form }}</pre>
-      </b-card>-->
       <!-- The modal -->
       <b-modal ref="regist-modal" centered hide-footer>
         <div class="d-block text-center">
           <h4>
-            お問い合わせ内容を送信します。
+            アカウントを登録します。
             <br />よろしいですか？
           </h4>
         </div>
-        <b-button pill class="mt-3" variant="outline-primary" block @click="sendMail">OK</b-button>
+        <b-button pill class="mt-3" variant="outline-primary" block @click="registAcount">OK</b-button>
       </b-modal>
       <!-- 登録成功 -->
       <b-modal ref="success-modal" centered hide-footer>
         <div class="d-block text-center">
           <h4>
-            送信しました。
-            <br />TOPページへ遷移します。
+            登録しました。
+            <br />ログイン画面に遷移します。
+            <br />登録アカウントでログインお願いします。
           </h4>
         </div>
         <b-button pill class="mt-3" variant="outline-primary" block @click="moveTop">OK</b-button>
@@ -133,24 +104,21 @@ import axios from "axios";
 export default {
   computed: {
     emailState() {
-      return this.form.to_email.length > 5 && this.form.to_email.includes("@")
+      return this.form.email.length > 5 && this.form.email.includes("@")
         ? true
         : false;
     },
-    nameState() {
-      return this.form.name.length > 0 ? true : false;
-    },
-    textState() {
-      return this.form.text.length > 0 ? true : false;
+    passwordState() {
+      //正規表現パターン（8文字以上の半角英数字）
+      let regex = new RegExp(/^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,16}$/i);
+      return regex.test(this.form.password) ? true : false;
     },
     activateSubmit() {
       if (
-        this.form.to_email &&
-        this.form.name &&
-        this.form.text &&
+        this.form.email &&
+        this.form.password &&
         this.emailState &&
-        this.nameState &&
-        this.textState
+        this.passwordState
       ) {
         return true;
       } else {
@@ -161,15 +129,12 @@ export default {
   data() {
     return {
       form: {
-        to_email: "",
-        name: "",
-        text: "",
-        from_email: process.env.VUE_APP_FROM_EMAIL,
-        personal_name: process.env.VUE_APP_PERSONAL_NAME
+        email: "",
+        password: ""
       },
       show: true,
       errored: false,
-      mailUrl: process.env.VUE_APP_SEND_MAIL,
+      registAcountUrl: process.env.VUE_APP_REGIST_ACCOUNT,
       emessage: ""
     };
   },
@@ -177,41 +142,26 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       this.$refs["regist-modal"].show();
-      // alert(JSON.stringify(this.form));
     },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      this.form.to_email = "";
-      this.form.name = "";
-      this.form.text = "";
+      this.form.email = "";
+      this.form.password = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
         this.show = true;
       });
     },
-    sendMail() {
+    registAcount() {
       this.$refs["regist-modal"].hide();
       // メール情報を登録する
-      const AcsUrl = `${this.mailUrl}`;
+      const AcsUrl = `${this.registAcountUrl}`;
       const params = new URLSearchParams();
-      params.append("to_email", this.form.to_email);
-      params.append("name", this.form.name);
-      params.append(
-        "text",
-        "【登録されたアドレス】:" +
-          this.form.to_email +
-          "\n" +
-          "【氏名】:" +
-          this.form.name +
-          "\n" +
-          "【内容】:" +
-          this.form.text
-      );
-      params.append("from_email", this.form.from_email);
-      params.append("personal_name", this.form.personal_name);
-      // メールの送信を行う
+      params.append("email", this.form.email);
+      params.append("password", this.form.password);
+      // アカウントの登録を行う
       axios
         .post(AcsUrl, params)
         .then(response => {
@@ -219,15 +169,18 @@ export default {
           if (this.regist.Result === 1 && this.regist.Responce === 200) {
             this.errored = false;
             this.$refs["success-modal"].show();
+          } else if (this.regist.Result === 0 && this.regist.Responce === 200) {
+            this.emessage = "既にアカウントが登録されています。";
+            this.$refs["failed-modal"].show();
           } else {
-            this.emessage = "送信に失敗しました";
+            this.emessage = "登録に失敗しました。";
             this.$refs["failed-modal"].show();
           }
         })
         .catch(error => {
           this.errored = true;
           console.error(error);
-          this.emessage = "送信に失敗しました";
+          this.emessage = "登録に失敗しました。";
           this.$refs["failed-modal"].show();
         })
         .finally(() => {
@@ -236,13 +189,13 @@ export default {
       return;
     },
     moveTop() {
-      this.$router.push("/");
+      this.$router.push("/login");
     }
   }
 };
 </script>
 <style lang="scss">
 //メールフォーム用のscss読込
-@import "@/static/scss/mailform.scss";
+@import "@/static/scss/createaccount.scss";
 @import "@/static/scss/common.scss";
 </style>

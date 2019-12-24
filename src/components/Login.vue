@@ -31,7 +31,7 @@
                 pill
                 variant="outline-pink"
                 class="btn btn-block login"
-                disabled
+                @click="onTransition()"
               >CreateNewAccount</b-button>
             </b-col>
             <b-col>
@@ -86,6 +86,9 @@ export default {
     // DOM操作が伴う場合
   },
   methods: {
+    onTransition() {
+      this.$router.push("/createacount");
+    },
     onSubmit() {
       let nextpage = this.$route.query.redirect;
       const AcsUrl = `${this.BaseUrl}`;
