@@ -4,13 +4,13 @@
       <b-navbar-brand to="/">{{ title }}</b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav>
-          <b-nav-item to="/about">Profile</b-nav-item>
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item to="/profile">Profile</b-nav-item>
           <b-nav-item to="/work">Work</b-nav-item>
           <!-- <b-nav-item to="/counter">カウンター機能</b-nav-item> -->
-          <b-nav-item to="/paycard">クレジット情報登録機能</b-nav-item>
-          <b-nav-item to="/gnavi">ぐるなびAPI</b-nav-item>
-          <b-nav-item to="/mailform">お問い合わせ</b-nav-item>
+          <b-nav-item to="/paycard">CardRegist</b-nav-item>
+          <b-nav-item to="/gnavi">Gurunavi</b-nav-item>
+          <b-nav-item to="/contact">Contact</b-nav-item>
           <b-button
             size="sm"
             class="my-2 my-sm-0"

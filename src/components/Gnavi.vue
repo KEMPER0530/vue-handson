@@ -1,83 +1,135 @@
 <template>
-  <div role="group">
-    <section v-if="errored">
-      <p>
-        <span class="text-danger">
-          We're sorry, we're not able to retrieve this information at the
-          moment, please try back later
-        </span>
-      </p>
-    </section>
-    <label for="input-live">フリーワード検索</label>
-    <b-input-group size="lg" prepend="🔍">
-      <b-form-input
-        id="input-live"
-        v-model="name"
-        :state="nameState"
-        icon="search"
-        aria-describedby="input-live-help input-live-feedback"
-        placeholder="渋谷　肉"
-        trim
-      ></b-form-input>
-      <!-- This will only be shown if the preceding input has an invalid state -->
-      <b-form-invalid-feedback id="input-live-feedback">検索フォームに入力してください</b-form-invalid-feedback>
-    </b-input-group>
-    <br />
-    <b-button block pill variant="outline-primary" @click="showList" :disabled="!nameState">検索</b-button>
-    <br />
-    <!-- This is a form text block (formerly known as help block) -->
-    <b-form-text id="input-live-help">出力店舗は東京エリア限定となります</b-form-text>
-    <!-- イメージを出力する -->
-    <b-card-group columns>
-      <b-card
-        v-for="item in sortedList"
-        :key="item.id"
-        :title="item.name"
-        :img-src="item.image_url.shop_image1"
-        img-alt="Image"
-        img-top
-        border-variant="primary"
-        align="center"
-        decoding="async"
-      >
-        <b-card-text>{{ item.address }} / {{ item.tel }}</b-card-text>
+  <div class="container">
+    <div class="gnavi-container">
+      <div role="group">
+        <section v-if="errored">
+          <p>
+            <span class="text-danger">{{ emessage }}</span>
+          </p>
+        </section>
+        <!-- 検索 -->
+        <label for="input-live">フリーワード検索</label>
+        <b-input-group size="lg" prepend="🔍">
+          <b-form-input
+            id="input-live"
+            v-model="name"
+            :state="searchState"
+            icon="search"
+            aria-describedby="input-live-help input-live-feedback"
+            placeholder="渋谷　肉"
+            trim
+          ></b-form-input>
+          <!-- This will only be shown if the preceding input has an invalid state -->
+          <b-form-invalid-feedback :state="searchState"
+            >検索フォームに入力してください</b-form-invalid-feedback
+          >
+        </b-input-group>
+        <!-- エリア選択 -->
+        <div class="radio">
+          <b-form-radio-group
+            v-model="PREF"
+            :options="options"
+            :state="areaoptionState"
+            name="radio-validation"
+          >
+            <b-form-invalid-feedback :state="areaoptionState"
+              >エリアを選択してください</b-form-invalid-feedback
+            >
+          </b-form-radio-group>
+        </div>
+        <b-button
+          block
+          pill
+          variant="outline-primary"
+          @click="showList"
+          :disabled="!submitState"
+          >検索</b-button
+        >
         <br />
-        <b-card-text>{{ item.pr.pr_short }}</b-card-text>
-        <b-row class="button-group1">
-          <b-col>
-            <b-button :href="item.url" variant="outline-primary" target="_blank" block pill>ぐるなびHP</b-button>
-          </b-col>
-        </b-row>
-        <template v-slot:footer>
-          <small class="text-muted">平均予算:{{ item.budget }}円</small>
-        </template>
-      </b-card>
-    </b-card-group>
+        <!-- This is a form text block (formerly known as help block) -->
+        <b-form-text id="input-live-help"
+          >出力店舗は東京、神奈川エリア限定となります</b-form-text
+        >
+        <!-- イメージを出力する -->
+        <b-card-group columns class="multicol">
+          <b-card
+            v-for="item in sortedList"
+            :key="item.id"
+            :title="item.name"
+            :img-src="item.image_url.shop_image1"
+            img-alt="Image"
+            img-top
+            border-variant="primary"
+            align="center"
+            decoding="async"
+          >
+            <b-card-text>{{ item.address }} / {{ item.tel }}</b-card-text>
+            <br />
+            <b-card-text>{{ item.pr.pr_short }}</b-card-text>
+            <b-row class="button-group1">
+              <b-col>
+                <b-button
+                  :href="item.url"
+                  variant="outline-primary"
+                  target="_blank"
+                  block
+                  pill
+                  >ぐるなびHP</b-button
+                >
+              </b-col>
+            </b-row>
+            <template v-slot:footer>
+              <small class="text-muted">平均予算:{{ item.budget }}円</small>
+            </template>
+          </b-card>
+        </b-card-group>
+      </div>
+      <!--ページトップ-->
+      <b-link
+        href="#"
+        variant="outline-primary"
+        id="return-top"
+        v-scroll-to="'body'"
+        >Top</b-link
+      >
+    </div>
   </div>
 </template>
 
 <script>
-import axios from "axios";
-import _sortBy from "lodash.sortby";
+import axios from 'axios';
+import _sortBy from 'lodash.sortby';
 
 export default {
   computed: {
-    nameState() {
+    searchState() {
       return this.name && this.name.length > 0 ? true : false;
     },
+    submitState() {
+      return this.name && this.name.length > 0 && this.PREF ? true : false;
+    },
     sortedList() {
-      return _sortBy(this.list, "id");
+      return _sortBy(this.list, 'id');
+    },
+    areaoptionState() {
+      return Boolean(this.PREF);
     }
   },
   data() {
     return {
-      name: "",
-      list: "",
+      name: '',
+      list: '',
       BaseUrl: process.env.VUE_APP_GNAVI_URL,
       APIKEY: process.env.VUE_APP_GNAVI_API_KEY,
       PAGE: process.env.VUE_APP_GNAVI_PAGE,
-      PREF: "PREF13",
-      errored: false
+      PREF: '',
+      options: [
+        { text: '東京', value: 'PREF13' },
+        { text: '神奈川', value: 'PREF14' }
+      ],
+      errored: false,
+      emessage: '',
+      position: 0
     };
   },
   methods: {
@@ -92,27 +144,31 @@ export default {
         .get(AcsUrl)
         .then(responce => {
           this.list = responce.data.rest;
-          this.$store.dispatch("putGlist", responce.data.rest);
-          this.$store.dispatch("putName", this.name);
+          this.$store.dispatch('putGlist', responce.data.rest);
+          this.$store.dispatch('putName', this.name);
         })
         .catch(error => {
           this.errored = true;
-          console.error(error);
+          this.emessage = error.message;
         });
     }
   },
   created() {
     this.$nextTick(function() {
+      window.addEventListener('scroll', this.handleScroll);
       // this.name = this.$store.getters.getName;
       // this.name = this.$store.getters.getGlist;
       // this.errored = false;
     });
+  },
+  handleScroll() {
+    this.position = window.scrollY;
   }
 };
 </script>
 
 <style lang="scss">
 // ログイン用のscss読込
-@import "@/static/scss/gnavi.scss";
-@import "@/static/scss/common.scss";
+@import '@/static/scss/gnavi.scss';
+@import '@/static/scss/common.scss';
 </style>

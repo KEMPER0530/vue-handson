@@ -21,3 +21,9 @@ li {
     height: 200px;
     margin: auto;
 }
+
+@media (min-width: 575px) {
+    .multicolwork {
+        columns: 2;
+    }
+}

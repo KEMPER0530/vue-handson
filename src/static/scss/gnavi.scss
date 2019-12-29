@@ -1,0 +1,41 @@
+.gnavi-container {
+    position: relative;
+    // width: 300px;
+    width: 100%;
+    margin: 30px auto;
+    padding: 20px 40px 40px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+.radio {
+    margin: 20px auto;
+}
+
+@media (min-width: 575px) and (max-width: 767px) {
+    .multicol {
+        columns: 2;
+    }
+}
+
+@media (min-width: 768px) {
+    .multicol {
+        columns: 3;
+    }
+}
+
+#return-top {
+    // background-color: #202f55;
+    border-radius: 50%;
+    bottom: 10px;
+    // color: #fff;
+    font-size: 14px;
+    height: 50px;
+    line-height: 50px;
+    outline: 0;
+    position: fixed;
+    right: 5px;
+    text-align: center;
+    width: 50px;
+}

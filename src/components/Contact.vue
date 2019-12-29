@@ -243,6 +243,6 @@ export default {
 </script>
 <style lang="scss">
 //メールフォーム用のscss読込
-@import "@/static/scss/mailform.scss";
+@import "@/static/scss/contact.scss";
 @import "@/static/scss/common.scss";
 </style>

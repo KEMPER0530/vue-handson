@@ -1,4 +1,4 @@
-.about {
+.profile {
     // width: 200px;
     height: 200px;
     margin: 10px auto 0px;
@@ -15,4 +15,12 @@ li {
 
 .list-size {
     max-width: 600px;
+}
+
+.badge_profile {
+    font-size: 30px;
+    vertical-align: top;
+    top: 10px; //depends on your font-size
+    position: relative;
+    margin: 10px 10px 10px auto;
 }
