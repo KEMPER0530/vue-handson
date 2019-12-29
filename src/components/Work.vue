@@ -8,12 +8,12 @@
         </span>
       </p>
     </section>
-    <label for="input-live">
+    <div>
       <h3>work</h3>
-    </label>
-    <b-form-text id="input-live-help">今後も追加予定</b-form-text>
+      <b-form-text id="input-live-help">今後も追加予定</b-form-text>
+    </div>
     <br />
-    <b-card-group deck>
+    <b-card-group columns class="multicolwork">
       <b-card
         v-for="item in workList"
         :key="item.work_id"

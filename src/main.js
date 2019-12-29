@@ -6,6 +6,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import store from "@/store";
 import feather from 'vue-icon'
+// ページトップ用のプラグイン
+import VueScrollTo from 'vue-scrollto'
 // import Vuetify from "vuetify";
 // import "vuetify/dist/vuetify.min.css"
 
@@ -23,8 +25,15 @@ import feather from 'vue-icon'
 // Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.use(BootstrapVue);
-Vue.use(feather, 'v-icon')
-    // Vue.use(Vuetify);
+Vue.use(feather, 'v-icon');
+Vue.use(VueScrollTo, {
+    container: "body", // スクロールするcontainer
+    duration: 500, // スクロールアニメーションの長さ（ミリ秒）
+    easing: "ease", // 使用されるイージング
+    force: true, // スクロールターゲットがすでに表示されている場合でも、スクロールを実行するかどうか。
+    cancelable: false // ユーザーがスクロールをキャンセルできるかどうか
+});
+// Vue.use(Vuetify);
 Vue.config.productionTip = false;
 
 new Vue({

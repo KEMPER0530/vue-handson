@@ -30,10 +30,10 @@ const router = new Router({
             meta: { isPublic: true }
         },
         {
-            path: "/about",
-            name: "about",
+            path: "/profile",
+            name: "profile",
             component: () =>
-                import ("@/components/About.vue"),
+                import ("@/components/Profile.vue"),
             meta: {
                 isPublic: true
             }
@@ -83,10 +83,10 @@ const router = new Router({
                 import ( /* webpackChunkName: "Main" */ "@/components/PaycardMain.vue")
         },
         {
-            path: "/mailform",
-            name: "mailform",
+            path: "/contact",
+            name: "contact",
             component: () =>
-                import ( /* webpackChunkName: "Main" */ "@/components/Mailform.vue"),
+                import ( /* webpackChunkName: "Main" */ "@/components/Contact.vue"),
         },
         {
             path: "/createacount",
@@ -111,7 +111,7 @@ router.beforeEach((to, from, next) => {
         });
         // } else if ((to.path === '/login') && (store.getters.getAuth)) {
         //     next({
-        //         path: "/about",
+        //         path: "/profile",
         //         query: {
         //             redirect: to.fullPath
         //         }

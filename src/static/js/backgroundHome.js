@@ -15,14 +15,14 @@ export default function() {
                 // pos, speed
                 let arr = [
                     p5.createVector(p5.random(p5.width), p5.random(p5.height)),
-                    p5.createVector(p5.random(5) - 2, p5.random(5) - 2)
+                    p5.createVector(p5.random(4) - 2, p5.random(4) - 2)
                 ]
                 particles.push(arr)
             }
         }
 
         const drawParticles = function() {
-            p5.colorMode(p5.RGB, 100)
+            p5.colorMode(p5.HSB, 100)
 
             // 距離に応じて色が変化する
             for (let i = 0; i < particles.length; i++) {
