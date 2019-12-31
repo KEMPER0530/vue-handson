@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <section v-if="errored">
       <p>
         <span class="text-danger">

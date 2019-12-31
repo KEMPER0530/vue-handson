@@ -83,7 +83,7 @@
         <div class="d-block text-center">
           <h4>
             登録しました。
-            <br />ログイン画面に遷移します。
+            <br />TOPページに遷移します。
             <br />登録アカウントでログインお願いします。
           </h4>
         </div>
@@ -189,7 +189,7 @@ export default {
       return;
     },
     moveTop() {
-      this.$router.push("/login");
+      this.$router.push("/");
     }
   }
 };
