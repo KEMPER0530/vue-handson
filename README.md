@@ -1,8 +1,8 @@
-# Vue.js ポートフォリオ 最終更新日:12/29
+# Vue.js ポートフォリオ 最終更新日:12/31
 
 Vue.js で実装しております。
 詳しくはこちらをご覧ください。<br>
-<http://kemper0530.com:8080>
+<http://kemper0530.com>
 
 GoAPIはこちら<br>
 <https://github.com/KEMPER0530/go-handson>
@@ -26,6 +26,7 @@ GoAPIはこちら<br>
 - お問合せフォームの作成(AWS SESを利用してメール配信)
 - アカウント作成機能の追加
 - ぐるなびAPI検索にて、神奈川エリア、東京エリアの選択を可能にする
+- リバースプロキシ用にnginxを投入
 
 ## 本番環境
 - AWS(EC2にDockerを配置し、nginx上にアプリを配置しています)
