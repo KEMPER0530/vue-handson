@@ -1,8 +1,8 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
     devServer: {
-        disableHostCheck: true,
-        host: "localhost"
+        host: '0.0.0.0',
+        disableHostCheck: true
     },
     publicPath: "./",
     // baseUrl: '',
