@@ -1,8 +1,8 @@
-# Vue.js ポートフォリオ 最終更新日:12/31
+# Vue.js ポートフォリオ 最終更新日:1/2
 
-Vue.js で実装しております。
+Vue.js で実装しております。HTTPS化しました。
 詳しくはこちらをご覧ください。<br>
-<http://kemper0530.com>
+<https://kemper0530.com>
 
 GoAPIはこちら<br>
 <https://github.com/KEMPER0530/go-handson>
@@ -14,6 +14,7 @@ GoAPIはこちら<br>
 - Go 1.13.4
 - Mysql 5.7
 - Dockerにて環境構築
+- ELBを利用してアプリをHTTPS化
 
 ## 機能一覧
 - ログイン
@@ -27,9 +28,10 @@ GoAPIはこちら<br>
 - アカウント作成機能の追加
 - ぐるなびAPI検索にて、神奈川エリア、東京エリアの選択を可能にする
 - リバースプロキシ用にnginxを投入
+- ELBを利用してアプリをHTTPS化
 
 ## 本番環境
-- AWS(EC2にDockerを配置し、nginx上にアプリを配置しています)
+- AWS(EC2にDockerを配置し、nginx(Docker)経由でアプリへアクセス)
 - Route53でドメイン管理
 
 ## 今後実装したいこと
