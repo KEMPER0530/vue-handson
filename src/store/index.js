@@ -15,7 +15,8 @@ const members = {
 
 const glists = {
     g_list: [],
-    name: ""
+    name: "",
+    pref: ""
 };
 
 const mutations = {
@@ -44,6 +45,9 @@ const mutations = {
     },
     putName(glists, name) {
         glists.name = name;
+    },
+    putPref(glists, pref) {
+        glists.pref = pref;
     }
 };
 
@@ -62,6 +66,9 @@ const getters = {
     },
     getName(glists) {
         return glists.name;
+    },
+    getPref(glists) {
+        return glists.pref;
     }
 };
 
@@ -85,6 +92,11 @@ const actions = {
     },
     putName({ commit }, name) {
         commit("putName", name);
+    },
+    putPref({
+        commit
+    }, name) {
+        commit("putPref", name);
     }
 };
 

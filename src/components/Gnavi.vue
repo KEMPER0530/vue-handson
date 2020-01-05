@@ -118,6 +118,7 @@ export default {
           this.list = responce.data.rest;
           this.$store.dispatch("putGlist", responce.data.rest);
           this.$store.dispatch("putName", this.name);
+          this.$store.dispatch("putPref", this.PREF);
           this.errored = false;
         })
         .catch(error => {
@@ -129,9 +130,10 @@ export default {
   created() {
     this.$nextTick(function() {
       window.addEventListener("scroll", this.handleScroll);
-      // this.name = this.$store.getters.getName;
-      // this.name = this.$store.getters.getGlist;
-      // this.errored = false;
+      this.name = this.$store.getters.getName;
+      this.list = this.$store.getters.getGlist;
+      this.PREF = this.$store.getters.getPref;
+      this.errored = false;
     });
   },
   handleScroll() {
