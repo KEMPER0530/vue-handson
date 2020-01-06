@@ -81,6 +81,9 @@ export default {
       return this.name && this.name.length > 0 && this.PREF ? true : false;
     },
     sortedList() {
+      // this.name = this.$store.getters.getName;
+      // this.list = this.$store.getters.getG_list;
+      // this.PREF = this.$store.getters.getPref;
       return _sortBy(this.list, "id");
     },
     areaoptionState() {
@@ -105,6 +108,7 @@ export default {
     };
   },
   methods: {
+    window: (onload = function() {}),
     showList() {
       const AcsUrl =
         `${this.BaseUrl}?` +
@@ -116,7 +120,7 @@ export default {
         .get(AcsUrl)
         .then(responce => {
           this.list = responce.data.rest;
-          this.$store.dispatch("putGlist", responce.data.rest);
+          this.$store.dispatch("putG_list", responce.data.rest);
           this.$store.dispatch("putName", this.name);
           this.$store.dispatch("putPref", this.PREF);
           this.errored = false;
@@ -127,11 +131,11 @@ export default {
         });
     }
   },
-  created() {
+  mounted() {
     this.$nextTick(function() {
       window.addEventListener("scroll", this.handleScroll);
       this.name = this.$store.getters.getName;
-      this.list = this.$store.getters.getGlist;
+      this.list = this.$store.getters.getG_list;
       this.PREF = this.$store.getters.getPref;
       this.errored = false;
     });

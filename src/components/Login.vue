@@ -20,7 +20,7 @@
         テスト用のため
         <br />test1/test1でログインできます。
         <br />
-        <span class="text-danger">クレジット機能とお問合わせはログインが必要です</span>
+        <span class="text-danger">「CardRegist」と「Contact」はログインが必要です</span>
         <form @submit.prevent="onSubmit">
           <input v-model="username" type="text" placeholder="e-mail" />
           <input v-model="password" type="password" placeholder="password" />

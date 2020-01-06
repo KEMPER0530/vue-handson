@@ -6,48 +6,42 @@ Vue.use(Vuex);
 
 const state = {
     auth: false,
-    title: "Top"
-};
-
-const members = {
-    member: [],
-};
-
-const glists = {
+    title: "Top",
     g_list: [],
     name: "",
-    pref: ""
+    pref: "",
+    member: [],
 };
 
 const mutations = {
     changeLogin(state) {
         state.auth = true;
     },
-    changeLogoff(state, members, glists) {
+    changeLogoff(state) {
         state.auth = false;
     },
-    putmember(members, data) {
-        members.member = data
+    putmember(state, data) {
+        state.member = data
     },
-    changeHeight(members, userInf) {
-        members.member.forEach(index => {
+    changeHeight(state, userInf) {
+        state.member.forEach(index => {
             if (index.id === userInf.userId) {
-                if (members.member[index.id - 1]) {
-                    // members.$set(members.member[index.id - 1], "height", userInf.userHeight);
-                    members.member[index.id - 1].height = userInf.userHeight;
+                if (state.member[index.id - 1]) {
+                    // state.$set(state.member[index.id - 1], "height", userInf.userHeight);
+                    state.member[index.id - 1].height = userInf.userHeight;
                 }
             }
             return;
         });
     },
-    putGlist(glists, data) {
-        glists.g_list = data;
+    putG_list(state, data) {
+        state.g_list = data;
     },
-    putName(glists, name) {
-        glists.name = name;
+    putName(state, name) {
+        state.name = name;
     },
-    putPref(glists, pref) {
-        glists.pref = pref;
+    putPref(state, pref) {
+        state.pref = pref;
     }
 };
 
@@ -55,20 +49,20 @@ const getters = {
     getAuth(state) {
         return state.auth;
     },
-    getMember(members) {
-        return members.member;
+    getMember(state) {
+        return state.member;
     },
     getTitle(state) {
         return state.title;
     },
-    getGlist(glists) {
-        return glists.g_list;
+    getG_list(state) {
+        return state.g_list;
     },
-    getName(glists) {
-        return glists.name;
+    getName(state) {
+        return state.name;
     },
-    getPref(glists) {
-        return glists.pref;
+    getPref(state) {
+        return state.pref;
     }
 };
 
@@ -87,23 +81,21 @@ const actions = {
     }, userInf) {
         commit("changeHeight", userInf);
     },
-    putGlist({ commit }, data) {
-        commit("putGlist", data);
+    putG_list({ commit }, data) {
+        commit("putG_list", data);
     },
     putName({ commit }, name) {
         commit("putName", name);
     },
     putPref({
         commit
-    }, name) {
-        commit("putPref", name);
+    }, pref) {
+        commit("putPref", pref);
     }
 };
 
 const store = new Vuex.Store({
     state,
-    members,
-    glists,
     getters,
     actions,
     mutations,
