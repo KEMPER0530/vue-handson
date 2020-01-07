@@ -9,7 +9,7 @@
       </p>
     </section>
     <div>
-      <h3>work</h3>
+      <h2>WORK<font-awesome-icon icon="wrench" /></h2>
       <b-form-text id="input-live-help">今後も追加予定</b-form-text>
     </div>
     <br />
@@ -31,14 +31,15 @@
           variant="outline-primary"
           target="_blank"
           v-if="item.ref === '1'"
-        >Go</b-button>
+          >Go</b-button
+        >
       </b-card>
     </b-card-group>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -64,6 +65,6 @@ export default {
 
 <style lang="scss">
 // ヘッダー用のscss読込
-@import "@/static/scss/work.scss";
-@import "@/static/scss/common.scss";
+@import '@/static/scss/work.scss';
+@import '@/static/scss/common.scss';
 </style>

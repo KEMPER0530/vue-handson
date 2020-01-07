@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1 class="title">Welcome to Akazawa portfolio</h1>
+    <h1 class="title">
+      Welcome to Akazawa portfolio<br />
+      <font-awesome-icon icon="spinner" spin />
+    </h1>
     <div id="p5Canvas"></div>
   </div>
 </template>

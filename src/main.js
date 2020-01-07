@@ -8,21 +8,26 @@ import store from "@/store";
 import feather from 'vue-icon'
 // ページトップ用のプラグイン
 import VueScrollTo from 'vue-scrollto'
-// import Vuetify from "vuetify";
-// import "vuetify/dist/vuetify.min.css"
 
-// import {
-//     library
-// } from '@fortawesome/fontawesome-svg-core';
-// import {
-//     faCoffee
-// } from '@fortawesome/free-solid-svg-icons';
-// import {
-//     FontAwesomeIcon
-// } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faCoffee, faSpinner, faClipboardList, faAngleDoubleUp, faUtensils, faSignInAlt, faWrench, faCreditCard, faEnvelope, faDoorClosed, faAddressCard } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-// library.add(faCoffee);
-// Vue.component('font-awesome-icon', FontAwesomeIcon)
+library.add(
+    faCoffee,
+    faSpinner,
+    faClipboardList,
+    faAngleDoubleUp,
+    faUtensils,
+    faSignInAlt,
+    faWrench,
+    faCreditCard,
+    faEnvelope,
+    faDoorClosed,
+    faAddressCard
+);
+
+Vue.component('font-awesome-icon', FontAwesomeIcon);
 
 Vue.use(BootstrapVue);
 Vue.use(feather, 'v-icon');
