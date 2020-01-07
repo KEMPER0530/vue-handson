@@ -10,7 +10,10 @@
         </p>
       </section>
       <div id="output" />
-      <h2>アカウント登録</h2>
+      <h2>
+        アカウント登録
+        <font-awesome-icon icon="address-card" />
+      </h2>
       <br />
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
         <b-container fluid>
@@ -63,7 +66,7 @@
                 block
                 variant="outline-primary"
                 v-b-modal.my-modal
-              >登録する</b-button>
+              >登録</b-button>
             </b-col>
           </b-row>
         </b-container>

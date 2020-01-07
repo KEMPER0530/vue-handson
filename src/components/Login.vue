@@ -14,7 +14,11 @@
           <span class="text-warning">User ID and password do not match</span>
         </p>
       </section>
-      <div id="output" />ログイン画面
+      <div id="output" />
+      <h2>
+        ログイン
+        <font-awesome-icon icon="door-closed" />
+      </h2>
       <div class="avatar" />
       <div class="form-box">
         テスト用のため
