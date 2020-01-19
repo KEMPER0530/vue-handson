@@ -2,10 +2,7 @@
   <div class="container">
     <section v-if="errored">
       <p>
-        <span class="text-danger">
-          We're sorry, we're not able to retrieve this information at the
-          moment, please try back later
-        </span>
+        <span class="text-danger">{{ errorMsg }}</span>
       </p>
     </section>
     <div id="output" />
@@ -19,58 +16,49 @@
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <b-container fluid>
         <b-row>
-          <b-col lg="2">
-            <label for="textarea-auto-height">メールアドレス</label>
-          </b-col>
-          <b-col lg="10">
+          <b-col lg="12">
             <b-form-group id="input-group-1" label-for="input-1" description>
-              <b-form-input
-                id="input-1"
-                v-model="form.to_email"
-                type="email"
-                required
-                placeholder="例：test_taro@gmail.com"
-                :state="emailState"
-                aria-describedby="input-live-help-email input-live-feedback-email"
-              ></b-form-input>
-              <!-- This will only be shown if the preceding input has an invalid state -->
-              <b-form-invalid-feedback id="input-live-feedback-email">Enter your email</b-form-invalid-feedback>
-              <!-- This is a form text block (formerly known as help block) -->
-              <b-form-text id="input-live-help-email">We'll never share your email with anyone else.</b-form-text>
+              <b-input-group prepend="📧">
+                <b-form-input
+                  id="input-1"
+                  v-model="form.to_email"
+                  type="email"
+                  required
+                  placeholder="test_taro@gmail.com"
+                  :state="emailState"
+                  aria-describedby="input-live-help-email input-live-feedback-email"
+                ></b-form-input>
+                <!-- This will only be shown if the preceding input has an invalid state -->
+                <b-form-invalid-feedback id="input-live-feedback-email">Enter your email</b-form-invalid-feedback>
+              </b-input-group>
             </b-form-group>
           </b-col>
         </b-row>
         <b-row>
-          <b-col lg="2">
-            <label for="textarea-auto-height">お名前</label>
-          </b-col>
-          <b-col lg="10">
+          <b-col lg="12">
             <b-form-group id="input-group-2" label-for="input-2">
-              <b-form-input
-                id="input-2"
-                v-model="form.name"
-                :state="nameState"
-                aria-describedby="input-live-help-name input-live-feedback-name"
-                required
-                placeholder="例:テスト　太郎"
-              ></b-form-input>
-              <!-- This will only be shown if the preceding input has an invalid state -->
-              <b-form-invalid-feedback id="input-live-feedback-name">Enter your name</b-form-invalid-feedback>
-              <!-- This is a form text block (formerly known as help block) -->
-              <b-form-text id="input-live-help-name">Let us know your name.</b-form-text>
+              <b-input-group prepend="㈴">
+                <b-form-input
+                  id="input-2"
+                  v-model="form.name"
+                  :state="nameState"
+                  aria-describedby="input-live-help-name input-live-feedback-name"
+                  required
+                  placeholder="テスト　太郎"
+                ></b-form-input>
+                <!-- This will only be shown if the preceding input has an invalid state -->
+                <b-form-invalid-feedback id="input-live-feedback-name">Enter your name</b-form-invalid-feedback>
+              </b-input-group>
             </b-form-group>
           </b-col>
         </b-row>
         <b-row class="mail-form">
-          <b-col sm="2">
-            <label for="textarea-auto-height">内容</label>
-          </b-col>
-          <b-col sm="10">
+          <b-col sm="12">
             <b-form-group id="input-group-3" label-for="input-3">
               <b-form-textarea
                 id="input-3"
                 v-model="form.text"
-                placeholder="例：クレジットカード登録機能の件で・・・・"
+                placeholder="お問合せ内容をご入力ください・・・・"
                 rows="4"
                 :state="textState"
                 aria-describedby="input-live-feedback-text"
@@ -131,18 +119,22 @@
 
 <script>
 import axios from "axios";
+import constMixin from "@/mixins/ConstMixin";
+
 export default {
+  mixins: [constMixin],
   computed: {
     emailState() {
-      return this.form.to_email.length > 5 && this.form.to_email.includes("@")
+      return this.form.to_email.length > this.five &&
+        this.form.to_email.includes("@")
         ? true
         : false;
     },
     nameState() {
-      return this.form.name.length > 0 ? true : false;
+      return this.form.name.length > this.zero ? true : false;
     },
     textState() {
-      return this.form.text.length > 0 ? true : false;
+      return this.form.text.length > this.zero ? true : false;
     },
     activateSubmit() {
       if (
@@ -218,7 +210,10 @@ export default {
         .post(AcsUrl, params)
         .then(response => {
           this.regist = response.data;
-          if (this.regist.Result === 1 && this.regist.Responce === 200) {
+          if (
+            this.regist.Result === this.one &&
+            this.regist.Responce === this.http_ok
+          ) {
             this.errored = false;
             this.$refs["success-modal"].show();
           } else {
