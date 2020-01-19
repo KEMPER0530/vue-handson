@@ -8,10 +8,7 @@
     </h2>
     <section v-if="errored">
       <p>
-        <span class="text-danger">
-          We're sorry, we're not able to retrieve this information at the
-          moment, please try back later
-        </span>
+        <span class="text-danger">{{ errorMsg }}</span>
       </p>
     </section>
     <div class="card-list" v-b-tooltip.hover title="セキュリティコードは暗号化して登録します">
@@ -154,6 +151,7 @@
 <script>
 import Paycard from "@/components/Paycard";
 import axios from "axios";
+import constMixin from "@/mixins/ConstMixin";
 
 export default {
   name: "paycardform",

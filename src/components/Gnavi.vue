@@ -80,14 +80,18 @@
 <script>
 import axios from "axios";
 import _sortBy from "lodash.sortby";
+import constMixin from "@/mixins/ConstMixin";
 
 export default {
+  mixins: [constMixin],
   computed: {
     searchState() {
-      return this.name && this.name.length > 0 ? true : false;
+      return this.name && this.name.length > this.zero ? true : false;
     },
     submitState() {
-      return this.name && this.name.length > 0 && this.PREF ? true : false;
+      return this.name && this.name.length > this.zero && this.PREF
+        ? true
+        : false;
     },
     sortedList() {
       return _sortBy(this.list, "id");
@@ -96,7 +100,7 @@ export default {
       return Boolean(this.PREF);
     },
     scrollState() {
-      if (this.scrollY > 700) {
+      if (this.scrollY > this.scrollYlenge) {
         return true;
       } else {
         return false;
@@ -117,7 +121,7 @@ export default {
       ],
       errored: false,
       emessage: "",
-      scrollY: 0
+      scrollY: this.zero
     };
   },
   methods: {

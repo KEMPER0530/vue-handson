@@ -3,10 +3,7 @@
     <div class="login-container">
       <section v-if="errored">
         <p>
-          <span class="text-danger">
-            We're sorry, we're not able to retrieve this information at the
-            moment, please try back later
-          </span>
+          <span class="text-danger">{{ errorMsg }}</span>
         </p>
       </section>
       <section v-if="anmatched">
@@ -16,8 +13,9 @@
       </section>
       <div id="output" />
       <h2>
-        ログイン
-        <font-awesome-icon icon="door-closed" />
+        <span class="mgr-3">
+          <font-awesome-icon icon="door-closed" />
+        </span>ログイン
       </h2>
       <div class="avatar" />
       <div class="form-box">
@@ -59,8 +57,10 @@
 import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 import store from "@/store";
+import constMixin from "@/mixins/ConstMixin";
 
 export default {
+  mixins: [constMixin],
   name: "Login",
   components: {},
   computed: {
@@ -104,8 +104,12 @@ export default {
         .post(AcsUrl, params)
         .then(response => {
           this.users = response.data;
-          if (this.users.Result === 1 && this.users.Responce === 200) {
+          if (
+            this.users.Result === this.one &&
+            this.users.Responce === this.http_ok
+          ) {
             this.$store.dispatch("changeLogin");
+            this.$store.dispatch("putLogin_name", this.username);
             this.anmatched = false;
             this.errored = false;
             this.$router.push(nextpage);

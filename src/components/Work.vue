@@ -44,6 +44,8 @@
 
 <script>
 import axios from "axios";
+import constMixin from "@/mixins/ConstMixin";
+
 export default {
   data() {
     return {

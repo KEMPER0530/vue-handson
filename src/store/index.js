@@ -11,6 +11,7 @@ const state = {
     name: "",
     pref: "",
     member: [],
+    login_name: ""
 };
 
 const mutations = {
@@ -42,7 +43,10 @@ const mutations = {
     },
     putPref(state, pref) {
         state.pref = pref;
-    }
+    },
+    putLogin_name(state, login_name) {
+        state.login_name = login_name;
+    },
 };
 
 const getters = {
@@ -63,6 +67,9 @@ const getters = {
     },
     getPref(state) {
         return state.pref;
+    },
+    getLogin_name(state) {
+        return state.login_name;
     }
 };
 
@@ -91,6 +98,11 @@ const actions = {
         commit
     }, pref) {
         commit("putPref", pref);
+    },
+    putLogin_name({
+        commit
+    }, login_name) {
+        commit("putLogin_name", login_name);
     }
 };
 
