@@ -6,6 +6,7 @@ Vue.use(Vuex);
 
 const state = {
     auth: false,
+    authSms: false,
     title: "Top",
     g_list: [],
     name: "",
@@ -20,6 +21,12 @@ const mutations = {
     },
     changeLogoff(state) {
         state.auth = false;
+    },
+    changeSmsLogin(state) {
+        state.authSms = true;
+    },
+    changeSmsLogoff(state) {
+        state.authSms = false;
     },
     putmember(state, data) {
         state.member = data
@@ -53,6 +60,9 @@ const getters = {
     getAuth(state) {
         return state.auth;
     },
+    getAuthSms(state) {
+        return state.authSms;
+    },
     getMember(state) {
         return state.member;
     },
@@ -79,6 +89,12 @@ const actions = {
     },
     changeLogoff({ commit }) {
         commit("changeLogoff");
+    },
+    changeSmsLogin({ commit }) {
+        commit("changeSmsLogin");
+    },
+    changeSmsLogoff({ commit }) {
+        commit("changeSmsLogoff");
     },
     putmember({ commit }, data) {
         commit("putmember", data);

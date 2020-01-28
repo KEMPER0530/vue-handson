@@ -340,7 +340,11 @@ export default {
         params.append("cardcvv", this.formData.cardCvv);
         // クレジットカードデータの登録を行う
         axios
-          .post(AcsUrl, params)
+          .post(AcsUrl, params, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("jwt")}`
+            }
+          })
           .then(response => {
             this.regist = response.data;
             if (this.regist.Result === 1 && this.regist.Responce === 200) {

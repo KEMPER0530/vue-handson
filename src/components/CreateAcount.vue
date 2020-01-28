@@ -3,13 +3,14 @@
     <div class="login-container">
       <section v-if="errored">
         <p>
-          <span class="text-danger">{{ errorMsg }}</span>
+          <span class="text-danger">{{ this.emessage }}</span>
         </p>
       </section>
       <div id="output" />
       <h2>
-        <span class="mgr-3"> <font-awesome-icon icon="address-card" /> </span
-        >アカウント登録
+        <span class="mgr-3">
+          <font-awesome-icon icon="address-card" />
+        </span>アカウント登録
       </h2>
       <br />
       <b-form @submit="onSubmit" @reset="onReset" v-if="show">
@@ -30,9 +31,7 @@
                   ></b-form-input>
                 </b-input-group>
                 <!-- This will only be shown if the preceding input has an invalid state -->
-                <b-form-invalid-feedback id="input-live-feedback-email"
-                  >Enter your email</b-form-invalid-feedback
-                >
+                <b-form-invalid-feedback id="input-live-feedback-email">Enter your email</b-form-invalid-feedback>
               </b-form-group>
             </b-col>
           </b-row>
@@ -50,16 +49,10 @@
                     class="form-create-account"
                   ></b-form-input>
                 </b-input-group>
-                <b-form-checkbox v-model="passStatus"
-                  >パスワードを表示する</b-form-checkbox
-                >
+                <b-form-checkbox v-model="passStatus">パスワードを表示する</b-form-checkbox>
                 <!-- This is a form text block (formerly known as help block) -->
-                <b-form-text id="input-live-help-password"
-                  >８文字以上16文字以下で入力ください。</b-form-text
-                >
-                <b-form-text id="input-live-help-password"
-                  >英数字を含める必要があります。</b-form-text
-                >
+                <b-form-text id="input-live-help-password">８文字以上16文字以下で入力ください。</b-form-text>
+                <b-form-text id="input-live-help-password">英数字を含める必要があります。</b-form-text>
               </b-form-group>
             </b-col>
           </b-row>
@@ -72,8 +65,7 @@
                 block
                 variant="outline-primary"
                 v-b-modal.my-modal
-                >登録</b-button
-              >
+              >登録</b-button>
             </b-col>
           </b-row>
         </b-container>
@@ -95,20 +87,11 @@
               class="form-create-account"
             ></b-form-input>
           </b-input-group>
-          <b-form-checkbox v-model="passStatus"
-            >パスワードを表示する</b-form-checkbox
-          >
+          <b-form-checkbox v-model="passStatus">パスワードを表示する</b-form-checkbox>
         </div>
         <b-row>
           <b-col>
-            <b-button
-              pill
-              class="mt-3"
-              variant="outline-danger"
-              block
-              @click="cancelAcount"
-              >Cancel</b-button
-            >
+            <b-button pill class="mt-3" variant="outline-danger" block @click="cancelAcount">Cancel</b-button>
           </b-col>
           <b-col>
             <b-button
@@ -118,8 +101,7 @@
               variant="outline-primary"
               block
               @click="registAcount"
-              >OK</b-button
-            >
+            >OK</b-button>
           </b-col>
         </b-row>
       </b-modal>
@@ -132,14 +114,7 @@
             <br />ご登録したアカウントでログインお願いいたします。
           </h4>
         </div>
-        <b-button
-          pill
-          class="mt-3"
-          variant="outline-primary"
-          block
-          @click="moveTop"
-          >OK</b-button
-        >
+        <b-button pill class="mt-3" variant="outline-primary" block @click="moveTop">OK</b-button>
       </b-modal>
       <!-- 登録失敗 -->
       <b-modal ref="failed-modal" centered hide-footer>
@@ -152,14 +127,14 @@
 </template>
 
 <script>
-import axios from 'axios';
-import constMixin from '@/mixins/ConstMixin';
+import axios from "axios";
+import constMixin from "@/mixins/ConstMixin";
 
 export default {
   mixins: [constMixin],
   computed: {
     emailState() {
-      return this.form.email.length > this.five && this.form.email.includes('@')
+      return this.form.email.length > this.five && this.form.email.includes("@")
         ? true
         : false;
     },
@@ -188,14 +163,14 @@ export default {
       }
     },
     inputType() {
-      return this.passStatus ? 'text' : 'password';
+      return this.passStatus ? "text" : "password";
     }
   },
   data() {
     return {
       form: {
-        email: '',
-        password: ''
+        email: "",
+        password: ""
       },
       show: true,
       errored: false,
@@ -203,23 +178,23 @@ export default {
       mailUrl: process.env.VUE_APP_REGIST_ACCOUNT_MAIL,
       from_email: process.env.VUE_APP_FROM_EMAIL,
       personal_name: process.env.VUE_APP_PERSONAL_NAME,
-      emessage: '',
-      repassword: '',
+      emessage: this.errorMsg,
+      repassword: "",
       passStatus: false
     };
   },
   methods: {
     onSubmit(evt) {
-      this.repassword = '';
+      this.repassword = "";
       evt.preventDefault();
-      this.$refs['regist-modal'].show();
+      this.$refs["regist-modal"].show();
       this.passStatus = false;
     },
     onReset(evt) {
       evt.preventDefault();
       // Reset our form values
-      this.form.email = '';
-      this.form.password = '';
+      this.form.email = "";
+      this.form.password = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
@@ -227,15 +202,19 @@ export default {
       });
     },
     registAcount() {
-      this.$refs['regist-modal'].hide();
+      this.$refs["regist-modal"].hide();
       // メール情報を登録する
       const AcsUrl = `${this.registAcountUrl}`;
       const params = new URLSearchParams();
-      params.append('email', this.form.email);
-      params.append('password', this.form.password);
+      params.append("email", this.form.email);
+      params.append("password", this.form.password);
       // アカウントの登録を行う
       axios
-        .post(AcsUrl, params)
+        .post(AcsUrl, params, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+          }
+        })
         .then(response => {
           this.regist = response.data;
           if (
@@ -248,20 +227,21 @@ export default {
             this.regist.Result === this.zero &&
             this.regist.Responce === this.http_ok
           ) {
-            this.emessage = '既にアカウントが登録されています。';
-            this.$refs['failed-modal'].show();
+            this.emessage = "既にアカウントが登録されています。";
+            this.$refs["failed-modal"].show();
           } else {
-            this.emessage = 'アカウントの登録に失敗しました。';
-            this.$refs['failed-modal'].show();
+            this.emessage = "アカウントの登録に失敗しました。";
+            this.$refs["failed-modal"].show();
           }
         })
         .catch(error => {
           this.errored = true;
           console.error(error);
-          this.emessage = '登録に失敗しました。';
-          this.$refs['failed-modal'].show();
+          this.emessage = "登録に失敗しました。";
+          this.$refs["failed-modal"].show();
         })
         .finally(() => {
+          this.$store.dispatch("changeSmsLogoff");
           return;
         });
       return;
@@ -271,12 +251,16 @@ export default {
       // メール情報を登録する
       const MailUrl = `${this.mailUrl}`;
       const paramsMail = new URLSearchParams();
-      paramsMail.append('to_email', this.form.email);
-      paramsMail.append('from_email', this.from_email);
-      paramsMail.append('personal_name', this.personal_name);
+      paramsMail.append("to_email", this.form.email);
+      paramsMail.append("from_email", this.from_email);
+      paramsMail.append("personal_name", this.personal_name);
       // メールの送信を行う
       axios
-        .post(MailUrl, paramsMail)
+        .post(MailUrl, paramsMail, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+          }
+        })
         .then(response => {
           this.regist = response.data;
           if (
@@ -284,17 +268,17 @@ export default {
             this.regist.Responce === this.http_ok
           ) {
             this.errored = false;
-            this.$refs['success-modal'].show();
+            this.$refs["success-modal"].show();
           } else {
-            this.emessage = '送信に失敗しました';
-            this.$refs['failed-modal'].show();
+            this.emessage = "送信に失敗しました";
+            this.$refs["failed-modal"].show();
           }
         })
         .catch(error => {
           this.errored = true;
           console.error(error);
-          this.emessage = '送信に失敗しました';
-          this.$refs['failed-modal'].show();
+          this.emessage = "送信に失敗しました";
+          this.$refs["failed-modal"].show();
         })
         .finally(() => {
           return;
@@ -303,16 +287,16 @@ export default {
     },
     cancelAcount() {
       this.passStatus = false;
-      this.$refs['regist-modal'].hide();
+      this.$refs["regist-modal"].hide();
     },
     moveTop() {
-      this.$router.push('/');
+      this.$router.push("/");
     }
   }
 };
 </script>
 <style lang="scss">
 //メールフォーム用のscss読込
-@import '@/static/scss/createaccount.scss';
-@import '@/static/scss/common.scss';
+@import "@/static/scss/createaccount.scss";
+@import "@/static/scss/common.scss";
 </style>

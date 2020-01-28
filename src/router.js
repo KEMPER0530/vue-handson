@@ -94,7 +94,17 @@ const router = new Router({
             component: () =>
                 import ("@/components/CreateAcount.vue"),
             meta: {
-                isPublic: true
+                isPublic: true,
+                AuthSms: true
+            }
+        },
+        {
+            path: "/authsms",
+            name: "authsms",
+            component: () =>
+                import ("@/components/AuthSms.vue"),
+            meta: {
+                isPublic: true,
             }
         },
     ]
@@ -109,13 +119,14 @@ router.beforeEach((to, from, next) => {
                 redirect: to.fullPath
             }
         });
-        // } else if ((to.path === '/login') && (store.getters.getAuth)) {
-        //     next({
-        //         path: "/profile",
-        //         query: {
-        //             redirect: to.fullPath
-        //         }
-        //     });
+    } else if (to.matched.some(record => (record.meta.AuthSms)) &&
+        !(store.getters.getAuthSms)) {
+        next({
+            path: "/authsms",
+            query: {
+                redirect: to.fullPath
+            }
+        });
     } else {
         next();
     }

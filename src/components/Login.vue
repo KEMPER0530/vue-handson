@@ -91,7 +91,7 @@ export default {
   },
   methods: {
     onTransition() {
-      this.$router.push("/createacount");
+      this.$router.push("/createacount").catch(e => {});
     },
     onSubmit() {
       let nextpage = this.$route.query.redirect;
@@ -101,7 +101,11 @@ export default {
       params.append("password", this.password);
 
       axios
-        .post(AcsUrl, params)
+        .post(AcsUrl, params, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+          }
+        })
         .then(response => {
           this.users = response.data;
           if (
@@ -112,7 +116,7 @@ export default {
             this.$store.dispatch("putLogin_name", this.username);
             this.anmatched = false;
             this.errored = false;
-            this.$router.push(nextpage);
+            this.$router.push(nextpage).catch(e => {});
           } else {
             this.$store.dispatch("changeLogoff");
             this.anmatched = true;

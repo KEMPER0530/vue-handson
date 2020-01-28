@@ -2,6 +2,7 @@
 node_modules
 /dist
 /release
+.firebase
 
 # local env files
 .env.local

@@ -12,6 +12,7 @@ import VueScrollTo from 'vue-scrollto'
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faCoffee, faSpinner, faClipboardList, faAngleDoubleUp, faUtensils, faSignInAlt, faWrench, faCreditCard, faEnvelope, faDoorClosed, faAddressCard, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import firebase from 'firebase';
 
 library.add(
     faCoffee,
@@ -41,6 +42,19 @@ Vue.use(VueScrollTo, {
 });
 // Vue.use(Vuetify);
 Vue.config.productionTip = false;
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+    apiKey: process.env.VUE_APP_FIREBASE_APIKEY,
+    authDomain: process.env.VUE_APP_FIREBASE_AUTHDOMAIN,
+    databaseURL: process.env.VUE_APP_FIREBASE_DATABASEURL,
+    projectId: process.env.VUE_APP_FIREBASE_PROJECTID,
+    storageBucket: process.env.VUE_APP_FIREBASE_STORAGEBUCKET,
+    messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGINGSENDERID,
+    appId: process.env.VUE_APP_FIREBASE_APPID
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 new Vue({
     router,
