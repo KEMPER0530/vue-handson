@@ -2,7 +2,7 @@
   <div class="profile container" align="center">
     <section v-if="errored">
       <p>
-        <span class="text-danger">{{ errorMsg }}</span>
+        <span class="text-danger">{{ this.emessage }}</span>
       </p>
     </section>
     <b-card no-body class="overflow-hidden">
@@ -70,14 +70,19 @@ export default {
       profile: [],
       lastindex: "",
       BaseUrl: process.env.VUE_APP_PROFILE_JSON,
-      errored: false
+      errored: false,
+      emessage: this.errorMsg
     };
   },
   created() {
     const AcsUrl = `${this.BaseUrl}`;
     // profileの取得
     axios
-      .get(AcsUrl)
+      .get(AcsUrl, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`
+        }
+      })
       .then(responce => {
         this.profile = responce.data;
         this.lastindex = this.profile.slice(-1)[0].id;

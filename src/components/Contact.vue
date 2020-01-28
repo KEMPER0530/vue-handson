@@ -207,7 +207,11 @@ export default {
       params.append("personal_name", this.form.personal_name);
       // メールの送信を行う
       axios
-        .post(AcsUrl, params)
+        .post(AcsUrl, params, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+          }
+        })
         .then(response => {
           this.regist = response.data;
           if (

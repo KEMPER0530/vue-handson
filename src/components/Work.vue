@@ -57,7 +57,11 @@ export default {
   created() {
     const AcsUrl = `${this.BaseUrl}`;
     axios
-      .get(AcsUrl)
+      .get(AcsUrl, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("jwt")}`
+        }
+      })
       .then(responce => {
         this.workList = responce.data;
       })
