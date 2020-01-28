@@ -1,4 +1,4 @@
-# Vue.js ポートフォリオ 最終更新日:1/5
+# Vue.js ポートフォリオ 最終更新日:1/28
 
 Vue.js で実装しております。HTTPS化しました。
 詳しくはこちらをご覧ください。<br>
@@ -14,8 +14,8 @@ GoAPIはこちら<br>
 - Yarn Ver 1.15.2
 - Go 1.13.4
 - Mysql 5.7
-- Dockerにて環境構築
-- ELBを利用してアプリをHTTPS化
+- Docker
+- Firebase
 
 ## 機能一覧
 - ログイン
@@ -30,6 +30,8 @@ GoAPIはこちら<br>
 - ぐるなびAPI検索にて、神奈川エリア、東京エリアの選択を可能にする
 - リバースプロキシ用にnginxを投入
 - ELBを利用してアプリをHTTPS化
+- APIリクエストにJWTを利用
+- アカウント作成時にSMS認証の実施
 
 ## 本番環境
 - AWS(EC2にDockerを配置し、nginx(Docker)経由でアプリへアクセス)
