@@ -8,15 +8,15 @@
 </template>
 
 <script>
-import Vue from "vue";
-import Header from "@/components/Header";
-import Home from "@/components/Home";
-import Counter from "@/components/Counter";
-import Fotter from "@/components/Fotter";
-import firebase from "firebase";
+import Vue from 'vue';
+import Header from '@/components/Header';
+import Home from '@/components/Home';
+import Counter from '@/components/Counter';
+import Fotter from '@/components/Fotter';
+import firebase from 'firebase';
 
 export default Vue.extend({
-  name: "App",
+  name: 'App',
   components: {
     Header,
     Fotter,
@@ -31,8 +31,8 @@ export default Vue.extend({
       )
       .then(
         res => {
-          res.user.getIdToken().then(idToken => {
-            localStorage.setItem("jwt", idToken.toString());
+          res.user.getIdToken(/* forceRefresh */ true).then(idToken => {
+            localStorage.setItem('jwt', idToken.toString());
           });
         },
         err => {
@@ -45,5 +45,5 @@ export default Vue.extend({
 </script>
 <style lang="scss">
 // ヘッダー用のscss読込
-@import "@/static/scss/common.scss";
+@import '@/static/scss/common.scss';
 </style>
