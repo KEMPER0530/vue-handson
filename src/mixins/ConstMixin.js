@@ -23,7 +23,7 @@ export default {
             errorMsg: _errorMsg,
             title: _title,
             scrollYlenge: _scrollYlenge,
-            httpHeader: _httpHeader
+            httpHeader: _httpHeader,
         }
     }
 }

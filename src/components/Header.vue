@@ -9,7 +9,7 @@
       </b-navbar-brand>
       <b-navbar-brand>
         <span v-if="loggedin" class="mgl-20 login_name"
-          >Hello {{ login_name }}</span
+          >{{ login_name }}</span
         >
       </b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
