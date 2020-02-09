@@ -212,7 +212,7 @@ export default {
       axios
         .post(AcsUrl, params, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+            Authorization: `Bearer ${sessionStorage.getItem("jwt")}`
           }
         })
         .then(response => {
@@ -258,7 +258,7 @@ export default {
       axios
         .post(MailUrl, paramsMail, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+            Authorization: `Bearer ${sessionStorage.getItem("jwt")}`
           }
         })
         .then(response => {

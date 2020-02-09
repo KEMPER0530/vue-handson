@@ -9,15 +9,9 @@
       <b-row no-gutters>
         <b-col md="6">
           <b-card-body title="Profile">
-            <img
-              src="../static/img/mark-profile.svg"
-              class="profile"
-              decoding="async"
-            />
+            <img src="../static/img/mark-profile.svg" class="profile" decoding="async" />
             <b-card-text>
-              <p v-if="this.profile[0]" class="writing">
-                {{ this.profile[0].heading }}
-              </p>
+              <p v-if="this.profile[0]" class="writing">{{ this.profile[0].heading }}</p>
             </b-card-text>
             <!-- <div>
               <b-badge pill variant="danger" class="badge_profile"
@@ -57,14 +51,11 @@
               <b-badge pill variant="dark" class="badge_profile"
                 >postfix</b-badge
               >
-            </div> -->
+            </div>-->
           </b-card-body>
         </b-col>
         <b-col md="6">
-          <b-card-img
-            src="https://picsum.photos/400/400/?image=20"
-            class="rounded-0"
-          ></b-card-img>
+          <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
         </b-col>
       </b-row>
     </b-card>
@@ -74,31 +65,29 @@
       <br />
       <font-awesome-icon icon="clipboard-list" />
     </h2>
-    <p v-if="this.profile[0] && this.lastindex">
-      {{ this.profile[0].lastdate | moment('YYYY/MM/DD') }}時点
-    </p>
+    <p
+      v-if="this.profile[0] && this.lastindex"
+    >{{ this.profile[0].lastdate | moment('YYYY/MM/DD') }}時点</p>
     <b-list-group class="list-size">
       <b-list-group-item v-for="item in sortedList" :key="item.id">
         <span v-if="item.history">
           {{ item.history }}
-          <b-badge variant="danger" v-if="item.id == lastindex" pill
-            >NEW</b-badge
-          >
+          <b-badge variant="danger" v-if="item.id == lastindex" pill>NEW</b-badge>
         </span>
       </b-list-group-item>
     </b-list-group>
   </div>
 </template>
 <script>
-import axios from 'axios';
-import _sortBy from 'lodash.sortby';
-import constMixin from '@/mixins/ConstMixin';
-import moment from 'moment';
+import axios from "axios";
+import _sortBy from "lodash.sortby";
+import constMixin from "@/mixins/ConstMixin";
+import moment from "moment";
 
 export default {
   computed: {
     sortedList() {
-      return _sortBy(this.profile.filter(n => n.history), 'id').reverse();
+      return _sortBy(this.profile.filter(n => n.history), "id").reverse();
     }
   },
   filters: {
@@ -113,7 +102,7 @@ export default {
   data() {
     return {
       profile: [],
-      lastindex: '',
+      lastindex: "",
       BaseUrl: process.env.VUE_APP_PROFILE_JSON,
       errored: false,
       emessage: this.errorMsg
@@ -125,7 +114,7 @@ export default {
     axios
       .get(AcsUrl, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('jwt')}`
+          Authorization: `Bearer ${sessionStorage.getItem("jwt")}`
         }
       })
       .then(responce => {
@@ -141,6 +130,6 @@ export default {
 </script>
 <style lang="scss">
 // プロフィール用のscss読込
-@import '@/static/scss/profile.scss';
-@import '@/static/scss/common.scss';
+@import "@/static/scss/profile.scss";
+@import "@/static/scss/common.scss";
 </style>

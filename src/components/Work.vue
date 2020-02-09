@@ -59,7 +59,7 @@ export default {
     axios
       .get(AcsUrl, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("jwt")}`
+          Authorization: `Bearer ${sessionStorage.getItem("jwt")}`
         }
       })
       .then(responce => {
