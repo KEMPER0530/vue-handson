@@ -209,7 +209,7 @@ export default {
       axios
         .post(AcsUrl, params, {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("jwt")}`
+            Authorization: `Bearer ${sessionStorage.getItem("jwt")}`
           }
         })
         .then(response => {
