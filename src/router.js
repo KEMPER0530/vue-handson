@@ -80,13 +80,19 @@ const router = new Router({
             path: "/paycard",
             name: "paycard",
             component: () =>
-                import ( /* webpackChunkName: "Main" */ "@/components/PaycardMain.vue")
+                import ( /* webpackChunkName: "Main" */ "@/components/PaycardMain.vue"),
+            meta: {
+                AuthSms: true
+            }
         },
         {
             path: "/contact",
             name: "contact",
             component: () =>
                 import ( /* webpackChunkName: "Main" */ "@/components/Contact.vue"),
+            meta: {
+                AuthSms: true
+            }
         },
         {
             path: "/createacount",
@@ -95,7 +101,6 @@ const router = new Router({
                 import ("@/components/CreateAcount.vue"),
             meta: {
                 isPublic: true,
-                AuthSms: true
             }
         },
         {
@@ -104,7 +109,7 @@ const router = new Router({
             component: () =>
                 import ("@/components/AuthSms.vue"),
             meta: {
-                isPublic: true,
+                AuthSms: false,
             }
         },
     ]
@@ -112,7 +117,7 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
     // isPublic でない場合(=認証が必要な場合)、かつ、ログインしていない場合
-    if (to.matched.some(record => !record.meta.isPublic) && !(store.getters.getAuth)) {
+    if (to.matched.some(record => !record.meta.isPublic) && !store.getters.getAuth) {
         next({
             path: "/login",
             query: {

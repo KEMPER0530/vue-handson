@@ -6,8 +6,9 @@
       </p>
     </section>
     <h4 align="center">
-      アカウント作成前に
-      <br />SMS認証が必要となります
+      アカウントにアクセスしているのが
+      <br />ご本人であることを確認するために
+      <br />SMS認証を行います
     </h4>
     <div id="firebaseui-auth-container"></div>
   </div>

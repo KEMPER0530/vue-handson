@@ -79,7 +79,8 @@ export default {
       password: "",
       users: [],
       errored: false,
-      anmatched: false
+      anmatched: false,
+      name: ""
     };
   },
   /** ライフサイクルフック */
@@ -112,10 +113,10 @@ export default {
             this.users.Result === this.one &&
             this.users.Responce === this.http_ok
           ) {
-            this.$store.dispatch("changeLogin");
-            this.$store.dispatch("putLogin_name", this.username);
             this.anmatched = false;
             this.errored = false;
+            this.$store.dispatch("changeLogin");
+            this.$store.dispatch("putLogin_name", this.users.Name);
             this.$router.push(nextpage).catch(e => {});
           } else {
             this.$store.dispatch("changeLogoff");
