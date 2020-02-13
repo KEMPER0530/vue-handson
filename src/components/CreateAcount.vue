@@ -17,6 +17,26 @@
         <b-container fluid>
           <b-row>
             <b-col lg="12">
+              <b-form-group id="input-group-0" label-for="input-0" description>
+                <b-input-group prepend="氏名">
+                  <b-form-input
+                    id="input-0"
+                    v-model="form.name"
+                    type="text"
+                    required
+                    placeholder="テスト　太郎"
+                    :state="nameState"
+                    aria-describedby="input-live-help-email"
+                    class="form-create-account"
+                  ></b-form-input>
+                </b-input-group>
+                <!-- This will only be shown if the preceding input has an invalid state -->
+                <b-form-invalid-feedback id="input-live-feedback-name">Enter your name</b-form-invalid-feedback>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col lg="12">
               <b-form-group id="input-group-1" label-for="input-1" description>
                 <b-input-group prepend="📧">
                   <b-form-input
@@ -109,8 +129,8 @@
       <b-modal ref="success-modal" centered hide-footer>
         <div class="d-block text-center">
           <h4>
-            アカウントをご登録いたしました。
-            <br />TOPページに遷移します。
+            {{ this.form.name }}様
+            <br />アカウントをご登録いたしました。
             <br />ご登録したアカウントでログインお願いいたします。
           </h4>
         </div>
@@ -133,6 +153,9 @@ import constMixin from "@/mixins/ConstMixin";
 export default {
   mixins: [constMixin],
   computed: {
+    nameState() {
+      return this.form.name.length > this.zero ? true : false;
+    },
     emailState() {
       return this.form.email.length > this.five && this.form.email.includes("@")
         ? true
@@ -145,6 +168,7 @@ export default {
     },
     activateSubmit() {
       if (
+        this.form.name &&
         this.form.email &&
         this.form.password &&
         this.emailState &&
@@ -170,7 +194,8 @@ export default {
     return {
       form: {
         email: "",
-        password: ""
+        password: "",
+        name: ""
       },
       show: true,
       errored: false,
@@ -195,6 +220,7 @@ export default {
       // Reset our form values
       this.form.email = "";
       this.form.password = "";
+      this.form.name = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {
@@ -208,6 +234,7 @@ export default {
       const params = new URLSearchParams();
       params.append("email", this.form.email);
       params.append("password", this.form.password);
+      params.append("name", this.form.name);
       // アカウントの登録を行う
       axios
         .post(AcsUrl, params, {
@@ -254,6 +281,7 @@ export default {
       paramsMail.append("to_email", this.form.email);
       paramsMail.append("from_email", this.from_email);
       paramsMail.append("personal_name", this.personal_name);
+      paramsMail.append("name", this.form.name);
       // メールの送信を行う
       axios
         .post(MailUrl, paramsMail, {

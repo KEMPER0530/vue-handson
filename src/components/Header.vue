@@ -8,9 +8,7 @@
         </span>
       </b-navbar-brand>
       <b-navbar-brand>
-        <span v-if="loggedin" class="mgl-20 login_name"
-          >{{ login_name }}</span
-        >
+        <span v-if="loggedin" class="mgl-20 login_name">{{ login_name }}</span>
       </b-navbar-brand>
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
@@ -46,35 +44,29 @@
             </span>
             Contact
           </b-nav-item>
-          <b-button
-            size="sm"
-            class="my-2 my-sm-0"
-            @click="logout"
-            v-if="loggedin"
-            >LOGOUT</b-button
-          >
+          <b-button size="sm" class="my-2 my-sm-0" @click="logout" v-if="loggedin">LOGOUT</b-button>
         </b-navbar-nav>
       </b-collapse>
     </b-navbar>
   </div>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 
 export default {
-  name: 'Header',
+  name: "Header",
   components: {},
   data() {
     return {
-      title: '',
-      login_name: '',
+      title: "",
+      login_name: "",
       github: process.env.VUE_APP_GITHUB_URL
     };
   },
   computed: {
     loggedin() {
       this.login_name = this.$store.getters.getLogin_name;
-      return this.$store.getters.getAuth ? true : false;
+      return this.$store.getters.getAuthSms ? true : false;
     }
   },
   created() {
@@ -82,9 +74,10 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.dispatch('changeLogoff').then(() => {
-        window.sessionStorage.clear();
-        this.$router.push('/').catch(err => {});
+      this.$store.dispatch("changeSmsLogoff");
+      this.$store.dispatch("changeLogoff").then(() => {
+        window.sessionStorage.removeItem("vuex");
+        this.$router.push("/").catch(err => {});
       });
     }
   }
@@ -92,6 +85,6 @@ export default {
 </script>
 <style lang="scss">
 // ヘッダー用のscss読込
-@import '@/static/scss/header.scss';
-@import '@/static/scss/common.scss';
+@import "@/static/scss/header.scss";
+@import "@/static/scss/common.scss";
 </style>

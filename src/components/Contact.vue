@@ -17,6 +17,24 @@
       <b-container fluid>
         <b-row>
           <b-col lg="12">
+            <b-form-group id="input-group-2" label-for="input-2">
+              <b-input-group prepend="氏名">
+                <b-form-input
+                  id="input-2"
+                  v-model="form.name"
+                  :state="nameState"
+                  aria-describedby="input-live-help-name input-live-feedback-name"
+                  required
+                  placeholder="テスト　太郎"
+                ></b-form-input>
+                <!-- This will only be shown if the preceding input has an invalid state -->
+                <b-form-invalid-feedback id="input-live-feedback-name">Enter your name</b-form-invalid-feedback>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col lg="12">
             <b-form-group id="input-group-1" label-for="input-1" description>
               <b-input-group prepend="📧">
                 <b-form-input
@@ -30,24 +48,6 @@
                 ></b-form-input>
                 <!-- This will only be shown if the preceding input has an invalid state -->
                 <b-form-invalid-feedback id="input-live-feedback-email">Enter your email</b-form-invalid-feedback>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-        </b-row>
-        <b-row>
-          <b-col lg="12">
-            <b-form-group id="input-group-2" label-for="input-2">
-              <b-input-group prepend="㈴">
-                <b-form-input
-                  id="input-2"
-                  v-model="form.name"
-                  :state="nameState"
-                  aria-describedby="input-live-help-name input-live-feedback-name"
-                  required
-                  placeholder="テスト　太郎"
-                ></b-form-input>
-                <!-- This will only be shown if the preceding input has an invalid state -->
-                <b-form-invalid-feedback id="input-live-feedback-name">Enter your name</b-form-invalid-feedback>
               </b-input-group>
             </b-form-group>
           </b-col>
