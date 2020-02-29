@@ -101,6 +101,8 @@ export default {
       params.append("username", this.username);
       params.append("password", this.password);
 
+      this.getJwtIdToken();
+
       axios
         .post(AcsUrl, params, {
           headers: {

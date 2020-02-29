@@ -48,6 +48,7 @@ import constMixin from "@/mixins/ConstMixin";
 import moment from "moment";
 
 export default {
+  mixins: [constMixin],
   computed: {
     sortedList() {
       return _sortBy(this.profile.filter(n => n.history), "id").reverse();
@@ -74,6 +75,7 @@ export default {
     };
   },
   created() {
+    this.getJwtIdToken();
     const AcsUrl = `${this.BaseUrl}`;
     // profileの取得
     axios

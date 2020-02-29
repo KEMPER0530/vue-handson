@@ -154,6 +154,7 @@ import axios from "axios";
 import constMixin from "@/mixins/ConstMixin";
 
 export default {
+  mixins: [constMixin],
   name: "paycardform",
   directives: {
     "number-only": {
@@ -330,6 +331,7 @@ export default {
       } else if (!this.isHanEi(this.formData.cardName)) {
         alert("invaild card name");
       } else {
+        this.getJwtIdToken();
         // カード情報を登録する
         const AcsUrl = `${this.RegistUrl}`;
         const params = new URLSearchParams();
