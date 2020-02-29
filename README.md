@@ -2,11 +2,14 @@
 
 Vue.js で実装しております。HTTPS化しました。
 詳しくはこちらをご覧ください。<br>
-ユニットテスト(一部)はjestを利用しています。
+ユニットテストはjestを利用しています。
 <https://kemper0530.com>
 
 GoAPIはこちら<br>
 <https://github.com/KEMPER0530/go-handson>
+
+## 構成図
+![Architecture Diagram](https://d3p7ybpyhwl4ka.cloudfront.net/static/img/aws-Diagram.svg)
 
 ## 開発環境
 - Vue.js
@@ -31,11 +34,17 @@ GoAPIはこちら<br>
 - リバースプロキシ用にnginxを投入
 - ELBを利用してアプリをHTTPS化
 - APIリクエストにJWTを利用
-- アカウント作成時にSMS認証の実施
+- ログイン後にSMS認証の実施
+- メールリンク認証の実施
 
 ## 本番環境
 - AWS(EC2にDockerを配置し、nginx(Docker)経由でアプリへアクセス)
-- Route53でドメイン管理
+- Route53
+- S3
+- RDS
+- CloudFront
+- SES
+- Firebase
 
 ## 今後実装したいこと
 - CIの導入、テスト、デプロイの自動化
