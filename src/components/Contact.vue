@@ -123,6 +123,33 @@ import constMixin from "@/mixins/ConstMixin";
 
 export default {
   mixins: [constMixin],
+  mounted() {
+    // メール情報を登録する
+    const getMailAdrUrl = `${this.mailAdrInf}`;
+    const paramsMailAdr = new URLSearchParams();
+    paramsMailAdr.append("id", this.$store.getters.getLogin_id);
+    // メールアドレス、氏名の取得を行う
+    axios
+      .post(getMailAdrUrl, paramsMailAdr, {
+        headers: { Authorization: `Bearer ${sessionStorage.getItem("jwt")}` }
+      })
+      .then(response => {
+        this.data = response.data;
+        if (
+          this.data.Result === this.one &&
+          this.data.Responce === this.http_ok
+        ) {
+          this.errored = false;
+          this.form.to_email = this.data.Email;
+          this.form.name = this.data.Name;
+        } else {
+          this.errored = true;
+        }
+      })
+      .catch(error => {})
+      .finally(() => {});
+    return;
+  },
   computed: {
     emailState() {
       return this.form.to_email.length > this.five &&
@@ -163,6 +190,7 @@ export default {
       show: true,
       errored: false,
       mailUrl: process.env.VUE_APP_SEND_MAIL,
+      mailAdrInf: process.env.VUE_APP_GET_MAIL_ADR,
       emessage: ""
     };
   },

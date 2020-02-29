@@ -9,53 +9,16 @@
       <b-row no-gutters>
         <b-col md="6">
           <b-card-body title="Profile">
-            <img src="../static/img/mark-profile.svg" class="profile" decoding="async" />
+            <img :src="profileImage" class="profile" decoding="async" />
             <b-card-text>
               <p v-if="this.profile[0]" class="writing">{{ this.profile[0].heading }}</p>
             </b-card-text>
-            <!-- <div>
-              <b-badge pill variant="danger" class="badge_profile"
-                >Java</b-badge
-              >
-              <b-badge pill variant="warning" class="badge_profile"
-                >HTML</b-badge
-              >
-              <b-badge pill variant="primary" class="badge_profile"
-                >JavaScript</b-badge
-              >
-              <b-badge pill variant="info" class="badge_profile"
-                >Struts2</b-badge
-              >
-              <b-badge pill variant="danger" class="badge_profile"
-                >Oracle</b-badge
-              >
-              <b-badge pill variant="info" class="badge_profile"
-                >Seasor2</b-badge
-              >
-            </div>
-            <div>
-              <b-badge pill variant="success" class="badge_profile"
-                >SpringBoot</b-badge
-              >
-              <b-badge pill variant="primary" class="badge_profile">Go</b-badge>
-              <b-badge pill variant="secondary" class="badge_profile"
-                >DB2</b-badge
-              >
-              <b-badge pill variant="dark" class="badge_profile">Mysql</b-badge>
-              <b-badge pill variant="success" class="badge_profile"
-                >VueJS</b-badge
-              >
-              <b-badge pill variant="warning" class="badge_profile"
-                >AWS</b-badge
-              >
-              <b-badge pill variant="dark" class="badge_profile"
-                >postfix</b-badge
-              >
-            </div>-->
           </b-card-body>
         </b-col>
         <b-col md="6">
-          <b-card-img src="https://picsum.photos/400/400/?image=20" class="rounded-0"></b-card-img>
+          <b-card-body title="Architecture Diagram">
+            <b-card-img :src="diagramImage" class="rounded-0"></b-card-img>
+          </b-card-body>
         </b-col>
       </b-row>
     </b-card>
@@ -105,7 +68,9 @@ export default {
       lastindex: "",
       BaseUrl: process.env.VUE_APP_PROFILE_JSON,
       errored: false,
-      emessage: this.errorMsg
+      emessage: this.errorMsg,
+      profileImage: process.env.VUE_APP_IMAGE_PATH_PROFILE,
+      diagramImage: process.env.VUE_APP_IMAGE_PATH_DIAGRAM
     };
   },
   created() {

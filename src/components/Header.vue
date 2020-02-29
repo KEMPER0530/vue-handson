@@ -36,7 +36,7 @@
             <span class="mgr-3">
               <font-awesome-icon icon="utensils" />
             </span>
-            Gurunavi
+            ぐるなびAPI
           </b-nav-item>
           <b-nav-item to="/contact">
             <span class="mgr-3">

@@ -130,8 +130,8 @@
         <div class="d-block text-center">
           <h4>
             {{ this.form.name }}様
-            <br />アカウントをご登録いたしました。
-            <br />ご登録したアカウントでログインお願いいたします。
+            <br />アカウントを仮登録いたしました。
+            <br />送信したメールより本登録をお願いいたします。
           </h4>
         </div>
         <b-button pill class="mt-3" variant="outline-primary" block @click="moveTop">OK</b-button>
@@ -149,6 +149,7 @@
 <script>
 import axios from "axios";
 import constMixin from "@/mixins/ConstMixin";
+import firebase from "firebase";
 
 export default {
   mixins: [constMixin],
@@ -201,6 +202,7 @@ export default {
       errored: false,
       registAcountUrl: process.env.VUE_APP_REGIST_ACCOUNT,
       mailUrl: process.env.VUE_APP_REGIST_ACCOUNT_MAIL,
+      getMailAdrUrl: process.env.VUE_APP_GET_MAIL_ADR,
       from_email: process.env.VUE_APP_FROM_EMAIL,
       personal_name: process.env.VUE_APP_PERSONAL_NAME,
       emessage: this.errorMsg,
@@ -249,6 +251,7 @@ export default {
             this.regist.Responce === this.http_ok
           ) {
             this.errored = false;
+            // アカウント作成のサンキューメール送信
             this.registAccountMail();
           } else if (
             this.regist.Result === this.zero &&

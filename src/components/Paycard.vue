@@ -8,26 +8,15 @@
         ref="focusElement"
       ></div>
       <div class="card-item__cover">
-        <img
-          v-if="currentCardBackground"
-          :src="currentCardBackground"
-          class="card-item__bg"
-        />
+        <img v-if="currentCardBackground" :src="currentCardBackground" class="card-item__bg" />
       </div>
       <div class="card-item__wrapper">
         <div class="card-item__top">
-          <img
-            src="https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/chip.png"
-            class="card-item__chip"
-          />
+          <img :src="cardchipImage" class="card-item__chip" />
           <div class="card-item__type">
             <transition name="slide-fade-up">
               <img
-                :src="
-                  'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' +
-                    cardType +
-                    '.png'
-                "
+                :src="imagePath + cardType +'.png'"
                 v-if="cardType"
                 :key="cardType"
                 alt
@@ -36,53 +25,32 @@
             </transition>
           </div>
         </div>
-        <label
-          :for="fields.cardNumber"
-          class="card-item__number"
-          :ref="fields.cardNumber"
-        >
+        <label :for="fields.cardNumber" class="card-item__number" :ref="fields.cardNumber">
           <template>
             <span v-for="(n, $index) in currentPlaceholder" :key="$index">
               <transition name="slide-fade-up">
-                <div
-                  class="card-item__numberItem"
-                  v-if="getIsNumberMasked($index, n)"
-                >
-                  *
-                </div>
+                <div class="card-item__numberItem" v-if="getIsNumberMasked($index, n)">*</div>
                 <div
                   class="card-item__numberItem"
                   :class="{ '-active': n.trim() === '' }"
                   :key="currentPlaceholder"
                   v-else-if="labels.cardNumber.length > $index"
-                >
-                  {{ labels.cardNumber[$index] }}
-                </div>
+                >{{ labels.cardNumber[$index] }}</div>
                 <div
                   class="card-item__numberItem"
                   :class="{ '-active': n.trim() === '' }"
                   v-else
                   :key="currentPlaceholder + 1"
-                >
-                  {{ n }}
-                </div>
+                >{{ n }}</div>
               </transition>
             </span>
           </template>
         </label>
         <div class="card-item__content">
-          <label
-            :for="fields.cardName"
-            class="card-item__info"
-            :ref="fields.cardName"
-          >
+          <label :for="fields.cardName" class="card-item__info" :ref="fields.cardName">
             <div class="card-item__holder">カード名義人</div>
             <transition name="slide-fade-up">
-              <div
-                class="card-item__name"
-                v-if="labels.cardName.length"
-                key="1"
-              >
+              <div class="card-item__name" v-if="labels.cardName.length" key="1">
                 <transition-group name="slide-fade-right">
                   <span
                     class="card-item__nameItem"
@@ -91,31 +59,32 @@
                       ' '
                     )"
                     :key="$index + 1"
-                    >{{ n }}</span
-                  >
+                  >{{ n }}</span>
                 </transition-group>
               </div>
               <div class="card-item__name" v-else key="2">氏名</div>
             </transition>
           </label>
           <div class="card-item__date" ref="cardDate">
-            <label :for="fields.cardMonth" class="card-item__dateTitle"
-              >有効期限</label
-            >
+            <label :for="fields.cardMonth" class="card-item__dateTitle">有効期限</label>
             <label :for="fields.cardMonth" class="card-item__dateItem">
               <transition name="slide-fade-up">
-                <span v-if="labels.cardMonth" :key="labels.cardMonth">{{
+                <span v-if="labels.cardMonth" :key="labels.cardMonth">
+                  {{
                   labels.cardMonth
-                }}</span>
+                  }}
+                </span>
                 <span v-else key="2">月</span>
               </transition>
             </label>
             /
             <label for="cardYear" class="card-item__dateItem">
               <transition name="slide-fade-up">
-                <span v-if="labels.cardYear" :key="labels.cardYear">{{
+                <span v-if="labels.cardYear" :key="labels.cardYear">
+                  {{
                   String(labels.cardYear).slice(2, 4)
-                }}</span>
+                  }}
+                </span>
                 <span v-else key="2">年</span>
               </transition>
             </label>
@@ -125,11 +94,7 @@
     </div>
     <div class="card-item__side -back">
       <div class="card-item__cover">
-        <img
-          v-if="currentCardBackground"
-          :src="currentCardBackground"
-          class="card-item__bg"
-        />
+        <img v-if="currentCardBackground" :src="currentCardBackground" class="card-item__bg" />
       </div>
       <div class="card-item__band"></div>
       <div class="card-item__cvv">
@@ -138,15 +103,7 @@
           <span v-for="(n, $index) in labels.cardCvv" :key="$index">*</span>
         </div>
         <div class="card-item__type">
-          <img
-            :src="
-              'https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/' +
-                cardType +
-                '.png'
-            "
-            v-if="cardType"
-            class="card-item__typeImg"
-          />
+          <img :src="imagePath + cardType + '.png'" v-if="cardType" class="card-item__typeImg" />
         </div>
       </div>
     </div>
@@ -155,7 +112,7 @@
 
 <script>
 export default {
-  name: 'paycard',
+  name: "paycard",
   props: {
     labels: Object,
     fields: Object,
@@ -172,10 +129,11 @@ export default {
       currentFocus: null,
       isFocused: false,
       isCardFlipped: false,
-      amexCardPlaceholder: '#### ###### #####',
-      dinersCardPlaceholder: '#### ###### ####',
-      defaultCardPlaceholder: '#### #### #### ####',
-      currentPlaceholder: ''
+      amexCardPlaceholder: "#### ###### #####",
+      dinersCardPlaceholder: "#### ###### ####",
+      defaultCardPlaceholder: "#### #### #### ####",
+      currentPlaceholder: "",
+      cardchipImage: process.env.VUE_APP_IMAGE_PATH_CARDCHIP
     };
   },
   watch: {
@@ -194,21 +152,21 @@ export default {
     this.changePlaceholder();
 
     let self = this;
-    let fields = document.querySelectorAll('[data-card-field]');
+    let fields = document.querySelectorAll("[data-card-field]");
     fields.forEach(element => {
-      element.addEventListener('focus', () => {
+      element.addEventListener("focus", () => {
         this.isFocused = true;
         if (
           element.id === this.fields.cardYear ||
           element.id === this.fields.cardMonth
         ) {
-          this.currentFocus = 'cardDate';
+          this.currentFocus = "cardDate";
         } else {
           this.currentFocus = element.id;
         }
         this.isCardFlipped = element.id === this.fields.cardCvv;
       });
-      element.addEventListener('blur', () => {
+      element.addEventListener("blur", () => {
         this.isCardFlipped = !element.id === this.fields.cardCvv;
         setTimeout(() => {
           if (!self.isFocused) {
@@ -222,37 +180,42 @@ export default {
   computed: {
     cardType() {
       let number = this.labels.cardNumber;
-      let re = new RegExp('^4');
-      if (number.match(re) != null) return 'visa';
+      let re = new RegExp("^4");
+      if (number.match(re) != null) return "visa";
 
-      re = new RegExp('^(34|37)');
-      if (number.match(re) != null) return 'amex';
+      re = new RegExp("^(34|37)");
+      if (number.match(re) != null) return "amex";
 
-      re = new RegExp('^5[1-5]');
-      if (number.match(re) != null) return 'mastercard';
+      re = new RegExp("^5[1-5]");
+      if (number.match(re) != null) return "mastercard";
 
-      re = new RegExp('^6011');
-      if (number.match(re) != null) return 'discover';
+      re = new RegExp("^6011");
+      if (number.match(re) != null) return "discover";
 
-      re = new RegExp('^62');
-      if (number.match(re) != null) return 'unionpay';
+      re = new RegExp("^62");
+      if (number.match(re) != null) return "unionpay";
 
-      re = new RegExp('^9792');
-      if (number.match(re) != null) return 'troy';
+      re = new RegExp("^9792");
+      if (number.match(re) != null) return "troy";
 
-      re = new RegExp('^3(?:0([0-5]|9)|[689]\\d?)\\d{0,11}');
-      if (number.match(re) != null) return 'dinersclub';
+      re = new RegExp("^3(?:0([0-5]|9)|[689]\\d?)\\d{0,11}");
+      if (number.match(re) != null) return "dinersclub";
 
-      re = new RegExp('^35(2[89]|[3-8])');
-      if (number.match(re) != null) return 'jcb';
+      re = new RegExp("^35(2[89]|[3-8])");
+      if (number.match(re) != null) return "jcb";
 
-      return ''; // default type
+      return ""; // default type
+    },
+    imagePath() {
+      let path = process.env.VUE_APP_IMAGE_PATH;
+      return path;
     },
     currentCardBackground() {
       if (this.randomBackgrounds && !this.backgroundImage) {
         // TODO will be optimized
         let random = Math.floor(Math.random() * 25 + 1);
-        return `https://raw.githubusercontent.com/muhammederdem/credit-card-form/master/src/assets/images/${random}.jpeg`;
+        let path = process.env.VUE_APP_IMAGE_PATH;
+        return `${path}${random}.jpeg`;
       } else if (this.backgroundImage) {
         return this.backgroundImage;
       } else {
@@ -276,14 +239,14 @@ export default {
         index > 4 &&
         index < 14 &&
         this.labels.cardNumber.length > index &&
-        n.trim() !== '' &&
+        n.trim() !== "" &&
         this.isCardNumberMasked
       );
     },
     changePlaceholder() {
-      if (this.cardType === 'amex') {
+      if (this.cardType === "amex") {
         this.currentPlaceholder = this.amexCardPlaceholder;
-      } else if (this.cardType === 'dinersclub') {
+      } else if (this.cardType === "dinersclub") {
         this.currentPlaceholder = this.dinersCardPlaceholder;
       } else {
         this.currentPlaceholder = this.defaultCardPlaceholder;

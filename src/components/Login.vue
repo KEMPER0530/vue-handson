@@ -117,6 +117,7 @@ export default {
             this.errored = false;
             this.$store.dispatch("changeLogin");
             this.$store.dispatch("putLogin_name", this.users.Name);
+            this.$store.dispatch("putLogin_id", this.users.Id);
             this.$router.push(nextpage).catch(e => {});
           } else {
             this.$store.dispatch("changeLogoff");

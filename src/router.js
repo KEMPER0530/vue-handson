@@ -112,6 +112,15 @@ const router = new Router({
                 AuthSms: false,
             }
         },
+        {
+            path: "*",
+            name: "notfound",
+            component: () =>
+                import ("@/components/NotFound.vue"),
+            meta: {
+                isPublic: true
+            }
+        },
     ]
 });
 

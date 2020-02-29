@@ -12,7 +12,8 @@ const state = {
     name: "",
     pref: "",
     member: [],
-    login_name: ""
+    login_name: "",
+    login_id: "",
 };
 
 const mutations = {
@@ -21,6 +22,8 @@ const mutations = {
     },
     changeLogoff(state) {
         state.auth = false;
+        state.login_name = "";
+        state.login_id = "";
     },
     changeSmsLogin(state) {
         state.authSms = true;
@@ -54,6 +57,9 @@ const mutations = {
     putLogin_name(state, login_name) {
         state.login_name = login_name;
     },
+    putLogin_id(state, login_id) {
+        state.login_id = login_id;
+    },
 };
 
 const getters = {
@@ -80,6 +86,9 @@ const getters = {
     },
     getLogin_name(state) {
         return state.login_name;
+    },
+    getLogin_id(state) {
+        return state.login_id;
     }
 };
 
@@ -119,6 +128,11 @@ const actions = {
         commit
     }, login_name) {
         commit("putLogin_name", login_name);
+    },
+    putLogin_id({
+        commit
+    }, login_id) {
+        commit("putLogin_id", login_id);
     }
 };
 
