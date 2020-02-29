@@ -3,6 +3,13 @@ node_modules
 /dist
 /release
 .firebase
+Counter.vue
+Fotter.vue
+Height.vue
+Member.vue
+*.jpeg
+*.png
+*.svg
 
 # local env files
 .env.local

@@ -1,7 +1,11 @@
 <template>
   <div class="fotter bg-info">
     <router-link to="/github">
-      <img src="@/static/img/mark-github.svg" title="github" decoding="async" />
+      <img
+        src="http://img.kemper0530.com/static/img/ark-github.svg"
+        title="github"
+        decoding="async"
+      />
     </router-link>
   </div>
 </template>
