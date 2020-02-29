@@ -45,7 +45,3 @@ GoAPIはこちら<br>
 - CloudFront
 - SES
 - Firebase
-
-## 今後実装したいこと
-- CIの導入、テスト、デプロイの自動化
-- AWSのその他の機能使用（S3等）
