@@ -47,6 +47,7 @@ import axios from "axios";
 import constMixin from "@/mixins/ConstMixin";
 
 export default {
+  mixins: [constMixin],
   data() {
     return {
       workList: [],
@@ -55,6 +56,7 @@ export default {
     };
   },
   created() {
+    this.getJwtIdToken();
     const AcsUrl = `${this.BaseUrl}`;
     axios
       .get(AcsUrl, {

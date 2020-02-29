@@ -1,3 +1,5 @@
+import firebase from "firebase";
+
 const _zero = 0;
 const _one = 1;
 const _two = 2;
@@ -23,5 +25,28 @@ export default {
             title: _title,
             scrollYlenge: _scrollYlenge,
         }
+    },
+    methods: {
+    /**
+      * FirebaseからJWT用のトークンを取得する 
+    */
+    getJwtIdToken() {
+      firebase
+      .auth()
+      .signInWithEmailAndPassword(
+        process.env.VUE_APP_FIREBASE_EMAIL,
+        process.env.VUE_APP_FIREBASE_PASS
+      )
+      .then(
+        res => {
+          res.user.getIdToken(/* forceRefresh */ true).then(idToken => {
+            sessionStorage.setItem("jwt", idToken.toString());
+          });
+        },
+        err => {
+          alert(err.message);
+        }
+      );
     }
+  }
 }

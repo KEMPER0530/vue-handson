@@ -231,6 +231,7 @@ export default {
     },
     registAcount() {
       this.$refs["regist-modal"].hide();
+      this.getJwtIdToken();
       // メール情報を登録する
       const AcsUrl = `${this.registAcountUrl}`;
       const params = new URLSearchParams();

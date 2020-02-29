@@ -124,6 +124,7 @@ import constMixin from "@/mixins/ConstMixin";
 export default {
   mixins: [constMixin],
   mounted() {
+    this.getJwtIdToken();
     // メール情報を登録する
     const getMailAdrUrl = `${this.mailAdrInf}`;
     const paramsMailAdr = new URLSearchParams();
