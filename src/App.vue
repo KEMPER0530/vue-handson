@@ -13,6 +13,7 @@ import Header from "@/components/Header";
 import Home from "@/components/Home";
 import Counter from "@/components/Counter";
 import Fotter from "@/components/Fotter";
+import firebase from "firebase";
 
 export default Vue.extend({
   name: "App",
@@ -22,7 +23,22 @@ export default Vue.extend({
     Counter
   },
   created() {
-    
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(
+        process.env.VUE_APP_FIREBASE_EMAIL,
+        process.env.VUE_APP_FIREBASE_PASS
+      )
+      .then(
+        res => {
+          res.user.getIdToken(/* forceRefresh */ true).then(idToken => {
+            sessionStorage.setItem("jwt", idToken.toString());
+          });
+        },
+        err => {
+          alert(err.message);
+        }
+      );
   },
   data: () => ({})
 });

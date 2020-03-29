@@ -6,8 +6,7 @@
       </p>
     </section>
     <h4 align="center">
-      アカウントにアクセスしているのが
-      <br />ご本人であることを確認するために
+      アカウント確認のために
       <br />SMS認証を行います
     </h4>
     <div id="firebaseui-auth-container"></div>
