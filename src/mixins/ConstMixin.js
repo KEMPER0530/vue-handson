@@ -27,26 +27,26 @@ export default {
         }
     },
     methods: {
-    /**
-      * FirebaseからJWT用のトークンを取得する 
-    */
-    getJwtIdToken() {
-      firebase
-      .auth()
-      .signInWithEmailAndPassword(
-        process.env.VUE_APP_FIREBASE_EMAIL,
-        process.env.VUE_APP_FIREBASE_PASS
-      )
-      .then(
-        res => {
-          res.user.getIdToken(/* forceRefresh */ true).then(idToken => {
-            sessionStorage.setItem("jwt", idToken.toString());
-          });
-        },
-        err => {
-          alert(err.message);
+        /**
+         * FirebaseからJWT用のトークンを取得する
+         */
+        getJwtIdToken() {
+            firebase
+                .auth()
+                .signInWithEmailAndPassword(
+                    process.env.VUE_APP_FIREBASE_EMAIL,
+                    process.env.VUE_APP_FIREBASE_PASS
+                )
+                .then(
+                    res => {
+                        res.user.getIdToken( /* forceRefresh */ false).then(idToken => {
+                            sessionStorage.setItem("jwt", idToken.toString());
+                        });
+                    },
+                    err => {
+                        alert(err.message);
+                    }
+                );
         }
-      );
     }
-  }
 }
