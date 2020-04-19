@@ -1,17 +1,17 @@
-version: 2
+version: 2.1
+orbs:
+  node: circleci/node@1.1.6
 jobs:
-  build:
-    docker:
-      - image: circleci/node:10.16.0
-    working_directory: ~/app
+  build-and-test:
+    executor:
+      name: node/default
     steps:
       - checkout
-      - run:
-          name: yarn install
-          command: yarn install && yarn global add firebase && yarn global add firebaseui && yarn global add firebaseui-ja && yarn global add moment && yarn global add node-gyp && yarn global add moment && yarn global add @vue/cli
-      - run:
-          name: yarn test
-          command: yarn test
-      - run:
-          name: yarn build
-          command: yarn build
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm test
+workflows:
+    build-and-test:
+      jobs:
+        - build-and-test
