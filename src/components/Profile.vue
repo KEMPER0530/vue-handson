@@ -24,7 +24,7 @@
     </b-card>
     <br />
     <h2>
-      当アプリの実装履歴
+      {{ prop1 }}
       <br />
       <font-awesome-icon icon="clipboard-list" />
     </h2>
@@ -48,6 +48,12 @@ import constMixin from "@/mixins/ConstMixin";
 import moment from "moment";
 
 export default {
+  props: {
+    prop1: {
+      type: String,
+      require: true
+    }
+  },
   mixins: [constMixin],
   computed: {
     sortedList() {

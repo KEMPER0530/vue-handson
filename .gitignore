@@ -10,6 +10,8 @@ Member.vue
 *.jpeg
 *.png
 *.svg
+.circleci
+config.yml
 
 # local env files
 .env.local

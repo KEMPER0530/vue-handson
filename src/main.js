@@ -10,7 +10,21 @@ import feather from 'vue-icon'
 import VueScrollTo from 'vue-scrollto'
 
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCoffee, faSpinner, faClipboardList, faAngleDoubleUp, faUtensils, faSignInAlt, faWrench, faCreditCard, faEnvelope, faDoorClosed, faAddressCard, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCoffee,
+    faSpinner,
+    faClipboardList,
+    faAngleDoubleUp,
+    faUtensils,
+    faSignInAlt,
+    faWrench,
+    faCreditCard,
+    faEnvelope,
+    faDoorClosed,
+    faAddressCard,
+    faUserCircle,
+    faNewspaper
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import firebase from 'firebase';
 
@@ -26,7 +40,8 @@ library.add(
     faEnvelope,
     faDoorClosed,
     faAddressCard,
-    faUserCircle
+    faUserCircle,
+    faNewspaper
 );
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);

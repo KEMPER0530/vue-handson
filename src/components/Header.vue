@@ -13,7 +13,7 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/profile">
+          <b-nav-item to="/profile" :prop1="propVal">
             <span class="mgr-3">
               <font-awesome-icon icon="user-circle" />
             </span>
@@ -32,11 +32,11 @@
             </span>
             CardRegist
           </b-nav-item>
-          <b-nav-item to="/gnavi">
+          <b-nav-item to="/newsjp">
             <span class="mgr-3">
-              <font-awesome-icon icon="utensils" />
+              <font-awesome-icon icon="newspaper" />
             </span>
-            ぐるなびAPI
+            NewsAPI
           </b-nav-item>
           <b-nav-item to="/contact">
             <span class="mgr-3">
@@ -60,7 +60,8 @@ export default {
     return {
       title: "",
       login_name: "",
-      github: process.env.VUE_APP_GITHUB_URL
+      github: process.env.VUE_APP_GITHUB_URL,
+      propVal: this.pmsg
     };
   },
   computed: {

@@ -2,7 +2,7 @@ import {
     shallowMount,
     createLocalVue
 } from '@vue/test-utils';
-import Gnavi from '@/components/Gnavi.vue';
+import NewsJP from '@/components/NewsJP.vue';
 import BootstrapVue, {
     BButton,
     BFormInput
@@ -34,7 +34,7 @@ beforeEach(() => {
     store = new Vuex.Store({
         storeMock
     });
-    wrapper = shallowMount(Gnavi, {
+    wrapper = shallowMount(NewsJP, {
         localVue,
         store,
         constMixin
@@ -42,19 +42,12 @@ beforeEach(() => {
     wrapper.setData({
         name: "",
         list: "",
-        BaseUrl: process.env.VUE_APP_GNAVI_URL,
-        APIKEY: process.env.VUE_APP_GNAVI_API_KEY,
-        PAGE: process.env.VUE_APP_GNAVI_PAGE,
+        BaseUrl: process.env.VUE_APP_GET_NEWS_API,
         PREF: "",
         options: [{
-                text: "東京",
-                value: "PREF13"
-            },
-            {
-                text: "神奈川",
-                value: "PREF14"
-            }
-        ],
+            text: "ビジネス",
+            value: "business"
+        }, ],
         errored: false,
         emessage: "",
         scrollY: constMixin.zero
@@ -66,12 +59,9 @@ afterEach(() => {
     jest.resetAllMocks();
 })
 
-describe('Testing Gnavi component', () => {
+describe('Testing NewsJP component', () => {
     it('Vueインスタンスが生成されているか', () => {
         expect(wrapper.isVueInstance).toBeTruthy()
-    });
-    it('検索フォームの存在確認', () => {
-        expect(wrapper.find(BFormInput).exists()).toBe(true);
     });
     it('検索ボタンの存在確認', () => {
         expect(wrapper.find(BButton).exists()).toBe(true);

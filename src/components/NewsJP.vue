@@ -10,25 +10,12 @@
       <h2>
         <label for="input-live">
           <span class="mgr-3">
-            <font-awesome-icon icon="utensils" />
+            <font-awesome-icon icon="newspaper" />
           </span>
-          フリーワード検索
+          Japan News API
         </label>
       </h2>
-      <b-input-group size="lg" prepend="🔍">
-        <b-form-input
-          id="input-live"
-          v-model="name"
-          :state="searchState"
-          icon="search"
-          aria-describedby="input-live-help input-live-feedback"
-          placeholder="渋谷　肉"
-          trim
-        ></b-form-input>
-        <!-- This will only be shown if the preceding input has an invalid state -->
-        <b-form-invalid-feedback :state="searchState">検索フォームに入力してください</b-form-invalid-feedback>
-      </b-input-group>
-      <!-- エリア選択 -->
+      <!-- カテゴリ選択 -->
       <div class="radio">
         <b-form-radio-group
           v-model="PREF"
@@ -36,36 +23,33 @@
           :state="areaoptionState"
           name="radio-validation"
         >
-          <b-form-invalid-feedback :state="areaoptionState">エリアを選択してください</b-form-invalid-feedback>
+          <b-form-invalid-feedback :state="areaoptionState">カテゴリを選択してください</b-form-invalid-feedback>
         </b-form-radio-group>
       </div>
       <b-button block pill variant="outline-primary" @click="showList" :disabled="!submitState">検索</b-button>
       <br />
-      <!-- This is a form text block (formerly known as help block) -->
-      <b-form-text id="input-live-help">出力店舗は東京、神奈川エリア限定となります</b-form-text>
       <!-- イメージを出力する -->
       <b-card-group columns class="multicol">
         <b-card
           v-for="item in sortedList"
-          :key="item.id"
-          :title="item.name"
-          :img-src="item.image_url.shop_image1"
+          :key="item.source.id"
+          :title="item.Title"
+          :img-src="item.UrlToImage"
           img-alt="Image"
           img-top
           border-variant="primary"
           align="center"
           decoding="async"
         >
-          <b-card-text>{{ item.address }} / {{ item.tel }}</b-card-text>
           <br />
-          <b-card-text>{{ item.pr.pr_short }}</b-card-text>
+          <b-card-text>{{ item.Description }}</b-card-text>
           <b-row class="button-group1">
             <b-col>
-              <b-button :href="item.url" variant="outline-primary" target="_blank" block pill>ぐるなびHP</b-button>
+              <b-button :href="item.Url" variant="outline-primary" target="_blank" block pill>Link</b-button>
             </b-col>
           </b-row>
           <template v-slot:footer>
-            <small class="text-muted">平均予算:{{ item.budget }}円</small>
+            <small class="text-muted">更新日:{{ item.PublishedAt }}</small>
           </template>
         </b-card>
       </b-card-group>
@@ -85,16 +69,15 @@ import constMixin from "@/mixins/ConstMixin";
 export default {
   mixins: [constMixin],
   computed: {
-    searchState() {
-      return this.name && this.name.length > this.zero ? true : false;
-    },
     submitState() {
-      return this.name && this.name.length > this.zero && this.PREF
-        ? true
-        : false;
+      return this.PREF ? true : false;
     },
     sortedList() {
-      return _sortBy(this.list, "id");
+      let news = _sortBy(this.list, "PublishedAt").reverse();
+      for (let i in news) {
+        news[i].source.id = i;
+      }
+      return news;
     },
     areaoptionState() {
       return Boolean(this.PREF);
@@ -111,13 +94,15 @@ export default {
     return {
       name: "",
       list: "",
-      BaseUrl: process.env.VUE_APP_GNAVI_URL,
-      APIKEY: process.env.VUE_APP_GNAVI_API_KEY,
-      PAGE: process.env.VUE_APP_GNAVI_PAGE,
+      BaseUrl: process.env.VUE_APP_GET_NEWS_API,
       PREF: "",
       options: [
-        { text: "東京", value: "PREF13" },
-        { text: "神奈川", value: "PREF14" }
+        { text: "ビジネス", value: "business" },
+        { text: "エンターテイメント", value: "entertainment" },
+        { text: "健康", value: "health" },
+        { text: "科学", value: "science" },
+        { text: "スポーツ", value: "sports" },
+        { text: "テクノロジー", value: "technology" }
       ],
       errored: false,
       emessage: "",
@@ -125,27 +110,28 @@ export default {
     };
   },
   methods: {
-    // window: (onload = function() {}),
     showList() {
-      const AcsUrl =
-        `${this.BaseUrl}?` +
-        `keyid=${this.APIKEY}&` +
-        `freeword=${this.name}&` +
-        `hit_per_page=${this.PAGE}&` +
-        `pref=${this.PREF}`;
+      const AcsUrl = `${this.BaseUrl}`;
+      const params = new URLSearchParams();
+      params.append("category", this.PREF);
+      this.getJwtIdToken();
       axios
-        .get(AcsUrl)
+        .post(AcsUrl, params, {
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("jwt")}`
+          }
+        })
         .then(responce => {
-          this.list = responce.data.rest;
-          this.$store.dispatch("putG_list", responce.data.rest);
-          this.$store.dispatch("putName", this.name);
+          this.list = responce.data.articles;
+          this.$store.dispatch("putG_list", this.list);
           this.$store.dispatch("putPref", this.PREF);
           this.errored = false;
         })
         .catch(error => {
           this.errored = true;
           this.emessage = error.message;
-        });
+        })
+        .finally(() => {});
     },
     handleScroll() {
       this.scrollY = window.scrollY;

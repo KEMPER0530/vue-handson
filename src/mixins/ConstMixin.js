@@ -10,6 +10,7 @@ const _http_ok = 200;
 const _errorMsg = "We're sorry, we're not able to retrieve this information at the moment, please try back later";
 const _title = "Akazawa portfolio";
 const _scrollYlenge = 700;
+const _pmsg = "エンハンス内容";
 
 export default {
     data() {
@@ -24,6 +25,7 @@ export default {
             errorMsg: _errorMsg,
             title: _title,
             scrollYlenge: _scrollYlenge,
+            pmsg: _pmsg
         }
     },
     methods: {
