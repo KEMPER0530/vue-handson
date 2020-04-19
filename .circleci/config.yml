@@ -1,0 +1,58 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.16.0
+    working_directory: ~/app
+    environment:
+      # udemy
+      VUE_APP_VUEGUIDE_URL: https://www.udemy.com/course/vuejs-vuex/
+      # github
+      VUE_APP_GITHUB_URL: https://github.com/KEMPER0530/vue-handson
+      # ぐるなびAPI
+      VUE_APP_GNAVI_API_KEY: 2311ed80b5d723334077f6789c50a7ff
+      VUE_APP_GNAVI_URL: https://api.gnavi.co.jp/RestSearchAPI/v3/
+      VUE_APP_GNAVI_PAGE: "50"
+      # Go API
+      VUE_APP_HOME: https://kemper0530.com
+      VUE_APP_MEMBER_JSON_URL: https://kemper0530.com/api/fetchAllMembers
+      VUE_APP_LOGIN_JSON_URL: https://kemper0530.com/api/fetchLoginInfo
+      VUE_APP_WORK_JSON: https://kemper0530.com/api/fetchAllWorker
+      VUE_APP_CREDIT_REGIST_URL: https://kemper0530.com/api/fetchCreditInfoRegist
+      VUE_APP_FROM_EMAIL: info_akazawa@kemper0530.com
+      VUE_APP_PERSONAL_NAME: 赤澤 portfolio
+      VUE_APP_SEND_MAIL: https://kemper0530.com/api/fetchSendMailRegist
+      VUE_APP_PROFILE_JSON: https://kemper0530.com/api/fetchProfileInfo
+      VUE_APP_REGIST_ACCOUNT: https://kemper0530.com/api/fetchRegistAccount
+      VUE_APP_REGIST_ACCOUNT_MAIL: https://kemper0530.com/api/fetchRegistAccountMail
+      VUE_APP_GET_MAIL_ADR: https://kemper0530.com/api/fetchMailAdrInfo
+      VUE_APP_GET_NEWS_API: https://kemper0530.com/api/fetchNewsInfo
+      # AWS Cloud Front
+      VUE_APP_IMAGE_PATH: https://d3p7ybpyhwl4ka.cloudfront.net/static/img/
+      VUE_APP_IMAGE_PATH_PROFILE: https://d3p7ybpyhwl4ka.cloudfront.net/static/img/mark-profile.svg
+      VUE_APP_IMAGE_PATH_DIAGRAM: https://d3p7ybpyhwl4ka.cloudfront.net/static/img/aws-Diagram.svg
+      VUE_APP_IMAGE_PATH_CARDCHIP: https://d3p7ybpyhwl4ka.cloudfront.net/static/img/chip.png
+      VUE_APP_IMAGE_PATH_NOTFOUND: https://d3p7ybpyhwl4ka.cloudfront.net/static/img/404-1.png
+      # FireBaseSettging
+      VUE_APP_FIREBASE_APIKEY: AIzaSyCs20ASK2AaDcGU4lh2ZywD4aWhpt3hSdk
+      VUE_APP_FIREBASE_AUTHDOMAIN: handson-firebase.firebaseapp.com
+      VUE_APP_FIREBASE_DATABASEURL: https://handson-firebase.firebaseio.com
+      VUE_APP_FIREBASE_PROJECTID: handson-firebase
+      VUE_APP_FIREBASE_STORAGEBUCKET: handson-firebase.appspot.com
+      VUE_APP_FIREBASE_MESSAGINGSENDERID: "824348989283"
+      VUE_APP_FIREBASE_APPID: 1:824348989283:web:ab2802ebea7ab619ff2556
+      VUE_APP_FIREBASE_EMAIL: yoshi.akazawa.0530@gmail.com
+      VUE_APP_FIREBASE_PASS: p@ssw0rd
+      # NEWS API
+      VUE_APP_NEWS_URL: http://newsapi.org/v2/top-headlines?country=jp
+    steps:
+      - checkout
+      - run:
+          name: yarn install
+          command: yarn install && yarn global add firebase && yarn global add firebaseui && yarn global add firebaseui-ja && yarn global add moment && yarn global add node-gyp && yarn global add moment && yarn global add @vue/cli
+      - run:
+          name: yarn test
+          command: yarn test
+      - run:
+          name: yarn build
+          command: yarn build

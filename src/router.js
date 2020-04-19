@@ -113,6 +113,15 @@ const router = new Router({
             }
         },
         {
+            path: "/newsjp",
+            name: "newsjp",
+            component: () =>
+                import ("@/components/NewsJP.vue"),
+            meta: {
+                isPublic: true
+            }
+        },
+        {
             path: "*",
             name: "notfound",
             component: () =>

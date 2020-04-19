@@ -3,7 +3,7 @@
     <div class="login-container">
       <section v-if="errored">
         <p>
-          <span class="text-danger">{{ this.emessage }}</span>
+          <span class="text-danger">{{ this.errorMsg }}</span>
         </p>
       </section>
       <div id="output" />
@@ -72,7 +72,9 @@
                 <b-form-checkbox v-model="passStatus">パスワードを表示する</b-form-checkbox>
                 <!-- This is a form text block (formerly known as help block) -->
                 <b-form-text id="input-live-help-password">８文字以上16文字以下で入力ください。</b-form-text>
-                <b-form-text id="input-live-help-password">英数字を含める必要があります。</b-form-text>
+                <b-form-text
+                  id="input-live-help-password"
+                >半角英数字記号をそれぞれ1種類以上含む8文字以上16文字以下で入力する必要があります。</b-form-text>
               </b-form-group>
             </b-col>
           </b-row>
@@ -164,7 +166,9 @@ export default {
     },
     passwordState() {
       //正規表現パターン（8文字以上の半角英数字）
-      let regex = new RegExp(/^(?=.*?[a-z])(?=.*?\d)[a-z\d]{8,16}$/i);
+      let regex = new RegExp(
+        /^(?=.*?[a-z])(?=.*?\d)(?=.*?[!-\/:-@[-`{-~])[!-~]{8,16}$/i
+      );
       return regex.test(this.form.password) ? true : false;
     },
     activateSubmit() {
