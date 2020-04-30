@@ -130,6 +130,16 @@ const router = new Router({
                 isPublic: true
             }
         },
+        {
+            path: "/covid-19",
+            name: "covid-19",
+            beforeEnter() {
+                window.location = process.env.VUE_APP_COVID19_URL;
+            },
+            meta: {
+                isPublic: true
+            }
+        },
     ]
 });
 
