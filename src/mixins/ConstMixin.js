@@ -41,7 +41,7 @@ export default {
                 )
                 .then(
                     res => {
-                        res.user.getIdToken( /* forceRefresh */ false).then(idToken => {
+                        res.user.getIdToken( /* forceRefresh */ true).then(idToken => {
                             sessionStorage.setItem("jwt", idToken.toString());
                         });
                     },
