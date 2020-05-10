@@ -80,7 +80,8 @@ export default {
       users: [],
       errored: false,
       anmatched: false,
-      name: ""
+      name: "",
+      result: false,
     };
   },
   /** ライフサイクルフック */
@@ -120,6 +121,7 @@ export default {
             this.$store.dispatch("changeLogin");
             this.$store.dispatch("putLogin_name", this.users.Name);
             this.$store.dispatch("putLogin_id", this.users.Id);
+            this.result = true;
             this.$router.push(nextpage).catch(e => {});
           } else {
             this.$store.dispatch("changeLogoff");
@@ -135,7 +137,14 @@ export default {
         });
       return;
     }
-  }
+  },
+  watch: {
+    result: function(val,oldVal){
+      if ( this.result ){
+        this.setAccessLog(this.$store.getters.getLogin_name, this.event_1);
+      }
+    }
+  },
 };
 </script>
 

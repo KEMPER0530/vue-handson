@@ -211,7 +211,8 @@ export default {
       personal_name: process.env.VUE_APP_PERSONAL_NAME,
       emessage: this.errorMsg,
       repassword: "",
-      passStatus: false
+      passStatus: false,
+      result: false,
     };
   },
   methods: {
@@ -258,6 +259,7 @@ export default {
             this.errored = false;
             // アカウント作成のサンキューメール送信
             this.registAccountMail();
+            this.result = true;
           } else if (
             this.regist.Result === this.zero &&
             this.regist.Responce === this.http_ok
@@ -282,6 +284,7 @@ export default {
       return;
     },
     registAccountMail() {
+      this.result = false;
       // 登録されたアカウントにメールを送付する
       // メール情報を登録する
       const MailUrl = `${this.mailUrl}`;
@@ -328,7 +331,14 @@ export default {
     moveTop() {
       this.$router.push("/");
     }
-  }
+  },
+  watch: {
+    result: function(val,oldVal){
+      if ( this.result ){
+        this.setAccessLog(this.$store.getters.getLogin_name, this.event_3);
+      }
+    }
+  },
 };
 </script>
 <style lang="scss">

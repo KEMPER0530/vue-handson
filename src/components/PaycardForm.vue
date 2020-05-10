@@ -218,7 +218,8 @@ export default {
       cardNumberMaxLength: 19,
       RegistUrl: process.env.VUE_APP_CREDIT_REGIST_URL,
       errored: false,
-      emessage: ""
+      emessage: "",
+      result: false
     };
   },
   computed: {
@@ -245,6 +246,11 @@ export default {
     cardYear() {
       if (this.formData.cardMonth < this.minCardMonth) {
         this.formData.cardMonth = "";
+      }
+    },
+    result: function(val,oldVal){
+      if ( this.result ){
+        this.setAccessLog(this.$store.getters.getLogin_name, this.event_5);
       }
     }
   },
@@ -332,6 +338,7 @@ export default {
         alert("invaild card name");
       } else {
         this.getJwtIdToken();
+        this.result = false;
         // カード情報を登録する
         const AcsUrl = `${this.RegistUrl}`;
         const params = new URLSearchParams();
@@ -352,6 +359,7 @@ export default {
             if (this.regist.Result === 1 && this.regist.Responce === 200) {
               this.errored = false;
               this.$refs["success-modal"].show();
+              this.result = true;
             } else if (
               this.regist.Result === 2 &&
               this.regist.Responce === 200
