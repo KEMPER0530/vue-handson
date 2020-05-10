@@ -106,11 +106,13 @@ export default {
       ],
       errored: false,
       emessage: "",
-      scrollY: this.zero
+      scrollY: this.zero,
+      result: false,
     };
   },
   methods: {
     showList() {
+      this.result = false;
       const AcsUrl = `${this.BaseUrl}`;
       const params = new URLSearchParams();
       params.append("category", this.PREF);
@@ -126,6 +128,7 @@ export default {
           this.$store.dispatch("putG_list", this.list);
           this.$store.dispatch("putPref", this.PREF);
           this.errored = false;
+          this.result = true;
         })
         .catch(error => {
           this.errored = true;
@@ -135,6 +138,13 @@ export default {
     },
     handleScroll() {
       this.scrollY = window.scrollY;
+    }
+  },
+  watch: {
+    result: function(val,oldVal){
+      if ( this.result ){
+        this.setAccessLog(this.$store.getters.getLogin_name, this.event_6);
+      }
     }
   },
   mounted() {

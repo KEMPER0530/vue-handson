@@ -192,7 +192,8 @@ export default {
       errored: false,
       mailUrl: process.env.VUE_APP_SEND_MAIL,
       mailAdrInf: process.env.VUE_APP_GET_MAIL_ADR,
-      emessage: ""
+      emessage: "",
+      result: false,
     };
   },
   methods: {
@@ -215,6 +216,7 @@ export default {
     },
     sendMail() {
       this.$refs["regist-modal"].hide();
+      this.result = false;
       // メール情報を登録する
       const AcsUrl = `${this.mailUrl}`;
       const params = new URLSearchParams();
@@ -249,6 +251,7 @@ export default {
           ) {
             this.errored = false;
             this.$refs["success-modal"].show();
+            this.result = true;
           } else {
             this.emessage = "送信に失敗しました";
             this.$refs["failed-modal"].show();
@@ -268,7 +271,14 @@ export default {
     moveTop() {
       this.$router.push("/");
     }
-  }
+  },
+  watch: {
+    result: function(val,oldVal){
+      if ( this.result ){
+        this.setAccessLog(this.$store.getters.getLogin_name, this.event_4);
+      }
+    }
+  },
 };
 </script>
 <style lang="scss">

@@ -23,7 +23,8 @@ export default {
   name: "AuthSms",
   data() {
     return {
-      errored: false
+      errored: false,
+      result: false,
     };
   },
   mounted() {
@@ -53,7 +54,7 @@ export default {
             });
         },
         signInFailure: function(error) {
-          this.errored = true;
+          vm.data.errored = true;
           vm.$router.push("/").catch(e => {});
         }
       },
@@ -68,7 +69,7 @@ export default {
         }
       ]
     });
-  }
+  },
 };
 </script>
 <style lang="scss">
