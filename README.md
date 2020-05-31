@@ -37,6 +37,7 @@ GoAPIはこちら<br>
 - ログイン後にSMS認証の実施
 - 画像ファイルはS3から参照
 - メールリンク認証の実施
+- GoogleMapを利用した地図検索の実施
 
 ## 本番環境
 - AWS(EC2にDockerを配置し、nginx(Docker)経由でアプリへアクセス)
@@ -46,3 +47,4 @@ GoAPIはこちら<br>
 - CloudFront
 - SES
 - Firebase
+- GoogleCloudPlatform
