@@ -6,9 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue/dist/bootstrap-vue.css";
 import store from "@/store";
 import feather from 'vue-icon'
-// ページトップ用のプラグイン
 import VueScrollTo from 'vue-scrollto'
-
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faCoffee,
@@ -23,10 +21,12 @@ import {
     faDoorClosed,
     faAddressCard,
     faUserCircle,
-    faNewspaper
+    faNewspaper,
+    faMap
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import firebase from 'firebase';
+import * as VueGoogleMaps from 'vue2-google-maps';
 
 library.add(
     faCoffee,
@@ -41,13 +41,15 @@ library.add(
     faDoorClosed,
     faAddressCard,
     faUserCircle,
-    faNewspaper
+    faNewspaper,
+    faMap
 );
-
+// アイコンの利用
 Vue.component('font-awesome-icon', FontAwesomeIcon);
-
-Vue.use(BootstrapVue);
 Vue.use(feather, 'v-icon');
+// VueBootstrapの利用
+Vue.use(BootstrapVue);
+// スクロールの利用
 Vue.use(VueScrollTo, {
     container: "body", // スクロールするcontainer
     duration: 500, // スクロールアニメーションの長さ（ミリ秒）
@@ -55,7 +57,15 @@ Vue.use(VueScrollTo, {
     force: true, // スクロールターゲットがすでに表示されている場合でも、スクロールを実行するかどうか。
     cancelable: false // ユーザーがスクロールをキャンセルできるかどうか
 });
-// Vue.use(Vuetify);
+// GoogleMapの利用
+Vue.use(VueGoogleMaps, {
+    load: {
+        key: process.env.VUE_APP_GOOGLE_MAP_API_KEY,
+        libraries: 'places',
+        region: 'JP',
+        language: 'ja'
+    }
+});
 Vue.config.productionTip = false;
 
 // Your web app's Firebase configuration

@@ -9,7 +9,21 @@
       アカウント確認のために
       <br />SMS認証を行います
     </h4>
-    <div id="firebaseui-auth-container"></div>
+    <b-container fluid>
+      <b-row  align-v="start">
+        <b-col>
+          <div id="firebaseui-auth-container"></div>
+        </b-col>
+      </b-row>
+      <br>
+    </b-container>
+    <b-container>
+      <b-row  align-v="end">
+        <b-col md="6" offset-md="3">
+          <b-button variant="outline-danger" block pill @click="onBack()">戻る</b-button>
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 <script>
@@ -27,8 +41,21 @@ export default {
       result: false,
     };
   },
+  methods: {
+    onBack() {
+      this.$store.dispatch("changeSmsLogoff");
+      this.$store.dispatch("changeSmsInputOFF");
+      this.$store.dispatch("changeLogoff").then(() => {
+        window.sessionStorage.removeItem("vuex");
+        this.$router.go(-1);
+      });
+    },
+  },
   mounted() {
     const vm = this;
+    // SMSインプットモードオン
+    vm.$store.dispatch("changeSmsInputON");
+    // firebase設定
     let ui =
       firebaseui.auth.AuthUI.getInstance() ||
       new firebaseui.auth.AuthUI(firebase.auth());
@@ -50,11 +77,13 @@ export default {
             .currentUser.updateProfile(user)
             .then(res => {
               vm.$store.dispatch("changeSmsLogin");
+              vm.$store.dispatch("changeSmsInputOFF");
               vm.$router.push(nextpage).catch(e => {});
             });
         },
         signInFailure: function(error) {
           vm.data.errored = true;
+          vm.$store.dispatch("changeSmsInputOFF");
           vm.$router.push("/").catch(e => {});
         }
       },
@@ -73,5 +102,6 @@ export default {
 };
 </script>
 <style lang="scss">
+@import "@/static/scss/login.scss";
 @import "@/static/scss/common.scss";
 </style>

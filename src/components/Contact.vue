@@ -10,15 +10,15 @@
       <span class="mgr-3">
         <font-awesome-icon icon="envelope" />
       </span>
-      お問い合わせ
+      お問合せ
     </h2>
     <br />
     <b-form @submit="onSubmit" @reset="onReset" v-if="show">
       <b-container fluid>
         <b-row>
           <b-col lg="12">
-            <b-form-group id="input-group-2" label-for="input-2">
-              <b-input-group prepend="氏名">
+            <b-form-group id="input-group-2" label-for="input-2" label="氏名" label-align="left">
+              <b-input-group>
                 <b-form-input
                   id="input-2"
                   v-model="form.name"
@@ -35,8 +35,8 @@
         </b-row>
         <b-row>
           <b-col lg="12">
-            <b-form-group id="input-group-1" label-for="input-1" description>
-              <b-input-group prepend="📧">
+            <b-form-group id="input-group-1" label-for="input-1" label="メールアドレス" label-align="left" description>
+              <b-input-group>
                 <b-form-input
                   id="input-1"
                   v-model="form.to_email"
@@ -52,9 +52,9 @@
             </b-form-group>
           </b-col>
         </b-row>
-        <b-row class="mail-form">
-          <b-col sm="12">
-            <b-form-group id="input-group-3" label-for="input-3">
+        <b-row>
+          <b-col lg="12">
+            <b-form-group id="input-group-3" label-for="input-3" label="お問合せ内容" label-align="left">
               <b-form-textarea
                 id="input-3"
                 v-model="form.text"

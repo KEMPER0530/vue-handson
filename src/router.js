@@ -95,10 +95,10 @@ const router = new Router({
             }
         },
         {
-            path: "/createacount",
-            name: "createacount",
+            path: "/signup",
+            name: "signup",
             component: () =>
-                import ("@/components/CreateAcount.vue"),
+                import ("@/components/Signup.vue"),
             meta: {
                 isPublic: true,
             }
@@ -117,6 +117,15 @@ const router = new Router({
             name: "newsjp",
             component: () =>
                 import ("@/components/NewsJP.vue"),
+            meta: {
+                isPublic: true
+            }
+        },
+        {
+            path: "/gmap",
+            name: "gmap",
+            component: () =>
+                import ("@/components/Gmap.vue"),
             meta: {
                 isPublic: true
             }

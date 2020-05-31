@@ -14,6 +14,7 @@ const state = {
     member: [],
     login_name: "",
     login_id: "",
+    smsInputmode: false,
 };
 
 const mutations = {
@@ -60,6 +61,12 @@ const mutations = {
     putLogin_id(state, login_id) {
         state.login_id = login_id;
     },
+    changeSmsInputON(state) {
+        state.smsInputmode = true;
+    },
+    changeSmsInputOFF(state) {
+        state.smsInputmode = false;
+    },
 };
 
 const getters = {
@@ -89,6 +96,9 @@ const getters = {
     },
     getLogin_id(state) {
         return state.login_id;
+    },
+    getSmsInputMode(state) {
+        return state.smsInputmode;
     }
 };
 
@@ -133,7 +143,17 @@ const actions = {
         commit
     }, login_id) {
         commit("putLogin_id", login_id);
-    }
+    },
+    changeSmsInputON({
+        commit
+    }) {
+        commit("changeSmsInputON");
+    },
+    changeSmsInputOFF({
+        commit
+    }) {
+        commit("changeSmsInputOFF");
+    },
 };
 
 const store = new Vuex.Store({

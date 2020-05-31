@@ -1,7 +1,7 @@
 <template>
   <div>
     <b-navbar toggleable="lg" type="dark" class="samuraiblue">
-      <b-navbar-brand to="/">
+      <b-navbar-brand to="/" v-if="smsInputMode === false">
         {{ title }}
         <span v-if="loggedin">
           <font-awesome-icon icon="sign-in-alt" />
@@ -13,36 +13,42 @@
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto">
-          <b-nav-item to="/profile" :prop1="propVal">
+          <b-nav-item to="/profile" :prop1="propVal" v-if="smsInputMode === false">
             <span class="mgr-3">
               <font-awesome-icon icon="user-circle" />
             </span>
             Profile
           </b-nav-item>
-          <b-nav-item to="/work">
+          <b-nav-item to="/work" v-if="smsInputMode === false">
             <span class="mgr-3">
               <font-awesome-icon icon="wrench" />
             </span>
             Work
           </b-nav-item>
           <!-- <b-nav-item to="/counter">カウンター機能</b-nav-item> -->
-          <b-nav-item to="/paycard">
+          <b-nav-item to="/paycard" v-if="smsInputMode === false">
             <span class="mgr-3">
               <font-awesome-icon icon="credit-card" />
             </span>
             CardRegist
           </b-nav-item>
-          <b-nav-item to="/newsjp">
+          <b-nav-item to="/newsjp" v-if="smsInputMode === false">
             <span class="mgr-3">
               <font-awesome-icon icon="newspaper" />
             </span>
             NewsAPI
           </b-nav-item>
-          <b-nav-item to="/contact">
+          <b-nav-item to="/contact" v-if="smsInputMode === false">
             <span class="mgr-3">
               <font-awesome-icon icon="envelope" />
             </span>
             Contact
+          </b-nav-item>
+          <b-nav-item to="/gmap" v-if="smsInputMode === false">
+            <span class="mgr-3">
+              <font-awesome-icon icon="map" />
+            </span>
+            GoogleMap
           </b-nav-item>
           <b-button size="sm" class="my-2 my-sm-0" @click="logout" v-if="loggedin">LOGOUT</b-button>
         </b-navbar-nav>
@@ -68,6 +74,9 @@ export default {
     loggedin() {
       this.login_name = this.$store.getters.getLogin_name;
       return this.$store.getters.getAuthSms ? true : false;
+    },
+    smsInputMode(){
+      return this.$store.getters.getSmsInputMode ? true : false;
     }
   },
   created() {
@@ -76,6 +85,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("changeSmsLogoff");
+      this.$store.dispatch("changeSmsInputOFF");
       this.$store.dispatch("changeLogoff").then(() => {
         window.sessionStorage.removeItem("vuex");
         this.$router.push("/").catch(err => {});

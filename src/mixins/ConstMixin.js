@@ -12,12 +12,13 @@ const _errorMsg = "We're sorry, we're not able to retrieve this information at t
 const _title = "Akazawa portfolio";
 const _scrollYlenge = 700;
 const _pmsg = "エンハンス内容";
-const _event_1 = "ログイン実施";
-const _event_2 = "SMSログイン実施";
-const _event_3 = "アカウント作成実施";
-const _event_4 = "メールの送信実施";
+const _event_1 = "ID.PASSログイン";
+const _event_2 = "SMSログイン";
+const _event_3 = "アカウント作成";
+const _event_4 = "メールの送信";
 const _event_5 = "クレジットカード情報登録";
-const _event_6 = "検索の実施";
+const _event_6 = "NEWSAPI検索";
+const _event_7 = "GoogleMAP検索";
 
 export default {
     data() {
@@ -39,6 +40,7 @@ export default {
             event_4: _event_4,
             event_5: _event_5,
             event_6: _event_6,
+            event_7: _event_7,
         }
     },
     methods: {
@@ -69,7 +71,6 @@ export default {
         async setAccessLog(user_id = null, event_id = null) {
             // IPアドレス等の情報取得
             let obj = await this.getIPAddresses();
-            console.log(obj);
             const AcsUrl = process.env.VUE_APP_REGIST_ACCESS_LOG;
             // パラメータの設定
             const params = new URLSearchParams();
