@@ -19,24 +19,21 @@
       </h2>
       <div class="avatar" />
       <div class="form-box">
-        テスト用のため
-        <br />test1/test1でログインできます。
-        <br />
         <span class="text-danger">「CardRegist」と「Contact」はログインが必要です</span>
         <form @submit.prevent="onSubmit">
           <input v-model="username" type="text" placeholder="e-mail" />
           <input v-model="password" type="password" placeholder="password" />
           <b-row class="button-group1">
-            <b-col>
+            <b-col md="6">
               <b-button
                 block
                 pill
                 variant="outline-pink"
                 class="btn btn-block login"
-                @click="onTransition()"
-              >CreateNewAccount</b-button>
+                @click="onSignUp()"
+              >新規登録</b-button>
             </b-col>
-            <b-col>
+            <b-col md="6">
               <b-button
                 block
                 pill
@@ -44,7 +41,18 @@
                 class="btn btn-block login"
                 type="submit"
                 :disabled="!activateSubmit"
-              >Login</b-button>
+              >ログイン</b-button>
+            </b-col>
+          </b-row>
+          <b-row class="button-group1">
+            <b-col cols="12">
+              <b-button
+                block
+                pill
+                variant="outline-success"
+                class="btn btn-block login"
+                @click="onGuestLogin()"
+              >お試しログイン</b-button>
             </b-col>
           </b-row>
         </form>
@@ -92,15 +100,25 @@ export default {
     // DOM操作が伴う場合
   },
   methods: {
-    onTransition() {
-      this.$router.push("/createacount").catch(e => {});
+    onSignUp() {
+      this.$router.push("/signup").catch(e => {});
     },
-    onSubmit() {
+    onGuestLogin(){
+      this.onSubmit(null,process.env.VUE_APP_GUESTUSER,process.env.VUE_APP_GUESTPASS);
+    },
+    // 引数１にはsubmitイベントが格納される
+    onSubmit(event = null,user = null,pass = null) {
       let nextpage = this.$route.query.redirect;
       const AcsUrl = `${this.BaseUrl}`;
       const params = new URLSearchParams();
-      params.append("username", this.username);
-      params.append("password", this.password);
+      if( user === null && pass === null ){
+        params.append("username", this.username);
+        params.append("password", this.password);
+      } else{
+        params.append("username", user);
+        params.append("password", pass);
+        this.$store.dispatch("changeSmsLogin");
+      }
 
       this.getJwtIdToken();
 

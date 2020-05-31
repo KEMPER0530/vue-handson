@@ -17,8 +17,8 @@
         <b-container fluid>
           <b-row>
             <b-col lg="12">
-              <b-form-group id="input-group-0" label-for="input-0" description>
-                <b-input-group prepend="氏名">
+              <b-form-group id="input-group-0" label-for="input-0" label="氏名" label-align="left" description>
+                <b-input-group>
                   <b-form-input
                     id="input-0"
                     v-model="form.name"
@@ -37,8 +37,8 @@
           </b-row>
           <b-row>
             <b-col lg="12">
-              <b-form-group id="input-group-1" label-for="input-1" description>
-                <b-input-group prepend="📧">
+              <b-form-group id="input-group-1" label-for="input-1" label="メールアドレス" label-align="left" description>
+                <b-input-group>
                   <b-form-input
                     id="input-1"
                     v-model="form.email"
@@ -57,8 +57,8 @@
           </b-row>
           <b-row>
             <b-col lg="12">
-              <b-form-group id="input-group-2" label-for="input-2">
-                <b-input-group prepend="🔑">
+              <b-form-group id="input-group-2" label-for="input-2" label="パスワード" label-align="left" >
+                <b-input-group>
                   <b-form-input
                     id="input-2"
                     v-model="form.password"
