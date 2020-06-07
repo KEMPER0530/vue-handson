@@ -1,5 +1,5 @@
 <template>
-  <div class="profile container" align="center">
+  <div class="profile container-fluid" align="center">
     <section v-if="errored">
       <p>
         <span class="text-danger">{{ this.emessage }}</span>

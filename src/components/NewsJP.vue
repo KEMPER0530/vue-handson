@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <div role="group">
       <section v-if="errored">
         <p>
