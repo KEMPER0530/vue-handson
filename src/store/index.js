@@ -15,6 +15,9 @@ const state = {
     login_name: "",
     login_id: "",
     smsInputmode: false,
+    latitude: 0,
+    longitude: 0,
+    address: "",
 };
 
 const mutations = {
@@ -67,6 +70,15 @@ const mutations = {
     changeSmsInputOFF(state) {
         state.smsInputmode = false;
     },
+    putLatitude(state, latitude) {
+        state.latitude = latitude;
+    },
+    putLongitude(state, longitude) {
+        state.longitude = longitude;
+    },
+    putAddress(state, address) {
+        state.address = address;
+    },
 };
 
 const getters = {
@@ -99,6 +111,15 @@ const getters = {
     },
     getSmsInputMode(state) {
         return state.smsInputmode;
+    },
+    getLatitude(state) {
+        return state.latitude;
+    },
+    getLongitude(state) {
+        return state.longitude;
+    },
+    getAddress(state) {
+        return state.address;
     }
 };
 
@@ -153,6 +174,15 @@ const actions = {
         commit
     }) {
         commit("changeSmsInputOFF");
+    },
+    putLatitude({ commit }, latitude) {
+        commit("putLatitude", latitude);
+    },
+    putLongitude({ commit }, longitude) {
+        commit("putLongitude", longitude);
+    },
+    putAddress({ commit }, address) {
+        commit("putAddress", address);
     },
 };
 

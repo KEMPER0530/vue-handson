@@ -45,7 +45,6 @@
 
 <script>
 import axios from "axios";
-import store from "@/store";
 import constMixin from "@/mixins/ConstMixin";
 
 export default {
@@ -84,6 +83,10 @@ export default {
           this.center.lng = results[0].geometry.location.lng();
           this.marker_items[0].position.lat = this.center.lat;
           this.marker_items[0].position.lng = this.center.lng;
+
+          this.$store.dispatch("putLatitude", this.center.lat);
+          this.$store.dispatch("putLongitude", this.center.lng);
+          this.$store.dispatch("putAddress", this.address);
         } else {
           // 失敗の場合
           alert('住所検索に失敗しました。住所が正しいか確認してください');
@@ -93,19 +96,30 @@ export default {
     }
   },
   created() {
-    // ipdata.coへの接続文字列
-    const AcsUrl = process.env.VUE_APP_IPDATA;
-    // APIの実施
-    axios.get(AcsUrl).then(responce => {
-        // IPアドレスから位置を取得
-        let lat = parseFloat(responce.data.latitude);
-        let lng = parseFloat(responce.data.longitude);
-        this.center = new google.maps.LatLng(lat, lng);
-        this.marker_items[0].position.lat = lat;
-        this.marker_items[0].position.lng = lng;
-      }).catch(error => {
-        console.error("Failed to get IP-DATA ");
-      });
+    if( this.$store.getters.getLatitude == 0 &&
+        this.$store.getters.getLongitude == 0 ){
+      // ipdata.coへの接続文字列
+      const AcsUrl = process.env.VUE_APP_IPDATA;
+      // APIの実施
+      axios.get(AcsUrl).then(responce => {
+          // IPアドレスから位置を取得
+          let lat = parseFloat(responce.data.latitude);
+          let lng = parseFloat(responce.data.longitude);
+          this.center = new google.maps.LatLng(lat, lng);
+          this.marker_items[0].position.lat = lat;
+          this.marker_items[0].position.lng = lng;
+        }).catch(error => {
+          console.error("Failed to get IP-DATA ");
+        });
+    } else {
+      // Vuexに保存した位置を取得
+      let lat = parseFloat(this.$store.getters.getLatitude);
+      let lng = parseFloat(this.$store.getters.getLongitude);
+      this.center = new google.maps.LatLng(lat, lng);
+      this.marker_items[0].position.lat = lat;
+      this.marker_items[0].position.lng = lng;
+      this.address = this.$store.getters.getAddress;
+    }
   },
   watch: {
     result: function(val,oldVal){

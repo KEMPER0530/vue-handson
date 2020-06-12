@@ -66,6 +66,7 @@ Vue.use(VueGoogleMaps, {
         language: 'ja'
     }
 });
+
 Vue.config.productionTip = false;
 
 // Your web app's Firebase configuration

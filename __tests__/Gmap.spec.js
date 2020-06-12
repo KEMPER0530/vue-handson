@@ -2,23 +2,18 @@ import {
     shallowMount,
     createLocalVue
 } from '@vue/test-utils';
-import NewsJP from '@/components/NewsJP.vue';
+import Gmap from '@/components/Gmap.vue';
 import BootstrapVue, {
     BButton,
-    BFormInput
 } from "bootstrap-vue";
-import VueScrollTo from 'vue-scrollto';
 import axios from 'axios';
 import Vuex from 'vuex';
 import constMixin from "@/mixins/ConstMixin";
-import Loading from 'vue-loading-overlay';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
-localVue.use(VueScrollTo);
 localVue.use(Vuex);
 localVue.use(axios);
-localVue.use(Loading);
 
 let wrapper;
 let store;
@@ -28,31 +23,36 @@ beforeEach(() => {
     //Vuexストアのモックを作成する
     storeMock = {
         getters: {
-            g_list: [],
-            name: "TEST",
-            pref: "PREF014"
+            latitude: 0,
+            longitude: 0,
+            address: ""
         },
     };
     store = new Vuex.Store({
         storeMock
     });
-    wrapper = shallowMount(NewsJP, {
+    wrapper = shallowMount(Gmap, {
         localVue,
         store,
         constMixin
     });
     wrapper.setData({
-        name: "",
-        list: "",
-        BaseUrl: process.env.VUE_APP_GET_NEWS_API,
-        PREF: "",
-        options: [{
-            text: "ビジネス",
-            value: "business"
+        geocoder: {},
+        address: "",
+        center: {
+            lat: 0,
+            lng: 0
+        },
+        zoom: 14,
+        result: false,
+        marker_items: [{
+            position: {
+                lat: 0,
+                lng: 0
+            },
+            title: 'Present location'
         }, ],
-        errored: false,
-        emessage: "",
-        scrollY: constMixin.zero
+        infos: [],
     })
 })
 
@@ -61,7 +61,7 @@ afterEach(() => {
     jest.resetAllMocks();
 })
 
-describe('Testing NewsJP component', () => {
+describe('Testing Gmap component', () => {
     it('Vueインスタンスが生成されているか', () => {
         expect(wrapper.isVueInstance).toBeTruthy()
     });
