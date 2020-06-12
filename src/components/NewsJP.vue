@@ -28,31 +28,39 @@
       </div>
       <b-button block pill variant="outline-primary" @click="showList" :disabled="!submitState">検索</b-button>
       <br />
-      <!-- イメージを出力する -->
-      <b-card-group columns class="multicol">
-        <b-card
-          v-for="item in sortedList"
-          :key="item.source.id"
-          :title="item.Title"
-          :img-src="item.UrlToImage"
-          img-alt="Image"
-          img-top
-          border-variant="primary"
-          align="center"
-          decoding="async"
-        >
-          <br />
-          <b-card-text>{{ item.Description }}</b-card-text>
-          <b-row class="button-group1">
-            <b-col>
-              <b-button :href="item.Url" variant="outline-primary" target="_blank" block pill>Link</b-button>
-            </b-col>
-          </b-row>
-          <template v-slot:footer>
-            <small class="text-muted">更新日:{{ item.PublishedAt }}</small>
-          </template>
-        </b-card>
-      </b-card-group>
+      <!-- loading画面 -->
+      <div class="vld-parent">
+        <loading
+          :active.sync="isLoading"
+          :can-cancel="true"
+          :loader="loader"
+          :is-full-page="fullPage"></loading>
+        <!-- イメージを出力する -->
+        <b-card-group columns class="multicol">
+          <b-card
+            v-for="item in sortedList"
+            :key="item.source.id"
+            :title="item.Title"
+            :img-src="item.UrlToImage"
+            img-alt="Image"
+            img-top
+            border-variant="primary"
+            align="center"
+            decoding="async"
+          >
+            <br />
+            <b-card-text>{{ item.Description }}</b-card-text>
+            <b-row class="button-group1">
+              <b-col>
+                <b-button :href="item.Url" variant="outline-primary" target="_blank" block pill>Link</b-button>
+              </b-col>
+            </b-row>
+            <template v-slot:footer>
+              <small class="text-muted">更新日:{{ item.PublishedAt }}</small>
+            </template>
+          </b-card>
+        </b-card-group>
+      </div>
     </div>
     <!--ページトップ-->
     <b-link href="#" class="return-top" v-scroll-to="'body'" v-if="scrollState">
@@ -65,6 +73,7 @@
 import axios from "axios";
 import _sortBy from "lodash.sortby";
 import constMixin from "@/mixins/ConstMixin";
+import Loading from 'vue-loading-overlay';
 
 export default {
   mixins: [constMixin],
@@ -90,8 +99,14 @@ export default {
       }
     }
   },
+  components: {
+    Loading
+  },
   data() {
     return {
+      isLoading: false,
+      fullPage: true,
+      loader: "bars",
       name: "",
       list: "",
       BaseUrl: process.env.VUE_APP_GET_NEWS_API,
@@ -112,6 +127,12 @@ export default {
   },
   methods: {
     showList() {
+      // loadingの表示
+      this.isLoading = true;
+      setTimeout(function(){
+      }, 1500);
+
+      // NEWSAPIの取得
       this.result = false;
       const AcsUrl = `${this.BaseUrl}`;
       const params = new URLSearchParams();
@@ -134,11 +155,13 @@ export default {
           this.errored = true;
           this.emessage = error.message;
         })
-        .finally(() => {});
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     handleScroll() {
       this.scrollY = window.scrollY;
-    }
+    },
   },
   watch: {
     result: function(val,oldVal){

@@ -11,12 +11,14 @@ import VueScrollTo from 'vue-scrollto';
 import axios from 'axios';
 import Vuex from 'vuex';
 import constMixin from "@/mixins/ConstMixin";
+import Loading from 'vue-loading-overlay';
 
 const localVue = createLocalVue();
 localVue.use(BootstrapVue);
 localVue.use(VueScrollTo);
 localVue.use(Vuex);
 localVue.use(axios);
+localVue.use(Loading);
 
 let wrapper;
 let store;

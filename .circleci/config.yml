@@ -14,7 +14,7 @@ jobs:
       #       - node-10-dependencies-
       - run:
           name: yarn install
-          command: yarn install && yarn global add firebase && yarn global add firebaseui && yarn global add firebaseui-ja && yarn global add moment && yarn global add node-gyp && yarn global add moment && yarn global add @vue/cli
+          command: yarn install && yarn global add firebase && yarn global add firebaseui && yarn global add firebaseui-ja && yarn global add moment && yarn global add node-gyp && yarn global add moment && yarn global add @vue/cli && yarn global add vue2-google-maps && yarn global add vue-loading-overlay
       - save_cache:
           paths:
             - node_modules
@@ -25,3 +25,27 @@ jobs:
       - run:
           name: yarn build
           command: yarn build
+# EC2にSSH接続し、デプロイを実行
+  deploy:
+    machine:
+      image: circleci/classic:edge
+    steps:
+      - checkout
+      # CircleCIに登録した秘密鍵を呼び出す。
+      - add_ssh_keys:
+          fingerprints:
+            - "c2:71:eb:40:c6:cd:36:4e:02:04:a1:56:6e:9e:ec:74"
+      - run: ssh ${USER_NAME}@${HOST_NAME} 'cd /work/docker-portfolio/vue-docker/app && git pull && cd /work/docker-portfolio/ && docker-compose up -d'
+workflows:
+    version: 2
+    build_and_deploy:
+        jobs:
+            - build
+            - deploy:
+                requires:
+                    # build ジョブに依存してるので、先に build ジョブを実行しろ！
+                    - build
+                # master ブランチに push された場合のみ deploy
+                filters:
+                    branches:
+                        only: master
