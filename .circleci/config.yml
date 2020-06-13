@@ -34,7 +34,7 @@ jobs:
       # CircleCIに登録した秘密鍵を呼び出す。
       - add_ssh_keys:
           fingerprints:
-            - "c2:71:eb:40:c6:cd:36:4e:02:04:a1:56:6e:9e:ec:74"
+            - "46:4c:fd:fd:5f:a4:25:e4:a1:0e:be:a6:18:d5:98:32"
       - run: ssh ${USER_NAME}@${HOST_NAME} 'cd /work/docker-portfolio/vue-docker/app && git pull && cd /work/docker-portfolio/ && docker-compose up -d'
 workflows:
     version: 2
