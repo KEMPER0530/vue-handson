@@ -11,29 +11,33 @@
         <span class="text-danger">{{ errorMsg }}</span>
       </p>
     </section>
-    <div class="card-list" v-b-tooltip.hover title="セキュリティコードは暗号化して登録します">
+    <div
+      v-b-tooltip.hover
+      class="card-list"
+      title="セキュリティコードは暗号化して登録します"
+    >
       <Paycard
         :fields="fields"
         :labels="formData"
-        :isCardNumberMasked="isCardNumberMasked"
-        :randomBackgrounds="randomBackgrounds"
-        :backgroundImage="backgroundImage"
+        :is-card-number-masked="isCardNumberMasked"
+        :random-backgrounds="randomBackgrounds"
+        :background-image="backgroundImage"
       />
     </div>
     <div class="card-form__inner">
       <div class="card-input">
         <label for="cardNumber" class="card-input__label">カード番号</label>
         <input
-          type="tel"
           :id="fields.cardNumber"
-          @input="changeNumber"
-          @focus="focusCardNumber"
-          @blur="blurCardNumber"
+          type="tel"
           class="card-input__input"
           :value="formData.cardNumber"
           :maxlength="cardNumberMaxLength"
           data-card-field
           autocomplete="off"
+          @input="changeNumber"
+          @focus="focusCardNumber"
+          @blur="blurCardNumber"
         />
         <button
           class="card-input__eye"
@@ -47,14 +51,14 @@
       <div class="card-input">
         <label for="cardName" class="card-input__label">カード名義人</label>
         <input
-          type="text"
           :id="fields.cardName"
           v-letter-only
-          @input="changeName"
+          type="text"
           class="card-input__input"
           :value="formData.cardName"
           data-card-field
           autocomplete="off"
+          @input="changeName"
         />
       </div>
       <div class="card-form__row">
@@ -62,62 +66,67 @@
           <div class="card-form__group">
             <label for="cardMonth" class="card-input__label">有効期限</label>
             <select
-              class="card-input__input -select"
               :id="fields.cardMonth"
               v-model="formData.cardMonth"
-              @change="changeMonth"
+              class="card-input__input -select"
               data-card-field
+              @change="changeMonth"
             >
               <option value disabled selected>月</option>
               <option
-                v-bind:value="n < 10 ? '0' + n : n"
                 v-for="n in 12"
-                v-bind:disabled="n < minCardMonth"
-                v-bind:key="n"
-              >{{ generateMonthValue(n) }}</option>
+                :key="n"
+                :value="n < 10 ? '0' + n : n"
+                :disabled="n < minCardMonth"
+                >{{ generateMonthValue(n) }}</option
+              >
             </select>
             <select
-              class="card-input__input -select"
               :id="fields.cardYear"
               v-model="formData.cardYear"
-              @change="changeYear"
+              class="card-input__input -select"
               data-card-field
+              @change="changeYear"
             >
               <option value disabled selected>年</option>
               <option
-                v-bind:value="$index + minCardYear"
                 v-for="(n, $index) in 12"
-                v-bind:key="n"
-              >{{ $index + minCardYear }}</option>
+                :key="n"
+                :value="$index + minCardYear"
+                >{{ $index + minCardYear }}</option
+              >
             </select>
           </div>
         </div>
         <div class="card-form__col -cvv">
           <div class="card-input">
-            <label for="cardCvv" class="card-input__label">セキュリティコード</label>
+            <label for="cardCvv" class="card-input__label"
+              >セキュリティコード</label
+            >
             <input
+              :id="fields.cardCvv"
+              v-number-only
               type="tel"
               class="card-input__input"
-              v-number-only
-              :id="fields.cardCvv"
               maxlength="4"
               :value="formData.cardCvv"
-              @input="changeCvv"
               data-card-field
               autocomplete="off"
+              @input="changeCvv"
             />
           </div>
         </div>
       </div>
       <b-button
-        :disabled="!activateSubmit"
         v-b-modal.my-modal
+        :disabled="!activateSubmit"
         block
         pill
         variant="outline-primary"
         size="lg"
         @click="showModal"
-      >登録</b-button>
+        >登録</b-button
+      >
       <!-- The modal -->
       <b-modal ref="regist-modal" centered hide-footer>
         <div class="d-block text-center">
@@ -126,7 +135,14 @@
             <br />よろしいですか？
           </h4>
         </div>
-        <b-button class="mt-3" pill variant="outline-primary" block @click="invaildCard">OK</b-button>
+        <b-button
+          class="mt-3"
+          pill
+          variant="outline-primary"
+          block
+          @click="invaildCard"
+          >OK</b-button
+        >
       </b-modal>
       <!-- 登録成功 -->
       <b-modal ref="success-modal" centered hide-footer>
@@ -136,7 +152,14 @@
             <br />TOPページへ遷移します。
           </h4>
         </div>
-        <b-button pill class="mt-3" variant="outline-primary" block @click="moveTop">OK</b-button>
+        <b-button
+          pill
+          class="mt-3"
+          variant="outline-primary"
+          block
+          @click="moveTop"
+          >OK</b-button
+        >
       </b-modal>
       <!-- 登録失敗 -->
       <b-modal ref="failed-modal" centered hide-footer>
@@ -154,8 +177,7 @@ import axios from "axios";
 import constMixin from "@/mixins/ConstMixin";
 
 export default {
-  mixins: [constMixin],
-  name: "paycardform",
+  name: "Paycardform",
   directives: {
     "number-only": {
       bind(el) {
@@ -181,6 +203,10 @@ export default {
       }
     }
   },
+  components: {
+    Paycard
+  },
+  mixins: [constMixin],
   props: {
     formData: {
       type: Object,
@@ -199,9 +225,6 @@ export default {
       type: Boolean,
       default: true
     }
-  },
-  components: {
-    Paycard
   },
   data() {
     return {
@@ -237,9 +260,8 @@ export default {
         this.formData.cardCvv
       ) {
         return true;
-      } else {
-        return false;
       }
+      return false;
     }
   },
   watch: {
@@ -248,8 +270,8 @@ export default {
         this.formData.cardMonth = "";
       }
     },
-    result: function(val,oldVal){
-      if ( this.result ){
+    result() {
+      if (this.result) {
         this.setAccessLog(this.$store.getters.getLogin_name, this.event_5);
       }
     }
@@ -273,7 +295,7 @@ export default {
     },
     changeNumber(e) {
       this.formData.cardNumber = e.target.value;
-      let value = this.formData.cardNumber.replace(/\D/g, "");
+      const value = this.formData.cardNumber.replace(/\D/g, "");
       // american express, 15 digits
       if (/^3[47]\d{0,13}$/.test(value)) {
         this.formData.cardNumber = value
@@ -308,22 +330,18 @@ export default {
     },
     invaildCard() {
       this.$refs["regist-modal"].hide();
-      let number = this.formData.cardNumber;
-      let sum = 0;
+      const number = this.formData.cardNumber;
       let isOdd = true;
       for (let i = number.length - 1; i >= 0; i--) {
         let num = number.charAt(i);
-        if (isOdd) {
-          sum += num;
-        } else {
-          num = num * 2;
+        if (!isOdd) {
+          num *= 2;
           if (num > 9) {
             num = num
               .toString()
               .split("")
               .join("+");
           }
-          sum += num;
         }
         isOdd = !isOdd;
       }
@@ -377,10 +395,7 @@ export default {
             this.emessage = "登録に失敗しました";
             this.$refs["failed-modal"].show();
           })
-          .finally(() => {
-            return;
-          });
-        return;
+          .finally(() => {});
       }
     },
     blurCardNumber() {
@@ -390,7 +405,7 @@ export default {
     },
     maskCardNumber() {
       this.mainCardNumber = this.formData.cardNumber;
-      let arr = this.formData.cardNumber.split("");
+      const arr = this.formData.cardNumber.split("");
       arr.forEach((element, index) => {
         if (index > 4 && index < 14 && element.trim() !== "") {
           arr[index] = "*";
@@ -417,12 +432,11 @@ export default {
       _str = _str == null ? "" : _str;
       if (_str.match(/^[A-Za-z]*$/)) {
         return true;
-      } else {
-        return false;
       }
+      return false;
     },
     toFullWidth(elm) {
-      let _elm = elm;
+      const _elm = elm;
       return _elm.value.replace(/[A-Za-z0-9!-~]/g, function(s) {
         return String.fromCharCode(s.charCodeAt(0) + 0xfee0);
       });

@@ -7,7 +7,9 @@
         <h4>サンプルカウントアプリ</h4>
       </div>
       <br />
-      <b-form-text id="input-live-help">よくある数字のカウント機能です</b-form-text>
+      <b-form-text id="input-live-help"
+        >よくある数字のカウント機能です</b-form-text
+      >
       <br />
       <div class="p-2 bd-highlight">
         <b-button
@@ -15,14 +17,23 @@
           size="lg"
           variant="outline-primary"
           @click="showMember"
-        >表示</b-button>
-        <b-button v-if="display" size="lg" variant="outline-danger" @click="hideMember">非表示</b-button>
+          >表示</b-button
+        >
+        <b-button
+          v-if="display"
+          size="lg"
+          variant="outline-danger"
+          @click="hideMember"
+          >非表示</b-button
+        >
       </div>
     </div>
     <div v-if="display">
       <div class="name-row text-center">{{ teamName }}</div>
       <div class="name-row text-center">
-        <a href="https://www.udemy.com/course/vuejs-vuex/" target="_blank">{{ info }}</a>
+        <a href="https://www.udemy.com/course/vuejs-vuex/" target="_blank">{{
+          info
+        }}</a>
       </div>
       <Member
         v-for="member in sortedMembers"
@@ -78,7 +89,6 @@ export default {
           this.sortHeight();
         }
       });
-    return;
   },
   methods: {
     showMember() {

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" id="paycardmain">
+  <div id="paycardmain" class="wrapper">
     <PaycardForm
       :form-data="formData"
       @input-card-number="updateCardNumber"
@@ -12,34 +12,35 @@
 </template>
 
 <script>
-import PaycardForm from '@/components/PaycardForm';
+import PaycardForm from "@/components/PaycardForm";
+
 export default {
-  name: 'paycardmain',
+  name: "Paycardmain",
   components: {
     PaycardForm
   },
   data() {
     return {
       formData: {
-        cardName: '',
-        cardNumber: '',
-        cardMonth: '',
-        cardYear: '',
-        cardCvv: ''
+        cardName: "",
+        cardNumber: "",
+        cardMonth: "",
+        cardYear: "",
+        cardCvv: ""
       }
     };
   },
   methods: {
-    updateCardNumber(val) {},
-    updateCardName(val) {},
-    updateCardMonth(val) {},
-    updateCardYear(val) {},
-    updateCardCvv(val) {}
+    updateCardNumber() {},
+    updateCardName() {},
+    updateCardMonth() {},
+    updateCardYear() {},
+    updateCardCvv() {}
   }
 };
 </script>
 
 <style lang="scss">
-@import '@/static/scss/paycard.scss';
-@import '@/static/scss/common.scss';
+@import "@/static/scss/paycard.scss";
+@import "@/static/scss/common.scss";
 </style>

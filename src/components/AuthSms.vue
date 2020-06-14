@@ -10,17 +10,19 @@
       <br />SMS認証を行います
     </h4>
     <b-container fluid>
-      <b-row  align-v="start">
+      <b-row align-v="start">
         <b-col>
           <div id="firebaseui-auth-container"></div>
         </b-col>
       </b-row>
-      <br>
+      <br />
     </b-container>
     <b-container>
-      <b-row  align-v="end">
+      <b-row align-v="end">
         <b-col md="6" offset-md="3">
-          <b-button variant="outline-danger" block pill @click="onBack()">戻る</b-button>
+          <b-button variant="outline-danger" block pill @click="onBack()"
+            >戻る</b-button
+          >
         </b-col>
       </b-row>
     </b-container>
@@ -31,6 +33,7 @@ import store from "@/store";
 import constMixin from "@/mixins/ConstMixin";
 import firebase from "firebase";
 import firebaseui from "firebaseui-ja";
+
 require("firebaseui-ja/dist/firebaseui.css");
 
 export default {
@@ -38,38 +41,28 @@ export default {
   data() {
     return {
       errored: false,
-      result: false,
+      result: false
     };
-  },
-  methods: {
-    onBack() {
-      this.$store.dispatch("changeSmsLogoff");
-      this.$store.dispatch("changeSmsInputOFF");
-      this.$store.dispatch("changeLogoff").then(() => {
-        window.sessionStorage.removeItem("vuex");
-        this.$router.go(-1);
-      });
-    },
   },
   mounted() {
     const vm = this;
     // SMSインプットモードオン
     vm.$store.dispatch("changeSmsInputON");
     // firebase設定
-    let ui =
+    const ui =
       firebaseui.auth.AuthUI.getInstance() ||
       new firebaseui.auth.AuthUI(firebase.auth());
     ui.start("#firebaseui-auth-container", {
       callbacks: {
-        uiShown: function() {},
-        signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-          let isNewUser = authResult.additionalUserInfo.isNewUser;
-          let displayName = authResult.user.displayName;
-          let photoURL = authResult.user.photoURL;
-          let nextpage = vm.$route.query.redirect;
-          let user = {
-            displayName: displayName,
-            photoURL: photoURL
+        uiShown() {},
+        signInSuccessWithAuthResult(authResult, redirectUrl) {
+          const { isNewUser } = authResult.additionalUserInfo;
+          const { displayName } = authResult.user;
+          const { photoURL } = authResult.user;
+          const nextpage = vm.$route.query.redirect;
+          const user = {
+            displayName,
+            photoURL
           };
 
           firebase
@@ -81,7 +74,7 @@ export default {
               vm.$router.push(nextpage).catch(e => {});
             });
         },
-        signInFailure: function(error) {
+        signInFailure(error) {
           vm.data.errored = true;
           vm.$store.dispatch("changeSmsInputOFF");
           vm.$router.push("/").catch(e => {});
@@ -99,6 +92,16 @@ export default {
       ]
     });
   },
+  methods: {
+    onBack() {
+      this.$store.dispatch("changeSmsLogoff");
+      this.$store.dispatch("changeSmsInputOFF");
+      this.$store.dispatch("changeLogoff").then(() => {
+        window.sessionStorage.removeItem("vuex");
+        this.$router.go(-1);
+      });
+    }
+  }
 };
 </script>
 <style lang="scss">

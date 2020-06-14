@@ -4,7 +4,14 @@
       {{ title }}
       <br />
       <font-awesome-icon icon="spinner" spin />
-      <b-button block pill to="/covid-19" variant="outline-danger" target="_blank">COVID-19 感染状況</b-button>
+      <b-button
+        block
+        pill
+        to="/covid-19"
+        variant="outline-danger"
+        target="_blank"
+        >COVID-19 感染状況</b-button
+      >
     </h1>
     <div id="p5Canvas"></div>
   </div>
@@ -15,8 +22,8 @@ import sketch from "@/static/js/backgroundHome";
 import constMixin from "@/mixins/ConstMixin";
 
 export default {
-  mixins: [constMixin],
   name: "Home",
+  mixins: [constMixin],
   mounted() {
     const backgroundHome = sketch();
     const P5 = require("p5");

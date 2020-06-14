@@ -17,6 +17,7 @@ export default Vue.extend({
   components: {
     Header
   },
+  data: () => ({}),
   created() {
     firebase
       .auth()
@@ -34,8 +35,7 @@ export default Vue.extend({
           alert(err.message);
         }
       );
-  },
-  data: () => ({})
+  }
 });
 </script>
 <style lang="scss">

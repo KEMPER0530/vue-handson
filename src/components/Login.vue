@@ -13,13 +13,14 @@
       </section>
       <div id="output" />
       <h2>
-        <span class="mgr-3">
-          <font-awesome-icon icon="door-closed" />
-        </span>ログイン
+        <span class="mgr-3"> <font-awesome-icon icon="door-closed" /> </span
+        >ログイン
       </h2>
       <div class="avatar" />
       <div class="form-box">
-        <span class="text-danger">「CardRegist」と「Contact」はログインが必要です</span>
+        <span class="text-danger"
+          >「CardRegist」と「Contact」はログインが必要です</span
+        >
         <form @submit.prevent="onSubmit">
           <input v-model="username" type="text" placeholder="e-mail" />
           <input v-model="password" type="password" placeholder="password" />
@@ -31,7 +32,8 @@
                 variant="outline-pink"
                 class="btn btn-block login"
                 @click="onSignUp()"
-              >新規登録</b-button>
+                >新規登録</b-button
+              >
             </b-col>
             <b-col md="6">
               <b-button
@@ -41,7 +43,8 @@
                 class="btn btn-block login"
                 type="submit"
                 :disabled="!activateSubmit"
-              >ログイン</b-button>
+                >ログイン</b-button
+              >
             </b-col>
           </b-row>
           <b-row class="button-group1">
@@ -52,7 +55,8 @@
                 variant="outline-success"
                 class="btn btn-block login"
                 @click="onGuestLogin()"
-              >お試しログイン</b-button>
+                >お試しログイン</b-button
+              >
             </b-col>
           </b-row>
         </form>
@@ -62,24 +66,13 @@
   <!------ Include the above in your HEAD tag ---------->
 </template>
 <script>
-import { Component, Vue } from "vue-property-decorator";
 import axios from "axios";
 import store from "@/store";
 import constMixin from "@/mixins/ConstMixin";
 
 export default {
-  mixins: [constMixin],
   name: "Login",
-  components: {},
-  computed: {
-    activateSubmit() {
-      if (this.username && this.password) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  },
+  mixins: [constMixin],
   data() {
     return {
       BaseUrl: process.env.VUE_APP_LOGIN_JSON_URL,
@@ -89,8 +82,23 @@ export default {
       errored: false,
       anmatched: false,
       name: "",
-      result: false,
+      result: false
     };
+  },
+  computed: {
+    activateSubmit() {
+      if (this.username && this.password) {
+        return true;
+      }
+      return false;
+    }
+  },
+  watch: {
+    result() {
+      if (this.result) {
+        this.setAccessLog(this.$store.getters.getLogin_name, this.event_1);
+      }
+    }
   },
   /** ライフサイクルフック */
   created() {
@@ -101,20 +109,24 @@ export default {
   },
   methods: {
     onSignUp() {
-      this.$router.push("/signup").catch(e => {});
+      this.$router.push("/signup").catch(() => {});
     },
-    onGuestLogin(){
-      this.onSubmit(null,process.env.VUE_APP_GUESTUSER,process.env.VUE_APP_GUESTPASS);
+    onGuestLogin() {
+      this.onSubmit(
+        null,
+        process.env.VUE_APP_GUESTUSER,
+        process.env.VUE_APP_GUESTPASS
+      );
     },
     // 引数１にはsubmitイベントが格納される
-    onSubmit(event = null,user = null,pass = null) {
-      let nextpage = this.$route.query.redirect;
+    onSubmit(event = null, user = null, pass = null) {
+      const nextpage = this.$route.query.redirect;
       const AcsUrl = `${this.BaseUrl}`;
       const params = new URLSearchParams();
-      if( user === null && pass === null ){
+      if (user === null && pass === null) {
         params.append("username", this.username);
         params.append("password", this.password);
-      } else{
+      } else {
         params.append("username", user);
         params.append("password", pass);
         this.$store.dispatch("changeSmsLogin");
@@ -140,7 +152,7 @@ export default {
             this.$store.dispatch("putLogin_name", this.users.Name);
             this.$store.dispatch("putLogin_id", this.users.Id);
             this.result = true;
-            this.$router.push(nextpage).catch(e => {});
+            this.$router.push(nextpage).catch(() => {});
           } else {
             this.$store.dispatch("changeLogoff");
             this.anmatched = true;
@@ -150,19 +162,9 @@ export default {
           this.errored = true;
           console.error(error);
         })
-        .finally(() => {
-          return;
-        });
-      return;
+        .finally(() => {});
     }
-  },
-  watch: {
-    result: function(val,oldVal){
-      if ( this.result ){
-        this.setAccessLog(this.$store.getters.getLogin_name, this.event_1);
-      }
-    }
-  },
+  }
 };
 </script>
 

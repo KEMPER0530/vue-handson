@@ -10,8 +10,8 @@ module.exports = {
     node: true
   },
   extends: [
-    "eslint:recommended", // eslintの推奨ルール
-    "airbnb-base", // airbnbルール(厳しめ)
+    //"eslint:recommended", // eslintの推奨ルール
+    //"airbnb-base", // airbnbルール(厳しめ)
     "plugin:prettier/recommended", // 1.eslint-plugin-prettierをenable
     // 2.eslint-config-prettierをenable
     // 3.prettierの整形に問題がある場合にerrorを出す設定

@@ -2,13 +2,17 @@
   <div class="card-item" :class="{ '-active': isCardFlipped }">
     <div class="card-item__side -front">
       <div
+        ref="focusElement"
         class="card-item__focus"
         :class="{ '-active': focusElementStyle }"
         :style="focusElementStyle"
-        ref="focusElement"
       ></div>
       <div class="card-item__cover">
-        <img v-if="currentCardBackground" :src="currentCardBackground" class="card-item__bg" />
+        <img
+          v-if="currentCardBackground"
+          :src="currentCardBackground"
+          class="card-item__bg"
+        />
       </div>
       <div class="card-item__wrapper">
         <div class="card-item__top">
@@ -16,63 +20,85 @@
           <div class="card-item__type">
             <transition name="slide-fade-up">
               <img
-                :src="imagePath + cardType +'.png'"
                 v-if="cardType"
                 :key="cardType"
+                :src="imagePath + cardType + '.png'"
                 alt
                 class="card-item__typeImg"
               />
             </transition>
           </div>
         </div>
-        <label :for="fields.cardNumber" class="card-item__number" :ref="fields.cardNumber">
+        <label
+          :ref="fields.cardNumber"
+          :for="fields.cardNumber"
+          class="card-item__number"
+        >
           <template>
             <span v-for="(n, $index) in currentPlaceholder" :key="$index">
               <transition name="slide-fade-up">
-                <div class="card-item__numberItem" v-if="getIsNumberMasked($index, n)">*</div>
                 <div
+                  v-if="getIsNumberMasked($index, n)"
                   class="card-item__numberItem"
-                  :class="{ '-active': n.trim() === '' }"
-                  :key="currentPlaceholder"
+                >
+                  *
+                </div>
+                <div
                   v-else-if="labels.cardNumber.length > $index"
-                >{{ labels.cardNumber[$index] }}</div>
-                <div
+                  :key="currentPlaceholder"
                   class="card-item__numberItem"
                   :class="{ '-active': n.trim() === '' }"
+                >
+                  {{ labels.cardNumber[$index] }}
+                </div>
+                <div
                   v-else
                   :key="currentPlaceholder + 1"
-                >{{ n }}</div>
+                  class="card-item__numberItem"
+                  :class="{ '-active': n.trim() === '' }"
+                >
+                  {{ n }}
+                </div>
               </transition>
             </span>
           </template>
         </label>
         <div class="card-item__content">
-          <label :for="fields.cardName" class="card-item__info" :ref="fields.cardName">
+          <label
+            :ref="fields.cardName"
+            :for="fields.cardName"
+            class="card-item__info"
+          >
             <div class="card-item__holder">カード名義人</div>
             <transition name="slide-fade-up">
-              <div class="card-item__name" v-if="labels.cardName.length" key="1">
+              <div
+                v-if="labels.cardName.length"
+                key="1"
+                class="card-item__name"
+              >
                 <transition-group name="slide-fade-right">
                   <span
-                    class="card-item__nameItem"
                     v-for="(n, $index) in labels.cardName.replace(
                       /\s\s+/g,
                       ' '
                     )"
                     :key="$index + 1"
-                  >{{ n }}</span>
+                    class="card-item__nameItem"
+                    >{{ n }}</span
+                  >
                 </transition-group>
               </div>
-              <div class="card-item__name" v-else key="2">氏名</div>
+              <div v-else key="2" class="card-item__name">氏名</div>
             </transition>
           </label>
-          <div class="card-item__date" ref="cardDate">
-            <label :for="fields.cardMonth" class="card-item__dateTitle">有効期限</label>
+          <div ref="cardDate" class="card-item__date">
+            <label :for="fields.cardMonth" class="card-item__dateTitle"
+              >有効期限</label
+            >
             <label :for="fields.cardMonth" class="card-item__dateItem">
               <transition name="slide-fade-up">
                 <span v-if="labels.cardMonth" :key="labels.cardMonth">
-                  {{
-                  labels.cardMonth
-                  }}
+                  {{ labels.cardMonth }}
                 </span>
                 <span v-else key="2">月</span>
               </transition>
@@ -81,9 +107,7 @@
             <label for="cardYear" class="card-item__dateItem">
               <transition name="slide-fade-up">
                 <span v-if="labels.cardYear" :key="labels.cardYear">
-                  {{
-                  String(labels.cardYear).slice(2, 4)
-                  }}
+                  {{ String(labels.cardYear).slice(2, 4) }}
                 </span>
                 <span v-else key="2">年</span>
               </transition>
@@ -94,7 +118,11 @@
     </div>
     <div class="card-item__side -back">
       <div class="card-item__cover">
-        <img v-if="currentCardBackground" :src="currentCardBackground" class="card-item__bg" />
+        <img
+          v-if="currentCardBackground"
+          :src="currentCardBackground"
+          class="card-item__bg"
+        />
       </div>
       <div class="card-item__band"></div>
       <div class="card-item__cvv">
@@ -103,7 +131,11 @@
           <span v-for="(n, $index) in labels.cardCvv" :key="$index">*</span>
         </div>
         <div class="card-item__type">
-          <img :src="imagePath + cardType + '.png'" v-if="cardType" class="card-item__typeImg" />
+          <img
+            v-if="cardType"
+            :src="imagePath + cardType + '.png'"
+            class="card-item__typeImg"
+          />
         </div>
       </div>
     </div>
@@ -112,7 +144,7 @@
 
 <script>
 export default {
-  name: "paycard",
+  name: "Paycard",
   props: {
     labels: Object,
     fields: Object,
@@ -136,50 +168,9 @@ export default {
       cardchipImage: process.env.VUE_APP_IMAGE_PATH_CARDCHIP
     };
   },
-  watch: {
-    currentFocus() {
-      if (this.currentFocus) {
-        this.changeFocus();
-      } else {
-        this.focusElementStyle = null;
-      }
-    },
-    cardType() {
-      this.changePlaceholder();
-    }
-  },
-  mounted() {
-    this.changePlaceholder();
-
-    let self = this;
-    let fields = document.querySelectorAll("[data-card-field]");
-    fields.forEach(element => {
-      element.addEventListener("focus", () => {
-        this.isFocused = true;
-        if (
-          element.id === this.fields.cardYear ||
-          element.id === this.fields.cardMonth
-        ) {
-          this.currentFocus = "cardDate";
-        } else {
-          this.currentFocus = element.id;
-        }
-        this.isCardFlipped = element.id === this.fields.cardCvv;
-      });
-      element.addEventListener("blur", () => {
-        this.isCardFlipped = !element.id === this.fields.cardCvv;
-        setTimeout(() => {
-          if (!self.isFocused) {
-            self.currentFocus = null;
-          }
-        }, 300);
-        self.isFocused = false;
-      });
-    });
-  },
   computed: {
     cardType() {
-      let number = this.labels.cardNumber;
+      const number = this.labels.cardNumber;
       let re = new RegExp("^4");
       if (number.match(re) != null) return "visa";
 
@@ -207,25 +198,66 @@ export default {
       return ""; // default type
     },
     imagePath() {
-      let path = process.env.VUE_APP_IMAGE_PATH;
+      const path = process.env.VUE_APP_IMAGE_PATH;
       return path;
     },
     currentCardBackground() {
       if (this.randomBackgrounds && !this.backgroundImage) {
         // TODO will be optimized
-        let random = Math.floor(Math.random() * 25 + 1);
-        let path = process.env.VUE_APP_IMAGE_PATH;
+        const random = Math.floor(Math.random() * 25 + 1);
+        const path = process.env.VUE_APP_IMAGE_PATH;
         return `${path}${random}.jpeg`;
-      } else if (this.backgroundImage) {
-        return this.backgroundImage;
-      } else {
-        return null;
       }
+      if (this.backgroundImage) {
+        return this.backgroundImage;
+      }
+      return null;
     }
+  },
+  watch: {
+    currentFocus() {
+      if (this.currentFocus) {
+        this.changeFocus();
+      } else {
+        this.focusElementStyle = null;
+      }
+    },
+    cardType() {
+      this.changePlaceholder();
+    }
+  },
+  mounted() {
+    this.changePlaceholder();
+
+    const self = this;
+    const fields = document.querySelectorAll("[data-card-field]");
+    fields.forEach(element => {
+      element.addEventListener("focus", () => {
+        this.isFocused = true;
+        if (
+          element.id === this.fields.cardYear ||
+          element.id === this.fields.cardMonth
+        ) {
+          this.currentFocus = "cardDate";
+        } else {
+          this.currentFocus = element.id;
+        }
+        this.isCardFlipped = element.id === this.fields.cardCvv;
+      });
+      element.addEventListener("blur", () => {
+        this.isCardFlipped = !element.id === this.fields.cardCvv;
+        setTimeout(() => {
+          if (!self.isFocused) {
+            self.currentFocus = null;
+          }
+        }, 300);
+        self.isFocused = false;
+      });
+    });
   },
   methods: {
     changeFocus() {
-      let target = this.$refs[this.currentFocus];
+      const target = this.$refs[this.currentFocus];
       this.focusElementStyle = target
         ? {
             width: `${target.offsetWidth}px`,

@@ -11,7 +11,9 @@
           <b-card-body title="Profile">
             <img :src="profileImage" class="profile" decoding="async" />
             <b-card-text>
-              <p v-if="this.profile[0]" class="writing">{{ this.profile[0].heading }}</p>
+              <p v-if="this.profile[0]" class="writing">
+                {{ this.profile[0].heading }}
+              </p>
             </b-card-text>
           </b-card-body>
         </b-col>
@@ -28,14 +30,16 @@
       <br />
       <font-awesome-icon icon="clipboard-list" />
     </h2>
-    <p
-      v-if="this.profile[0] && this.lastindex"
-    >{{ this.profile[0].lastdate | moment('YYYY/MM/DD') }}時点</p>
+    <p v-if="this.profile[0] && this.lastindex">
+      {{ this.profile[0].lastdate | moment("YYYY/MM/DD") }}時点
+    </p>
     <b-list-group class="list-size">
       <b-list-group-item v-for="item in sortedList" :key="item.id">
         <span v-if="item.history">
           {{ item.history }}
-          <b-badge variant="danger" v-if="item.id == lastindex" pill>NEW</b-badge>
+          <b-badge v-if="item.id == lastindex" variant="danger" pill
+            >NEW</b-badge
+          >
         </span>
       </b-list-group-item>
     </b-list-group>
@@ -48,18 +52,6 @@ import constMixin from "@/mixins/ConstMixin";
 import moment from "moment";
 
 export default {
-  props: {
-    prop1: {
-      type: String,
-      require: true
-    }
-  },
-  mixins: [constMixin],
-  computed: {
-    sortedList() {
-      return _sortBy(this.profile.filter(n => n.history), "id").reverse();
-    }
-  },
   filters: {
     /**
      * @param {Date} value    - Date オブジェクト
@@ -67,6 +59,13 @@ export default {
      */
     moment(value, format) {
       return moment(value).format(format);
+    }
+  },
+  mixins: [constMixin],
+  props: {
+    prop1: {
+      type: String,
+      require: true
     }
   },
   data() {
@@ -79,6 +78,14 @@ export default {
       profileImage: process.env.VUE_APP_IMAGE_PATH_PROFILE,
       diagramImage: process.env.VUE_APP_IMAGE_PATH_DIAGRAM
     };
+  },
+  computed: {
+    sortedList() {
+      return _sortBy(
+        this.profile.filter(n => n.history),
+        "id"
+      ).reverse();
+    }
   },
   created() {
     this.getJwtIdToken();

@@ -3,41 +3,54 @@
     <div class="login-container">
       <section v-if="errored">
         <p>
-          <span class="text-danger">{{ this.errorMsg }}</span>
+          <span class="text-danger">{{ errorMsg }}</span>
         </p>
       </section>
       <div id="output" />
       <h2>
-        <span class="mgr-3">
-          <font-awesome-icon icon="address-card" />
-        </span>アカウント登録
+        <span class="mgr-3"> <font-awesome-icon icon="address-card" /> </span
+        >アカウント登録
       </h2>
       <br />
-      <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+      <b-form v-if="show" @submit="onSubmit" @reset="onReset">
         <b-container fluid>
           <b-row>
             <b-col lg="12">
-              <b-form-group id="input-group-0" label-for="input-0" label="氏名" label-align="left" description>
+              <b-form-group
+                id="input-group-0"
+                label-for="input-0"
+                label="氏名"
+                label-align="left"
+                description
+              >
                 <b-input-group>
                   <b-form-input
                     id="input-0"
                     v-model="form.name"
                     type="text"
                     required
-                    placeholder="テスト　太郎"
+                    placeholder="テスト  太郎"
                     :state="nameState"
                     aria-describedby="input-live-help-email"
                     class="form-create-account"
                   ></b-form-input>
                 </b-input-group>
                 <!-- This will only be shown if the preceding input has an invalid state -->
-                <b-form-invalid-feedback id="input-live-feedback-name">Enter your name</b-form-invalid-feedback>
+                <b-form-invalid-feedback id="input-live-feedback-name"
+                  >Enter your name</b-form-invalid-feedback
+                >
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col lg="12">
-              <b-form-group id="input-group-1" label-for="input-1" label="メールアドレス" label-align="left" description>
+              <b-form-group
+                id="input-group-1"
+                label-for="input-1"
+                label="メールアドレス"
+                label-align="left"
+                description
+              >
                 <b-input-group>
                   <b-form-input
                     id="input-1"
@@ -51,13 +64,20 @@
                   ></b-form-input>
                 </b-input-group>
                 <!-- This will only be shown if the preceding input has an invalid state -->
-                <b-form-invalid-feedback id="input-live-feedback-email">Enter your email</b-form-invalid-feedback>
+                <b-form-invalid-feedback id="input-live-feedback-email"
+                  >Enter your email</b-form-invalid-feedback
+                >
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col lg="12">
-              <b-form-group id="input-group-2" label-for="input-2" label="パスワード" label-align="left" >
+              <b-form-group
+                id="input-group-2"
+                label-for="input-2"
+                label="パスワード"
+                label-align="left"
+              >
                 <b-input-group>
                   <b-form-input
                     id="input-2"
@@ -69,25 +89,30 @@
                     class="form-create-account"
                   ></b-form-input>
                 </b-input-group>
-                <b-form-checkbox v-model="passStatus">パスワードを表示する</b-form-checkbox>
+                <b-form-checkbox v-model="passStatus"
+                  >パスワードを表示する</b-form-checkbox
+                >
                 <!-- This is a form text block (formerly known as help block) -->
-                <b-form-text id="input-live-help-password">８文字以上16文字以下で入力ください。</b-form-text>
-                <b-form-text
-                  id="input-live-help-password"
-                >半角英数字記号をそれぞれ1種類以上含む8文字以上16文字以下で入力する必要があります。</b-form-text>
+                <b-form-text id="input-live-help-password"
+                  >８文字以上16文字以下で入力ください。</b-form-text
+                >
+                <b-form-text id="input-live-help-password"
+                  >半角英数字記号をそれぞれ1種類以上含む8文字以上16文字以下で入力する必要があります。</b-form-text
+                >
               </b-form-group>
             </b-col>
           </b-row>
           <b-row>
             <b-col>
               <b-button
+                v-b-modal.my-modal
                 :disabled="!activateSubmit"
                 type="submit"
                 pill
                 block
                 variant="outline-primary"
-                v-b-modal.my-modal
-              >登録</b-button>
+                >登録</b-button
+              >
             </b-col>
           </b-row>
         </b-container>
@@ -103,17 +128,26 @@
           <b-input-group size="lg" prepend="🔑">
             <b-form-input
               id="input-live"
-              :state="activateSubmit2"
               v-model="repassword"
+              :state="activateSubmit2"
               :type="inputType"
               class="form-create-account"
             ></b-form-input>
           </b-input-group>
-          <b-form-checkbox v-model="passStatus">パスワードを表示する</b-form-checkbox>
+          <b-form-checkbox v-model="passStatus"
+            >パスワードを表示する</b-form-checkbox
+          >
         </div>
         <b-row>
           <b-col>
-            <b-button pill class="mt-3" variant="outline-danger" block @click="cancelAcount">Cancel</b-button>
+            <b-button
+              pill
+              class="mt-3"
+              variant="outline-danger"
+              block
+              @click="cancelAcount"
+              >Cancel</b-button
+            >
           </b-col>
           <b-col>
             <b-button
@@ -123,7 +157,8 @@
               variant="outline-primary"
               block
               @click="registAcount"
-            >OK</b-button>
+              >OK</b-button
+            >
           </b-col>
         </b-row>
       </b-modal>
@@ -131,12 +166,18 @@
       <b-modal ref="success-modal" centered hide-footer>
         <div class="d-block text-center">
           <h4>
-            {{ this.form.name }}様
-            <br />アカウントを仮登録いたしました。
+            {{ form.name }}様 <br />アカウントを仮登録いたしました。
             <br />送信したメールより本登録をお願いいたします。
           </h4>
         </div>
-        <b-button pill class="mt-3" variant="outline-primary" block @click="moveTop">OK</b-button>
+        <b-button
+          pill
+          class="mt-3"
+          variant="outline-primary"
+          block
+          @click="moveTop"
+          >OK</b-button
+        >
       </b-modal>
       <!-- 登録失敗 -->
       <b-modal ref="failed-modal" centered hide-footer>
@@ -151,50 +192,9 @@
 <script>
 import axios from "axios";
 import constMixin from "@/mixins/ConstMixin";
-import firebase from "firebase";
 
 export default {
   mixins: [constMixin],
-  computed: {
-    nameState() {
-      return this.form.name.length > this.zero ? true : false;
-    },
-    emailState() {
-      return this.form.email.length > this.five && this.form.email.includes("@")
-        ? true
-        : false;
-    },
-    passwordState() {
-      //正規表現パターン（8文字以上の半角英数字）
-      let regex = new RegExp(
-        /^(?=.*?[a-z])(?=.*?\d)(?=.*?[!-\/:-@[-`{-~])[!-~]{8,16}$/i
-      );
-      return regex.test(this.form.password) ? true : false;
-    },
-    activateSubmit() {
-      if (
-        this.form.name &&
-        this.form.email &&
-        this.form.password &&
-        this.emailState &&
-        this.passwordState
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    activateSubmit2() {
-      if (this.form.password === this.repassword) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    inputType() {
-      return this.passStatus ? "text" : "password";
-    }
-  },
   data() {
     return {
       form: {
@@ -212,8 +212,53 @@ export default {
       emessage: this.errorMsg,
       repassword: "",
       passStatus: false,
-      result: false,
+      result: false
     };
+  },
+  computed: {
+    nameState() {
+      return this.form.name.length > this.zero;
+    },
+    emailState() {
+      return !!(
+        this.form.email.length > this.five && this.form.email.includes("@")
+      );
+    },
+    passwordState() {
+      // 正規表現パターン（8文字以上の半角英数字）
+      const regex = new RegExp(
+        /^(?=.*?[a-z])(?=.*?\d)(?=.*?[!-\/:-@[-`{-~])[!-~]{8,16}$/i
+      );
+      return !!regex.test(this.form.password);
+    },
+    activateSubmit() {
+      if (
+        this.form.name &&
+        this.form.email &&
+        this.form.password &&
+        this.emailState &&
+        this.passwordState
+      ) {
+        return true;
+      }
+      return false;
+    },
+    activateSubmit2() {
+      if (this.form.password === this.repassword) {
+        return true;
+      }
+      return false;
+    },
+    inputType() {
+      return this.passStatus ? "text" : "password";
+    }
+  },
+  watch: {
+    result() {
+      if (this.result) {
+        this.setAccessLog(this.$store.getters.getLogin_name, this.event_3);
+      }
+    }
   },
   methods: {
     onSubmit(evt) {
@@ -279,9 +324,7 @@ export default {
         })
         .finally(() => {
           this.$store.dispatch("changeSmsLogoff");
-          return;
         });
-      return;
     },
     registAccountMail() {
       this.result = false;
@@ -319,10 +362,7 @@ export default {
           this.emessage = "送信に失敗しました";
           this.$refs["failed-modal"].show();
         })
-        .finally(() => {
-          return;
-        });
-      return;
+        .finally(() => {});
     },
     cancelAcount() {
       this.passStatus = false;
@@ -331,14 +371,7 @@ export default {
     moveTop() {
       this.$router.push("/");
     }
-  },
-  watch: {
-    result: function(val,oldVal){
-      if ( this.result ){
-        this.setAccessLog(this.$store.getters.getLogin_name, this.event_3);
-      }
-    }
-  },
+  }
 };
 </script>
 <style lang="scss">

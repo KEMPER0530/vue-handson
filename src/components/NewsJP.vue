@@ -23,10 +23,19 @@
           :state="areaoptionState"
           name="radio-validation"
         >
-          <b-form-invalid-feedback :state="areaoptionState">カテゴリを選択してください</b-form-invalid-feedback>
+          <b-form-invalid-feedback :state="areaoptionState"
+            >カテゴリを選択してください</b-form-invalid-feedback
+          >
         </b-form-radio-group>
       </div>
-      <b-button block pill variant="outline-primary" @click="showList" :disabled="!submitState">検索</b-button>
+      <b-button
+        block
+        pill
+        variant="outline-primary"
+        :disabled="!submitState"
+        @click="showList"
+        >検索</b-button
+      >
       <br />
       <!-- loading画面 -->
       <div class="vld-parent">
@@ -34,7 +43,8 @@
           :active.sync="isLoading"
           :can-cancel="true"
           :loader="loader"
-          :is-full-page="fullPage"></loading>
+          :is-full-page="fullPage"
+        ></loading>
         <!-- イメージを出力する -->
         <b-card-group columns class="multicol">
           <b-card
@@ -52,7 +62,14 @@
             <b-card-text>{{ item.Description }}</b-card-text>
             <b-row class="button-group1">
               <b-col>
-                <b-button :href="item.Url" variant="outline-primary" target="_blank" block pill>Link</b-button>
+                <b-button
+                  :href="item.Url"
+                  variant="outline-primary"
+                  target="_blank"
+                  block
+                  pill
+                  >Link</b-button
+                >
               </b-col>
             </b-row>
             <template v-slot:footer>
@@ -63,7 +80,7 @@
       </div>
     </div>
     <!--ページトップ-->
-    <b-link href="#" class="return-top" v-scroll-to="'body'" v-if="scrollState">
+    <b-link v-if="scrollState" v-scroll-to="'body'" href="#" class="return-top">
       <font-awesome-icon icon="angle-double-up" />
     </b-link>
   </div>
@@ -73,35 +90,13 @@
 import axios from "axios";
 import _sortBy from "lodash.sortby";
 import constMixin from "@/mixins/ConstMixin";
-import Loading from 'vue-loading-overlay';
+import Loading from "vue-loading-overlay";
 
 export default {
-  mixins: [constMixin],
-  computed: {
-    submitState() {
-      return this.PREF ? true : false;
-    },
-    sortedList() {
-      let news = _sortBy(this.list, "PublishedAt").reverse();
-      for (let i in news) {
-        news[i].source.id = i;
-      }
-      return news;
-    },
-    areaoptionState() {
-      return Boolean(this.PREF);
-    },
-    scrollState() {
-      if (this.scrollY > this.scrollYlenge) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  },
   components: {
     Loading
   },
+  mixins: [constMixin],
   data() {
     return {
       isLoading: false,
@@ -122,15 +117,51 @@ export default {
       errored: false,
       emessage: "",
       scrollY: this.zero,
-      result: false,
+      result: false
     };
+  },
+  computed: {
+    submitState() {
+      return !!this.PREF;
+    },
+    sortedList() {
+      const news = _sortBy(this.list, "PublishedAt").reverse();
+      for (const i in news) {
+        news[i].source.id = i;
+      }
+      return news;
+    },
+    areaoptionState() {
+      return Boolean(this.PREF);
+    },
+    scrollState() {
+      if (this.scrollY > this.scrollYlenge) {
+        return true;
+      }
+      return false;
+    }
+  },
+  watch: {
+    result() {
+      if (this.result) {
+        this.setAccessLog(this.$store.getters.getLogin_name, this.event_6);
+      }
+    }
+  },
+  mounted() {
+    this.$nextTick(function() {
+      window.addEventListener("scroll", this.handleScroll);
+      this.name = this.$store.getters.getName;
+      this.list = this.$store.getters.getG_list;
+      this.PREF = this.$store.getters.getPref;
+      this.errored = false;
+    });
   },
   methods: {
     showList() {
       // loadingの表示
       this.isLoading = true;
-      setTimeout(function(){
-      }, 1500);
+      setTimeout(function() {}, 1500);
 
       // NEWSAPIの取得
       this.result = false;
@@ -161,23 +192,7 @@ export default {
     },
     handleScroll() {
       this.scrollY = window.scrollY;
-    },
-  },
-  watch: {
-    result: function(val,oldVal){
-      if ( this.result ){
-        this.setAccessLog(this.$store.getters.getLogin_name, this.event_6);
-      }
     }
-  },
-  mounted() {
-    this.$nextTick(function() {
-      window.addEventListener("scroll", this.handleScroll);
-      this.name = this.$store.getters.getName;
-      this.list = this.$store.getters.getG_list;
-      this.PREF = this.$store.getters.getPref;
-      this.errored = false;
-    });
   }
 };
 </script>

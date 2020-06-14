@@ -30,13 +30,14 @@
       >
         <b-card-text>{{ item.comment }}</b-card-text>
         <b-button
+          v-if="item.ref === '1'"
           block
           pill
           :href="item.url"
           variant="outline-primary"
           target="_blank"
-          v-if="item.ref === '1'"
-        >Go</b-button>
+          >Go</b-button
+        >
       </b-card>
     </b-card-group>
   </div>

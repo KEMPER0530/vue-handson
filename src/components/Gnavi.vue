@@ -22,11 +22,13 @@
           :state="searchState"
           icon="search"
           aria-describedby="input-live-help input-live-feedback"
-          placeholder="渋谷　肉"
+          placeholder="渋谷  肉"
           trim
         ></b-form-input>
         <!-- This will only be shown if the preceding input has an invalid state -->
-        <b-form-invalid-feedback :state="searchState">検索フォームに入力してください</b-form-invalid-feedback>
+        <b-form-invalid-feedback :state="searchState"
+          >検索フォームに入力してください</b-form-invalid-feedback
+        >
       </b-input-group>
       <!-- エリア選択 -->
       <div class="radio">
@@ -36,13 +38,24 @@
           :state="areaoptionState"
           name="radio-validation"
         >
-          <b-form-invalid-feedback :state="areaoptionState">エリアを選択してください</b-form-invalid-feedback>
+          <b-form-invalid-feedback :state="areaoptionState"
+            >エリアを選択してください</b-form-invalid-feedback
+          >
         </b-form-radio-group>
       </div>
-      <b-button block pill variant="outline-primary" @click="showList" :disabled="!submitState">検索</b-button>
+      <b-button
+        block
+        pill
+        variant="outline-primary"
+        :disabled="!submitState"
+        @click="showList"
+        >検索</b-button
+      >
       <br />
       <!-- This is a form text block (formerly known as help block) -->
-      <b-form-text id="input-live-help">出力店舗は東京、神奈川エリア限定となります</b-form-text>
+      <b-form-text id="input-live-help"
+        >出力店舗は東京、神奈川エリア限定となります</b-form-text
+      >
       <!-- イメージを出力する -->
       <b-card-group columns class="multicol">
         <b-card
@@ -61,7 +74,14 @@
           <b-card-text>{{ item.pr.pr_short }}</b-card-text>
           <b-row class="button-group1">
             <b-col>
-              <b-button :href="item.url" variant="outline-primary" target="_blank" block pill>ぐるなびHP</b-button>
+              <b-button
+                :href="item.url"
+                variant="outline-primary"
+                target="_blank"
+                block
+                pill
+                >ぐるなびHP</b-button
+              >
             </b-col>
           </b-row>
           <template v-slot:footer>
@@ -71,7 +91,7 @@
       </b-card-group>
     </div>
     <!--ページトップ-->
-    <b-link href="#" class="return-top" v-scroll-to="'body'" v-if="scrollState">
+    <b-link v-if="scrollState" v-scroll-to="'body'" href="#" class="return-top">
       <font-awesome-icon icon="angle-double-up" />
     </b-link>
   </div>
@@ -84,29 +104,6 @@ import constMixin from "@/mixins/ConstMixin";
 
 export default {
   mixins: [constMixin],
-  computed: {
-    searchState() {
-      return this.name && this.name.length > this.zero ? true : false;
-    },
-    submitState() {
-      return this.name && this.name.length > this.zero && this.PREF
-        ? true
-        : false;
-    },
-    sortedList() {
-      return _sortBy(this.list, "id");
-    },
-    areaoptionState() {
-      return Boolean(this.PREF);
-    },
-    scrollState() {
-      if (this.scrollY > this.scrollYlenge) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-  },
   data() {
     return {
       name: "",
@@ -123,6 +120,35 @@ export default {
       emessage: "",
       scrollY: this.zero
     };
+  },
+  computed: {
+    searchState() {
+      return !!(this.name && this.name.length > this.zero);
+    },
+    submitState() {
+      return !!(this.name && this.name.length > this.zero && this.PREF);
+    },
+    sortedList() {
+      return _sortBy(this.list, "id");
+    },
+    areaoptionState() {
+      return Boolean(this.PREF);
+    },
+    scrollState() {
+      if (this.scrollY > this.scrollYlenge) {
+        return true;
+      }
+      return false;
+    }
+  },
+  mounted() {
+    this.$nextTick(function() {
+      window.addEventListener("scroll", this.handleScroll);
+      this.name = this.$store.getters.getName;
+      this.list = this.$store.getters.getG_list;
+      this.PREF = this.$store.getters.getPref;
+      this.errored = false;
+    });
   },
   methods: {
     // window: (onload = function() {}),
@@ -150,15 +176,6 @@ export default {
     handleScroll() {
       this.scrollY = window.scrollY;
     }
-  },
-  mounted() {
-    this.$nextTick(function() {
-      window.addEventListener("scroll", this.handleScroll);
-      this.name = this.$store.getters.getName;
-      this.list = this.$store.getters.getG_list;
-      this.PREF = this.$store.getters.getPref;
-      this.errored = false;
-    });
   }
 };
 </script>
