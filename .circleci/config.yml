@@ -31,7 +31,7 @@ jobs:
             - "46:4c:fd:fd:5f:a4:25:e4:a1:0e:be:a6:18:d5:98:32"
       - run:
           name: DockerImage Build
-          command: ssh ${USER_NAME}@${HOST_NAME} 'cd /work/docker-portfolio/vue-docker/app && git pull origin master && sudo rm -rf node_modules && cd /work/docker-portfolio/ && docker stop vue_portfolio && docker rm vue_portfolio && docker rmi -f docker-portfolio_vueapp node &&docker-compose build vueapp'
+          command: ssh ${USER_NAME}@${HOST_NAME} 'cd /work/docker-portfolio/vue-docker/app && git pull origin master && sudo rm -rf node_modules ; cd /work/docker-portfolio/ && docker stop vue_portfolio ; docker rm vue_portfolio ; docker rmi -f docker-portfolio_vueapp node ;docker-compose build vueapp'
 # EC2にSSH接続し、コンテナを実行
   deploy:
     machine:
