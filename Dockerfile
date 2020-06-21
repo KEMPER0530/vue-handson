@@ -5,7 +5,6 @@ WORKDIR /app
 RUN apk update && \
     apk add vim && \
     apk add git
-RUN sudo rm -rf node_modules
 RUN npm install -g npm
 RUN yarn install && \
         yarn global add node-gyp && \
