@@ -35,6 +35,9 @@ export default Vue.extend({
           alert(err.message);
         }
       );
+  },
+  mounted() {
+    window.location.reload(true);
   }
 });
 </script>
