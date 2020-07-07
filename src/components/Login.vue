@@ -161,6 +161,8 @@ export default {
         .catch(error => {
           this.errored = true;
           console.error(error);
+          this.$store.dispatch("changeLogoff");
+          this.$store.dispatch("changeSmsLogoff");
         })
         .finally(() => {});
     }
