@@ -8,7 +8,6 @@ Fotter.vue
 Height.vue
 Member.vue
 *.jpeg
-*.png
 *.svg
 .circleci/config_local.yml
 
