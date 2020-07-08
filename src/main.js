@@ -83,17 +83,19 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-const messaging = firebase.messaging();
-messaging.usePublicVapidKey(process.env.VUE_APP_FIREBASE_USE_PUBLIC_VAPID_KEY);
+// 以下、iOSがwebPUSHを対応するまでコメントアウト
+
+// const messaging = firebase.messaging();
+// messaging.usePublicVapidKey(process.env.VUE_APP_FIREBASE_USE_PUBLIC_VAPID_KEY);
 
 // 通知の受信許可
-messaging.requestPermission().then(() => {
-    console.log('Notification permission granted.');
-    // トークン取得
-    messaging.getToken().then((token) => {})
-}).catch((err) => {
-    console.log('Unable to get permission to notify.', err);
-});
+// messaging.requestPermission().then(() => {
+//     console.log('Notification permission granted.');
+// トークン取得
+//     messaging.getToken().then((token) => {})
+// }).catch((err) => {
+//     console.log('Unable to get permission to notify.', err);
+// });
 
 new Vue({
     router,
