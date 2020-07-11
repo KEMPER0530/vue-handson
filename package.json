@@ -25,7 +25,7 @@
         "bcrypt": "^5.0.0",
         "bootstrap-vue": "^2.0.4",
         "core-js": "^2.6.5",
-        "firebase": "^7.7.0",
+        "firebase": "^7.16.0",
         "firebaseui": "^4.4.0",
         "firebaseui-ja": "^1.0.0",
         "fontawesome": "^5.6.3",
@@ -91,16 +91,14 @@
         "parserOptions": {
             "parser": "babel-eslint"
         },
-        "overrides": [
-            {
-                "files": [
-                    "**/__tests__/*.{j,t}s?(x)"
-                ],
-                "env": {
-                    "jest": true
-                }
+        "overrides": [{
+            "files": [
+                "**/__tests__/*.{j,t}s?(x)"
+            ],
+            "env": {
+                "jest": true
             }
-        ]
+        }]
     },
     "postcss": {
         "plugins": {
