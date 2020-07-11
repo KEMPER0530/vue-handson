@@ -19,6 +19,7 @@ export default Vue.extend({
   },
   data: () => ({}),
   created() {
+    // FirebaseJWT用トークン生成
     firebase
       .auth()
       .signInWithEmailAndPassword(
@@ -35,6 +36,36 @@ export default Vue.extend({
           alert(err.message);
         }
       );
+    // FirebaseMessagin用設定
+    const messaging = firebase.messaging();
+    messaging.usePublicVapidKey(process.env.VUE_APP_FIREBASE_USE_PUBLIC_VAPID_KEY);
+
+    // 通知の受信許可
+    Notification.requestPermission().then( permission => {
+      console.log('Notification permission granted.');
+      // トークン取得
+      return messaging.getToken();
+    })
+    .then( token => {
+      console.log(`Messaging Token: ${token}`);
+    })
+    .catch((err) => {
+      console.log('Unable to get permission to notify.', err);
+    });
+
+    // トークン更新のモニタリング
+    messaging.onTokenRefresh(() => {
+        this.messaging.getToken().then((refreshedToken) => {
+            console.log('Messaging Token refreshed.', refreshedToken);
+        }).catch((err) => {
+            console.log('Unable to retrieve refreshed token ', err);
+        });
+    });
+
+    // フォアグラウンドでのメッセージ受信
+    messaging.onMessage(function(payload) {
+      alert(payload);
+    });
   },
   mounted() {
   }
