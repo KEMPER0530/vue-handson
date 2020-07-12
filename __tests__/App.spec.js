@@ -12,6 +12,7 @@ import BootstrapVue from "bootstrap-vue";
 import VueScrollTo from 'vue-scrollto';
 import Header from "@/components/Header";
 import Home from "@/components/Home";
+import '@firebase/messaging';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -37,6 +38,7 @@ beforeEach(() => {
         localVue,
         Header,
         Home,
+        firebase,
     });
     vm = wrapper.vm;
 })
