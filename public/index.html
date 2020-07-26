@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase-messaging.js"></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="manifest" href="/manifest.json">
 
     <link rel="icon" type="image/png" href="https://d3p7ybpyhwl4ka.cloudfront.net/static/img/icons/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="https://d3p7ybpyhwl4ka.cloudfront.net/static/img/icons/favicon-32x32.png" sizes="32x32">
@@ -35,6 +34,40 @@
 
     <!-- Apple title -->
     <meta name="apple-mobile-web-app-title" content="kemper0530">
+
+    <script defer src="https://www.pushcode.jp/dist/js/pushcode.js"></script>
+    <script defer type="module" src="https://www.pushcode.jp/dist/pushcode-components/index.esm.js"></script>
+    <script defer type="module" src="https://www.pushcode.jp/dist/pushcode-components/pushcode-components.esm.js"></script>
+    <script defer nomodule="" src="https://www.pushcode.jp/dist/pushcode-components/pushcode-components.js"></script>
+    <script>
+      window.addEventListener('load', function() {
+        try {
+          if (PushCode && PushCode.isSupport()) {
+            PushCode.init({ domainToken: '1afe291a8a43f69eaf488204ab8a594f2e9ca2e9d2bacef093d0e9b5b51c20f3', userid: '' });
+            if (PushCode.components) {
+              PushCode.components.openSubscribeDialog({
+                  position: "top-left", // top-left, top-right, bottom-left, bottom-right, centerの5種類が指定可能です。画面幅が800px未満の場合はcenterとcenter以外を書くと「画面下部に表示」の2種類だけになります。
+                  message: "サイトから有益な情報をお知らせします。",// 「サイトから有益な情報をお知らせします。」の部分の文言変更用。falseと評価される値の時にデフォルト文言になります。
+                  label: {
+                  accept: "許可する",  // 「許可する」の部分の文言変更用。falseと評価される値の時にデフォルト文言になります。
+                  deny: "許可しない" // 「許可しない」の部分の文言変更用。falseと評価される値の時にデフォルト文言になります。
+              },
+              buttonsOrder: "deny-accept", //deny-accept, accept-deny でボタンの順番を変更できます。
+              grayOut: {
+                use: true, // グレーアウトの使用するかどうか
+                background: "rgba(50,50,50,.2)" // CSSのbackgroundプロパティと同じです。無指定の場合は適当なデフォルト値が使われます。
+              }
+            });
+          } else {
+            PushCode.requestPermission();
+          }
+        }
+      } catch (err) {
+          console.error(err);
+      }
+    });
+    </script>
+
 
     <title>akazawa-portfolio</title>
   </head>

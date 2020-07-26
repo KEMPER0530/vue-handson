@@ -38,6 +38,7 @@ export default Vue.extend({
       );
   },
   mounted() {
+    //window.location.reload(true);
   }
 });
 </script>
