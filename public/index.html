@@ -43,13 +43,13 @@
       window.addEventListener('load', function() {
         try {
           if (PushCode && PushCode.isSupport()) {
-            PushCode.init({ domainToken: '1afe291a8a43f69eaf488204ab8a594f2e9ca2e9d2bacef093d0e9b5b51c20f3', userid: '' });
+            PushCode.init({ domainToken: '1afe291a8a43f69eaf488204ab8a594f2e9ca2e9d2bacef093d0e9b5b51c20f3', userid: '12345' });
             if (PushCode.components) {
               PushCode.components.openSubscribeDialog({
                   position: "top-left", // top-left, top-right, bottom-left, bottom-right, centerの5種類が指定可能です。画面幅が800px未満の場合はcenterとcenter以外を書くと「画面下部に表示」の2種類だけになります。
-                  message: "サイトから有益な情報をお知らせします。",// 「サイトから有益な情報をお知らせします。」の部分の文言変更用。falseと評価される値の時にデフォルト文言になります。
+                  message: "KEMPER0530は通知を送信します。よろしいですか？",// 「サイトから有益な情報をお知らせします。」の部分の文言変更用。falseと評価される値の時にデフォルト文言になります。
                   label: {
-                  accept: "許可する",  // 「許可する」の部分の文言変更用。falseと評価される値の時にデフォルト文言になります。
+                  accept: "OK",  // 「許可する」の部分の文言変更用。falseと評価される値の時にデフォルト文言になります。
                   deny: "許可しない" // 「許可しない」の部分の文言変更用。falseと評価される値の時にデフォルト文言になります。
               },
               buttonsOrder: "deny-accept", //deny-accept, accept-deny でボタンの順番を変更できます。
@@ -67,8 +67,6 @@
       }
     });
     </script>
-
-
     <title>akazawa-portfolio</title>
   </head>
   <body>

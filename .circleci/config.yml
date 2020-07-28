@@ -42,8 +42,20 @@ jobs:
           command: ssh ${USER_NAME}@${HOST_NAME} 'cd /work/docker-portfolio/ && docker rmi -f docker-portfolio_vueapp'
           when: always
       - run:
-          name: docker compose up -d --> yarn install --> yarn build --> yarn start
-          command: ssh ${USER_NAME}@${HOST_NAME} 'cd /work/docker-portfolio/ && docker-compose up -d && docker exec -it vue_portfolio yarn install && docker exec -it vue_portfolio yarn build && docker exec -it vue_portfolio yarn start &'
+          name: docker compose
+          command: ssh ${USER_NAME}@${HOST_NAME} 'cd /work/docker-portfolio/ && docker-compose up -d'
+          when: always
+      - run:
+          name: yarn install
+          command: ssh ${USER_NAME}@${HOST_NAME} 'docker exec -it vue_portfolio yarn install'
+          when: always
+      - run:
+          name: yarn build
+          command: ssh ${USER_NAME}@${HOST_NAME} 'docker exec -it vue_portfolio yarn build'
+          when: always
+      - run:
+          name: yarn start
+          command: ssh ${USER_NAME}@${HOST_NAME} 'docker exec -it vue_portfolio yarn start &'
           when: always
 workflows:
     version: 2
