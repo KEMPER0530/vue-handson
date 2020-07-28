@@ -55,7 +55,7 @@ jobs:
           when: always
       - run:
           name: yarn start
-          command: ssh ${USER_NAME}@${HOST_NAME} 'cd /work/docker-portfolio/ && docker exec vue_portfolio yarn start &'
+          command: ssh ${USER_NAME}@${HOST_NAME} 'cd /work/docker-portfolio/ && docker exec vue_portfolio yarn start'
           when: always
 workflows:
     version: 2
