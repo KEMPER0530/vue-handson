@@ -48,3 +48,6 @@ GoAPIはこちら<br>
 - SES
 - Firebase
 - GoogleCloudPlatform
+
+## QRコード
+![QRコード](https://d3p7ybpyhwl4ka.cloudfront.net/static/img/QR_637304.png)
