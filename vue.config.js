@@ -4,11 +4,15 @@ module.exports = {
     host: "localhost",
     disableHostCheck: true
   },
-  publicPath: "./",
+
+  publicPath: '',
+
   // baseUrl: '',
   lintOnSave: true,
+
   productionSourceMap: process.env.NODE_ENV !== "production",
   outputDir: process.env.NODE_ENV === "production" ? "release" : "dist",
+
   pages: {
     index: {
       entry: "./src/main.js", // メインとなるJSファイル
@@ -16,6 +20,7 @@ module.exports = {
       filename: "index.html" // 出力するhtmlファイル名
     }
   },
+
   chainWebpack: config => {
     //        if (process.env.NODE_ENV === 'production') {
     // チャンクファイルを生成しないようにする
@@ -83,5 +88,9 @@ module.exports = {
       return args;
     });
     //        }
+  },
+
+  pluginOptions: {
+    cordovaPath: 'src-cordova'
   }
 };

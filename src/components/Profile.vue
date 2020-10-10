@@ -15,6 +15,7 @@
                 {{ this.profile[0].heading }}
               </p>
             </b-card-text>
+            <b-link to="/privacy" class="card-link">利用規約</b-link>
           </b-card-body>
         </b-col>
         <b-col md="6">

@@ -12,6 +12,14 @@
         target="_blank"
         >COVID-19 感染状況</b-button
       >
+      <b-button
+        block
+        pill
+        to="/privacy"
+        variant="outline-info"
+        target="_blank"
+        >規約</b-button
+      >
     </h1>
     <div id="p5Canvas"></div>
   </div>

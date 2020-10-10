@@ -28,6 +28,10 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import firebase from 'firebase';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import './registerServiceWorker.js';
+// import {
+//     KeepAwake,
+//     registerRootComponent
+// } from 'expo';
 
 library.add(
     faCoffee,
@@ -127,6 +131,12 @@ firebase.initializeApp(firebaseConfig);
 // } catch (e) {
 //     console.error('Exception : ', err);
 // }
+
+// if (__DEV__) {
+//     KeepAwake.activate();
+// }
+
+// registerRootComponent(App);
 
 new Vue({
     router,

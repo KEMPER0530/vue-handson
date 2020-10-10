@@ -11,6 +11,9 @@
         font-size: 4.6rem;
         white-space: nowrap;
         font-family: 'Aclonica', sans-serif;
+        @media (prefers-color-scheme: dark) {
+            color: #fff;
+        }
     }
 }
 
@@ -26,6 +29,9 @@
         font-size: calc(2.8rem + ((1vw - 0.64rem) * 2.1429));
         white-space: nowrap;
         font-family: 'Aclonica', sans-serif;
+        @media (prefers-color-scheme: dark) {
+            color: #fff;
+        }
     }
 }
 
