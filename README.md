@@ -9,7 +9,7 @@ GoAPIはこちら<br>
 <https://github.com/KEMPER0530/go-handson>
 
 ## 構成図
-![Architecture Diagram]()
+![Architecture Diagram](https://d3p7ybpyhwl4ka.cloudfront.net/static/img/aws-Diagram.svg)
 
 ## 開発環境
 - Vue.js
