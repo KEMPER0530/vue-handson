@@ -1,0 +1,96 @@
+/* #container
+----------------------------------------------------------- */
+
+#container:after {
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    display: block;
+    content: ".";
+}
+
+#container {
+    display: inline-block;
+    background: #fff;
+}
+
+
+/* Hides from IE-mac \*/
+
+* html #container {
+    height: 1%;
+}
+
+
+/* End hide from IE-mac */
+
+#container {
+    display: block;
+}
+
+
+/* #secondary
+----------------------------------------------------------- */
+
+#secondary:after {
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    display: block;
+    content: ".";
+}
+
+#secondary {
+    display: inline-block;
+    padding: auto;
+    text-align: left;
+}
+
+
+/* Hides from IE-mac \*/
+
+* html #secondary {
+    height: 1%;
+}
+
+
+/* End hide from IE-mac */
+
+#secondary {
+    display: block;
+}
+
+.sub #secondary {
+    padding: 0 32px 40px 55px;
+}
+
+
+/* #content
+----------------------------------------------------------- */
+
+#content {
+    float: left;
+    width: 664px;
+    background: #f8f8f8;
+}
+
+#content h2 {
+    margin: 25px 0 26px 23px;
+}
+
+#content .tx01 {
+    margin: 0 0 26px;
+}
+
+#content .tx01 .fl {
+    float: left;
+    margin: 0 15px 0 10px;
+}
+
+#content .tx01 p {
+    float: left;
+    width: 460px;
+}
+
+
+/* end */
