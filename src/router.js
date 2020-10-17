@@ -118,7 +118,8 @@ const router = new Router({
             component: () =>
                 import ("@/components/NewsJP.vue"),
             meta: {
-                isPublic: true
+                AuthSms: true
+                    //                isPublic: true
             }
         },
         {
@@ -127,7 +128,8 @@ const router = new Router({
             component: () =>
                 import ("@/components/Gmap.vue"),
             meta: {
-                isPublic: true
+                AuthSms: true
+                    //                isPublic: true
             }
         },
         {

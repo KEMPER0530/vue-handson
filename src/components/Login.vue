@@ -47,7 +47,7 @@
               >
             </b-col>
           </b-row>
-          <b-row class="button-group1">
+          <!-- <b-row class="button-group1">
             <b-col cols="12">
               <b-button
                 block
@@ -58,7 +58,7 @@
                 >お試しログイン</b-button
               >
             </b-col>
-          </b-row>
+          </b-row> -->
         </form>
       </div>
     </div>
@@ -149,12 +149,14 @@ export default {
             this.anmatched = false;
             this.errored = false;
             this.$store.dispatch("changeLogin");
+            this.$store.dispatch("changeSmsLogin");
             this.$store.dispatch("putLogin_name", this.users.Name);
             this.$store.dispatch("putLogin_id", this.users.Id);
             this.result = true;
             this.$router.push(nextpage).catch(() => {});
           } else {
             this.$store.dispatch("changeLogoff");
+            this.$store.dispatch("changeSmsLogoff");
             this.anmatched = true;
           }
         })
