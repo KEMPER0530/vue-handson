@@ -3,7 +3,7 @@
 Vue.js で実装しております。
 詳しくはこちらをご覧ください。<br>
 ユニットテストはjestを利用しています。
-<https://kemper0530.com>
+<https://www.kemper0530.com>
 
 GoAPIはこちら<br>
 <https://github.com/KEMPER0530/go-handson>
