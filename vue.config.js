@@ -5,7 +5,7 @@ module.exports = {
     disableHostCheck: true
   },
 
-  publicPath: '',
+  publicPath: "",
 
   // baseUrl: '',
   lintOnSave: true,
@@ -91,6 +91,6 @@ module.exports = {
   },
 
   pluginOptions: {
-    cordovaPath: 'src-cordova'
+    cordovaPath: "src-cordova"
   }
 };
