@@ -50,8 +50,8 @@ jobs:
       - attach_workspace:
           at: ~/aws-rough
       - run: sudo pip install awscli
-      - run: aws s3 sync ./release/ s3://aws.noplan.cc --exact-timestamps --delete --exclude "*" --include "*.html" --cache-control no-store
-      - run: aws s3 sync ./release/ s3://aws.noplan.cc --exact-timestamps --delete --exclude "*" --include "*.js" --cache-control max-age=31536000
+      - run: aws s3 sync ./release/ s3://hosting-portfolio --exact-timestamps --delete --exclude "*" --include "*.html" --cache-control no-store
+      - run: aws s3 sync ./release/ s3://hosting-portfolio --exact-timestamps --delete --exclude "*" --include "*.js" --cache-control max-age=31536000
 
 workflows:
   version: 2
