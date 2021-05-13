@@ -6,7 +6,7 @@ Vue.js で実装しております。
 <https://s3web.kemper0530.com>
 
 GoAPIはこちら<br>
-<https://github.com/KEMPER0530/go-handson>
+<https://github.com/KEMPER0530/go-handson-lambda>
 
 ## 構成図
 ![Architecture Diagram](https://d3p7ybpyhwl4ka.cloudfront.net/static/img/aws-Diagram.svg)
